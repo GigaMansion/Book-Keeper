@@ -36,7 +36,6 @@ export default class LoginPanel extends React.Component{
     render() {
         return(
             <div className="Login">
-                <h1 className={styles.labeltext}>Login</h1>
                 <Form onSubmit={this.handleSubmit}>
                 <Form.Group controlId="email" bssize="large">
                     <Form.Label className={styles.labeltext}>Email address</Form.Label>

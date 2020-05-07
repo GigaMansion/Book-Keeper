@@ -1,0 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;800&display=swap');
+
+.logintext {
+    color: black;
+}
+
+.labeltext {
+    color: black;
+    /* font-family: 'Playfair Display', serif;
+    font-weight: 400; */
+}

@@ -3,10 +3,10 @@
 }
 
 .App-logo {
-  height: 40vmin;
+  /* height: 40vmin; */
   pointer-events: none;
-  position: fixed;
-  top: 20%;
+  position: relative;
+  
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -22,8 +22,13 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
   color: white;
+}
+
+.spin-icon-holder {
+  align-items: center;
+  justify-content: center;
+
 }
 
 .App-link {
@@ -43,7 +48,22 @@
   padding: 1rem;
 }
 
+.collapse.show {
+  display: block;    
+  z-index: 100;
+}
+
 #nav-icon {
   margin-left: 1rem;
   padding-right: 2rem;
+}
+
+.logotext {
+  color: black;
+}
+
+.logo-container{
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 4rem;
 }

@@ -5,8 +5,8 @@
 .App-logo {
   height: 40vmin;
   pointer-events: none;
-  position: fixed;
-  top: 20%;
+  position: relative;
+  margin-top: -20%;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -41,6 +41,11 @@
 
 .nav{
   padding: 1rem;
+}
+
+.collapse.show {
+  display: block;    
+  z-index: 100;
 }
 
 #nav-icon {

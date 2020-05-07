@@ -4,39 +4,13 @@
 
 To have a software that records income and expenses with evidence neatly with access control to different people within the same organization.
 
-## Implementation
+## Stack
 
-[Frontend](#Frontend): website.
-
-[Backend](#Backend): Python application running in Docker.
-
-[Database](#Database): SQL or non-SQL? Files like images stored separately in the file system. May use Redis as a cache to boost performance.
-
-[Tool](#Tool): load data from Excel or Google Forms
-
-## Frontend
-
-Use React as the JavaScript framework.
-
-Use Bootstrap to beautify the interface.
-
-## Backend
-
-Use Python.
-
-Nginx, flask, Django...
-
-## Database
-
-May need Redis as the cache to boost performance.
-
-SQL vs non-SQL like MongoDB.
-
-Images and files not stored in database.
-
-## Tool
-
-Need to adapt to the uniformed/non-uniformed format of the existing data.
+| Component 	| Type    	| Implementation                    	|
+|-----------	|---------	|-----------------------------------	|
+| Front-end 	| Website 	| React + Bootstrap                 	|
+| Back-end  	| Python  	| Nginx + Gunicorn + Flask + Docker 	|
+| Database  	| SQL     	| MySQL                             	|
 
 ## Workflow
 
@@ -55,4 +29,15 @@ Need to adapt to the uniformed/non-uniformed format of the existing data.
 6. Use GitHub features such as project management properly.
 
 7. Always write high quality code that make it easy for others to understand.
+
+## Resources:
+
+To write down ideas: [Google Doc link](https://docs.google.com/document/d/1tP0tIFoo6x8RUdL7WfXMaWVJfe_p7pcsbhEWBY3d9BM/edit#)
+
+Python flask tutorial: [Miguel's post](https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world)
+
+[Bootstrap](https://react-bootstrap.github.io)
+
+[React](https://reactjs.org)
+
 

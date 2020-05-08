@@ -8,19 +8,19 @@
 
 ## Virtualenv
 
-Setup
+Setup:
 
 ```
 python3 -m venv venv
 ```
 
-Activate
+Activate virtualenv:
 
 ```
-venv/Scripts/activate.bat
+venv\Scripts\activate
 ```
 
-Deactivate 
+Deactivate virtualenv:
 
 ```
 deactivate
@@ -34,3 +34,14 @@ pip3 install -r requirements.txt
 
 ## Run the Python Flask Application
 
+Set the environment variable:
+
+```
+set FLASK_APP=book_keeping_run.py
+```
+
+Run the application:
+
+```
+flask run
+```

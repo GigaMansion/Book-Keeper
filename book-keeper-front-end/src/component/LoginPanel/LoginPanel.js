@@ -2,7 +2,7 @@ import React from "react";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import styles from './LoginPanel.module.css';
+import './LoginPanel.module.css';
 
 
 export default class LoginPanel extends React.Component{
@@ -37,8 +37,8 @@ export default class LoginPanel extends React.Component{
         return(
             <div className="Login">
                 <Form onSubmit={this.handleSubmit}>
-                <Form.Group controlId="email" bssize="large">
-                    <Form.Label className={styles.labeltext}>Email address</Form.Label>
+                <Form.Group controlId="email" bssize="large" className="email-group">
+                    <Form.Label>Email address</Form.Label>
                     <Form.Control
                     autoFocus
                     type="email"
@@ -47,7 +47,7 @@ export default class LoginPanel extends React.Component{
                     />
                 </Form.Group>
                 <Form.Group controlId="password" bssize="large">
-                    <Form.Label className={styles.labeltext}>Password</Form.Label>
+                    <Form.Label>Password</Form.Label>
                     <Form.Control
                     value={this.state.password}
                     onChange={this.handleChange}

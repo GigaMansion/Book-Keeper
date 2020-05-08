@@ -1,0 +1,2 @@
+FLASK_APP=book_keeping_backend_api.py
+FLASK_ENV=development

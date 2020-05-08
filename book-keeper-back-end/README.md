@@ -37,7 +37,7 @@ pip3 install -r requirements.txt
 Set the environment variable:
 
 ```
-set FLASK_APP=book_keeping_run.py
+set <variable_name>=<value>
 ```
 
 Run the application:

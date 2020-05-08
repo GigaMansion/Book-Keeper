@@ -1,4 +1,11 @@
+# exclude the VS Code configuration
 .vscode/
+
+# exclude the build directory for React
+book_keeping_backend_package/*
+!book_keeping_backend_package/*.py
+
+book_keeping_backend_package/templates
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

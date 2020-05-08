@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -30,6 +30,17 @@ const navbar = <Navbar bg="light" expand="md">
 
 
 function App() {
+
+  // state getter and setter
+  const [currentUser, setCurrentUser] = useState(0);
+
+  // sample code for requesting resource from server
+  useEffect(() => {
+    fetch('/index').then(res => res.json()).then(data => {
+      console.log(data);
+    });
+  }, []);
+
   return (
       
     

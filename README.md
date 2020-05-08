@@ -40,4 +40,8 @@ Python flask tutorial: [Miguel's post](https://blog.miguelgrinberg.com/post/the-
 
 [React](https://reactjs.org)
 
+[How To Create a React + Flask Project](https://blog.miguelgrinberg.com/post/how-to-create-a-react--flask-project)
+
+[How to Deploy a React + Flask Project](https://blog.miguelgrinberg.com/post/how-to-deploy-a-react--flask-project)
+
 

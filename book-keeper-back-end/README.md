@@ -45,3 +45,9 @@ Run the application:
 ```
 flask run
 ```
+
+## Run Unit Tests
+
+```
+pytest
+```

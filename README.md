@@ -34,11 +34,11 @@ To have a software that records income and expenses with evidence neatly with ac
 
 To write down ideas: [Google Doc link](https://docs.google.com/document/d/1tP0tIFoo6x8RUdL7WfXMaWVJfe_p7pcsbhEWBY3d9BM/edit#)
 
-Python flask tutorial: [Miguel's post](https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world)
-
 [Bootstrap](https://react-bootstrap.github.io)
 
 [React](https://reactjs.org)
+
+[The Flask Mega-Tutorial](https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world)
 
 [How To Create a React + Flask Project](https://blog.miguelgrinberg.com/post/how-to-create-a-react--flask-project)
 

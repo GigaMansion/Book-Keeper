@@ -7,7 +7,7 @@ import LoginPanel from './component/LoginPanel/LoginPanel';
 import Particles from 'react-particles-js';
 
 
-const navbar = <Navbar bg="light" expand="md">
+const navbar = <Navbar expand="md" className="color-nav">
 <Navbar.Brand href="#home"><svg width="44px" height="30px" viewBox="0 0 88 61" version="1.1" >
     <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
         <path d="M0,61 L0,56 L51,56 L51,36 L43,36 L43,31 L51,31 L51,23 L43,23 L43,18 L51,18 L51,0 L56,0 L56,61 L0,61 Z M68,0 L68,51 L83,51 L83,43 L88,43 L88,56 L63,56 L63,0 L68,0 Z M5,41 L5,51 L0,51 L0,41 L5,41 Z M38,41 L38,51 L33,51 L33,41 L38,41 Z M38,18 L38,36 L22,36 L22,51 L17,51 L17,36 L0,36 L0,18 L38,18 Z M79.6066017,17 L83.1421356,20.5355339 L76.106,27.571 L83.1421356,34.6066017 L79.6066017,38.1421356 L72.571,31.106 L72.5355339,31.1421356 L69,27.6066017 L69.035,27.571 L69,27.5355339 L72.5355339,24 L72.57,24.035 L79.6066017,17 Z M33,23 L5,23 L5,31 L33,31 L33,23 Z M22,4 L22,9 L38,9 L38,14 L0,14 L0,9 L17,9 L17,4 L22,4 Z" id="形状结合" fill="#000000"></path>

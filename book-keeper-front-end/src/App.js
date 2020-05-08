@@ -74,7 +74,7 @@ function App() {
       <header className="App-header">
         <Container>
           <Row className="logo-container">
-              <Col className="spin-icon-holder" md="auto">
+              <Col className="spin-icon-holder" md="auto" xs={12}>
                 <svg width="50px" className="App-logo" height="50px" viewBox="0 0 50 50" version="1.1" >
                     <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
                         <path d="M25,10 C33.2842712,10 40,16.7157288 40,25 C40,33.2842712 33.2842712,40 25,40 C16.7157288,40 10,33.2842712 10,25 C10,16.7157288 16.7157288,10 25,10 Z M25,15 C19.4771525,15 15,19.4771525 15,25 C15,30.5228475 19.4771525,35 25,35 C30.5228475,35 35,30.5228475 35,25 C35,19.4771525 30.5228475,15 25,15 Z" id="形状结合" fill="#000000"></path>
@@ -83,7 +83,7 @@ function App() {
                     </g>
                 </svg>
               </Col>
-              <Col md="auto">
+              <Col md="auto" xs={12}>
                 <h1 className="logotext">Book Keeper</h1>
               </Col>
             </Row>

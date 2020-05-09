@@ -4,9 +4,18 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
+
+// testing only
+import AdminPage from './component/AdminPage';
+
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    {/* <App /> */}
+
+
+    {/* testing only */}
+    <AdminPage />
+
   </React.StrictMode>,
   document.getElementById('root')
 );

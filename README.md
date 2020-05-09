@@ -38,6 +38,8 @@ To write down ideas: [Google Doc link](https://docs.google.com/document/d/1tP0tI
 
 [React](https://reactjs.org)
 
+[REST API concepts and examples](https://www.youtube.com/watch?v=7YcW25PHnAA)
+
 [The Flask Mega-Tutorial](https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world)
 
 [How To Create a React + Flask Project](https://blog.miguelgrinberg.com/post/how-to-create-a-react--flask-project)
@@ -46,4 +48,6 @@ To write down ideas: [Google Doc link](https://docs.google.com/document/d/1tP0tI
 
 [Testing Flask Applications](https://flask.palletsprojects.com/en/1.1.x/testing/)
 
+[How NOT to Store Passwords! - Computerphile](https://www.youtube.com/watch?v=8ZtInClXe1Q)
 
+[Running an SQL Injection Attack - Computerphile](https://www.youtube.com/watch?v=ciNHn38EyRc)

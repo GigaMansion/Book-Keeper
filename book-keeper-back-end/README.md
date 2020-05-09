@@ -34,7 +34,7 @@ pip3 install -r requirements.txt
 
 ## Run the Python Flask Application
 
-Set the environment variable:
+Set the environment variable, excluding `<`, `>`:
 
 ```
 set <variable_name>=<value>
@@ -55,3 +55,24 @@ flask run
 ```
 pytest
 ```
+
+## `Root` Directory Structure
+
+| `Directory/File`               	| Description                                     	|
+|------------------------------	|-------------------------------------------------	|
+| `unit_test/`                    	| unit test files                                 	|
+| `book_keeping_backend_package/` 	| backend application package                     	|
+| `.flaskenv`                    	| Python flask runtime environment variables    	|
+| `.gitignore`                   	| Gitignore description for the current directory 	|
+| `book_keep_backend_api.py`     	| Entry point for running the backend application 	|
+| `config.py`                   	| Configuration file for the backend application  	|
+| `README.md`                    	| README for the backend application              	|
+| `requirement.txt`              	| Python package list with version numbers        	|
+
+## `book_keeping_backend_package` Directory Structure
+
+| `Directory/File` 	| Description                             	|
+|----------------	|-----------------------------------------	|
+| `templates/`     	| React build files                       	|
+| `__init__.py`    	| Package entry point                     	|
+| `routes.py`      	| Routing used in the backend application 	|

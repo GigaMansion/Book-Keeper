@@ -32,14 +32,14 @@ const navbar = <Navbar expand="md" className="color-nav">
 function App() {
 
   // state getter and setter
-  const [currentUser, setCurrentUser] = useState(0);
+  // const [currentUser, setCurrentUser] = useState(0);
 
   // sample code for requesting resource from server
-  useEffect(() => {
-    fetch('/index').then(res => res.json()).then(data => {
-      console.log(data);
-    });
-  }, []);
+  // useEffect(() => {
+  //   fetch('/index').then(res => res.json()).then(data => {
+  //     console.log(data);
+  //   });
+  // }, []);
 
   return (
       

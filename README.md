@@ -44,4 +44,6 @@ To write down ideas: [Google Doc link](https://docs.google.com/document/d/1tP0tI
 
 [How to Deploy a React + Flask Project](https://blog.miguelgrinberg.com/post/how-to-deploy-a-react--flask-project)
 
+[Testing Flask Applications](https://flask.palletsprojects.com/en/1.1.x/testing/)
+
 

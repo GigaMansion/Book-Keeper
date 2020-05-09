@@ -2,9 +2,9 @@
 .vscode/
 
 # exclude the build directory for React
-book_keeping_backend_package/templates/
-
-book_keeping_backend_package/templates
+# but keep the pages for test
+book_keeping_backend_package/templates/*
+!book_keeping_backend_package/templates/test_*.html
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

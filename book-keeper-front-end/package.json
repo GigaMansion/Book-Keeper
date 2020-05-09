@@ -1,6 +1,5 @@
 {
   "name": "book-keeper-front-end",
-  "PUBLIC_URL": ".",
   "homepage": ".",
   "version": "0.1.0",
   "private": true,

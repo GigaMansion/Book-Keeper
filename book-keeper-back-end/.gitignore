@@ -2,8 +2,7 @@
 .vscode/
 
 # exclude the build directory for React
-book_keeping_backend_package/*
-!book_keeping_backend_package/*.py
+book_keeping_backend_package/templates/
 
 book_keeping_backend_package/templates
 

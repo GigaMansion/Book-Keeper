@@ -1,9 +1,13 @@
 import React from 'react';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Container, Row, Col, Card, Form, Button, Nav} from 'react-bootstrap';
+import {Container, Row, Col, Card, Form, Button, Nav, CardColumns} from 'react-bootstrap';
 import SideBar from './SideBar';
 import './AdminPage.css';
+
+
+import product_image from "./AdminPendingOrders/product_image.png";
+
 
 
 export default class AdminPage extends React.Component{
@@ -15,7 +19,7 @@ export default class AdminPage extends React.Component{
     render(){
         return(
 
-            <div id="wrapper" className = { this.state.sideBarHide ? "d-flex" : "d-flex toggled"}>
+            <div id="wrapper" className = { this.state.sideBarHide ? "d-flex toggled" : "d-flex"}>
                 <SideBar />
 
                 <div id="page-content-wrapper">
@@ -40,18 +44,143 @@ export default class AdminPage extends React.Component{
                         <Nav.Item>
                             <Nav.Link eventKey="link-2">Link</Nav.Link>
                         </Nav.Item>
-                        <Nav.Item>
-                            <Nav.Link eventKey="disabled" disabled>
-                            Disabled
-                            </Nav.Link>
-                        </Nav.Item>
                     </Nav>
 
 
                     <div class="container-fluid">
-                        <h1 class="mt-4">Simple Sidebar</h1>
-                        <p>The starting state of the menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will change.</p>
-                        <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>. The top navbar is optional, and just for demonstration. Just create an element with the <code>#menu-toggle</code> ID which will toggle the menu when clicked.</p>
+
+                        <h1 class="mt-4">Pending Orders</h1>
+                        <Container fluid>
+                            <CardColumns>
+                                <Card>
+                                    <Card.Img variant="top" src={product_image}/>
+                                    <Card.Header>Libang Liang</Card.Header>
+                                    <Card.Body>
+                                        <Row>
+                                            <Col>
+                                                <Card.Title>DJI Motor</Card.Title>
+                                            </Col>
+                                            <Col>
+                                                <Card.Title>x1</Card.Title>
+                                            </Col>
+                                        </Row>
+                                        <Card.Text>
+                                            Product Info
+                                        </Card.Text>
+                                        <Card.Text>
+                                            Product Price
+                                        </Card.Text>
+                                        <div className="accept-reject-details-button-container">
+                                            <Button variant="outline-success">Accept</Button>{' '}
+                                            <Button variant="outline-danger">Reject</Button>{' '}
+                                        </div>
+                                    </Card.Body>
+                                </Card>
+
+                                <Card>
+                                    <Card.Img variant="top" src={product_image}/>
+                                    <Card.Header>Libang Liang</Card.Header>
+                                    <Card.Body>
+                                        <Row>
+                                            <Col>
+                                                <Card.Title>DJI Motor</Card.Title>
+                                            </Col>
+                                            <Col>
+                                                <Card.Title>x1</Card.Title>
+                                            </Col>
+                                        </Row>
+                                        <Card.Text>
+                                            Product Info
+                                        </Card.Text>
+                                        <Card.Text>
+                                            Product Price
+                                        </Card.Text>
+                                        <div className="accept-reject-details-button-container">
+                                            <Button variant="outline-success">Accept</Button>{' '}
+                                            <Button variant="outline-danger">Reject</Button>{' '}
+                                        </div>
+                                    </Card.Body>
+                                </Card>
+
+                                <Card>
+                                    <Card.Img variant="top" src={product_image}/>
+                                    <Card.Header>Libang Liang</Card.Header>
+                                    <Card.Body>
+                                        <Row>
+                                            <Col>
+                                                <Card.Title>DJI Motor</Card.Title>
+                                            </Col>
+                                            <Col>
+                                                <Card.Title>x1</Card.Title>
+                                            </Col>
+                                        </Row>
+                                        <Card.Text>
+                                            Product Info
+                                        </Card.Text>
+                                        <Card.Text>
+                                            Product Price
+                                        </Card.Text>
+                                        <div className="accept-reject-details-button-container">
+                                            <Button variant="outline-success">Accept</Button>{' '}
+                                            <Button variant="outline-danger">Reject</Button>{' '}
+                                        </div>
+                                    </Card.Body>
+                                </Card>
+
+                                <Card>
+                                    <Card.Img variant="top" src={product_image}/>
+                                    <Card.Header>Libang Liang</Card.Header>
+                                    <Card.Body>
+                                        <Row>
+                                            <Col>
+                                                <Card.Title>DJI Motor</Card.Title>
+                                            </Col>
+                                            <Col>
+                                                <Card.Title>x1</Card.Title>
+                                            </Col>
+                                        </Row>
+                                        <Card.Text>
+                                            Product Info
+                                        </Card.Text>
+                                        <Card.Text>
+                                            Product Price
+                                        </Card.Text>
+                                        <div className="accept-reject-details-button-container">
+                                            <Button variant="outline-success">Accept</Button>{' '}
+                                            <Button variant="outline-danger">Reject</Button>{' '}
+                                        </div>
+                                    </Card.Body>
+                                </Card>
+
+                                <Card>
+                                    <Card.Img variant="top" src={product_image}/>
+                                    <Card.Header>Libang Liang</Card.Header>
+                                    <Card.Body>
+                                        <Row>
+                                            <Col>
+                                                <Card.Title>DJI Motor</Card.Title>
+                                            </Col>
+                                            <Col>
+                                                <Card.Title>x1</Card.Title>
+                                            </Col>
+                                        </Row>
+                                        <Card.Text>
+                                            Product Info
+                                        </Card.Text>
+                                        <Card.Text>
+                                            Product Price
+                                        </Card.Text>
+                                        <div className="accept-reject-details-button-container">
+                                            <Button variant="outline-success">Accept</Button>{' '}
+                                            <Button variant="outline-danger">Reject</Button>{' '}
+                                        </div>
+                                    </Card.Body>
+                                </Card>
+                                
+                                
+                                
+                            </CardColumns>
+                        </Container>
                     </div>
                 </div>
 

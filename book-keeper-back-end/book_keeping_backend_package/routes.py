@@ -4,7 +4,7 @@ from book_keeping_backend_package.forms import LoginForm
 
 @app.route('/')
 @app.route('/index')
-def index():
+def route_index():
     # user = {'username': 'Wilson'}
     app.logger.info("/ request received")
     
@@ -30,3 +30,15 @@ def test_index():
     ]
     
     return render_template('test_index.html', title='Home', user=user, posts=posts, form=form)
+
+
+@app.route('/login')
+def route_login():
+    status = 'yes'
+    return status
+
+
+@app.route('/good/<int:id>')
+def routes_good():
+    status = {'llbniubi': True, 'id': str(id)}
+    return status

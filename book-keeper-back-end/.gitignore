@@ -1,6 +1,9 @@
 # exclude the VS Code configuration
 .vscode/
 
+# exclude Pycharm configuration
+.idea/
+
 # exclude the build directory for React
 # but keep the pages for test
 book_keeping_backend_package/templates/*

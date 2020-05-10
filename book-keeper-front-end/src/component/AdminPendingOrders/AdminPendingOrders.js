@@ -20,9 +20,7 @@ export default class AdminPendingOrders extends React.Component{
             
             >
                 <Nav.Item className="toggle-container">
-                    <Button 
                     
-                    onClick={() => this.setState({sideBarHide : !this.state.sideBarHide})}>Menu</Button>
                 </Nav.Item>
                 
                 <Nav.Item>

@@ -27,10 +27,12 @@ export default class AdminPage extends React.Component{
     render(){
         return(
             <Router>
+                
 
                 <div id="wrapper" className = { this.state.sideBarHide ? "d-flex toggled" : "d-flex"}>
                     <SideBar />
                     <div id="page-content-wrapper">
+                        <Button onClick={() => this.setState({sideBarHide : !this.state.sideBarHide})}>Menu</Button>
                         <Route path="/manageRequest" exact component={AdminPendingOrders}/>
                         <Route path="/dataVisualization" exact component={DataVisualization}/>
                         <Route path="/accountSettings" exact component={AccountSettings}/>

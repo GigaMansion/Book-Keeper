@@ -50,11 +50,17 @@ Run the application:
 flask run
 ```
 
-## Run Unit Tests
+## Unit Tests
 
+Run unit tests:
 ```
-pytest
+set PYTHONPATH=.
+coverage run -m pytest
 ```
+
+Pytest will run any files with the name of the form test_*.py or *_test.py in the current and all subdirectories.
+
+Unit tests for this backend project locate in the `unit_test` directory.
 
 ## `Root` Directory Structure
 

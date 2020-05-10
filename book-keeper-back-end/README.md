@@ -40,7 +40,7 @@ Set the environment variable, excluding `<`, `>`:
 set <variable_name>=<value>
 ```
 
-Please run `npm run build` in the front-end folder to build React application.
+Run `npm run build` in the front-end folder to build React application.
 
 Then copy the content in the **build** folder to the **book_keeping_backend_package/templates** folder in the back-end folder.
 
@@ -61,6 +61,16 @@ coverage run -m pytest
 Pytest will run any files with the name of the form test_*.py or *_test.py in the current and all subdirectories.
 
 Unit tests for this backend project locate in the `unit_test` directory.
+
+Open `htmlcov/index.html` to see the code coverage report in a browser.
+
+Or run
+
+```
+coverage report -m
+```
+
+to see the code coverage report in terminal.
 
 ## `Root` Directory Structure
 

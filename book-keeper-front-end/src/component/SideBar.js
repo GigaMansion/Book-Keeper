@@ -1,17 +1,19 @@
-import React from "react";
-import {Navbar, Nav,NavDropdown} from "react-bootstrap";
-import { withRouter } from "react-router";
+import React,{useState,useEffect} from "react";
+import {Navbar, Nav, NavDropdown,ListGroup} from "react-bootstrap";
+import {Link, useLocation} from 'react-router-dom';
 import './AdminPage.css'
 import '@fortawesome/fontawesome-svg-core';
 
-export default class SideBar extends React.Component{
+function SideBar(){
 
+    const [activeIndex, setActiveIndex] = useState(0);
+    
 
+    function handleClick(){
+        console.log("hi");
+    }
 
-
-    render(){
-        return (
-
+    return (
         <div class="bg-light border-right" id="sidebar-wrapper">
             <div class="sidebar-heading border-bottom">
                 <svg width="50px" className="App-logo" height="50px" viewBox="0 0 50 50" version="1.1" >
@@ -23,17 +25,33 @@ export default class SideBar extends React.Component{
                 </svg>
                 <p>Book Keeper</p>
             </div>
-            <div class="list-group list-group-flush">
-              <a href="#" class="list-group-item list-group-item-action bg-light">Pending Orders</a>
-              <a href="#" class="list-group-item list-group-item-action bg-light">Orders History</a>
-              <a href="#" class="list-group-item list-group-item-action bg-light">Data Visualization</a>
-              <a href="#" class="list-group-item list-group-item-action bg-light">Manage Access</a>
-              <a href="#" class="list-group-item list-group-item-action bg-light">Admin Settings</a>
-              <a href="#" class="list-group-item list-group-item-action bg-light">Status</a>
-            </div>
+
+            <ListGroup variant="flush">
+                <Link to="/newReimburse">
+                    <ListGroup.Item action variant="light" onClick={() => setActiveIndex(0)} className={activeIndex === 0 ? "active border-bottom" : "border-bottom"}>New Reimburse</ListGroup.Item>
+                </Link>
+                
+
+                <Link to="/reimburseHistory">
+                    <ListGroup.Item action variant="light" onClick={() => setActiveIndex(1)} className={activeIndex === 1 ? "active border-bottom" : "border-bottom"}>Reimburse History</ListGroup.Item>
+                </Link>
+
+                <Link to="/accountSettings">
+                    <ListGroup.Item action variant="light" onClick={() => setActiveIndex(2)} className={activeIndex === 2 ? "active border-bottom" : "border-bottom"}>Account Settings</ListGroup.Item>
+                </Link>
+
+                <Link to="/dataVisualization">
+                    <ListGroup.Item action variant="light" onClick={() => setActiveIndex(3)} className={activeIndex === 3 ? "active border-bottom" : "border-bottom"}>Data Visualization</ListGroup.Item>
+                </Link>
+                
+
+                <Link to="/manageRequest">
+                    <ListGroup.Item action variant="light" onClick={() => setActiveIndex(4)} className={activeIndex === 4 ? "active border-bottom" : "border-bottom"}>Manage Request</ListGroup.Item>
+                </Link>
+                
+            </ListGroup>
         </div>
-
-
-        );
-    }
+    );
 }
+
+export default SideBar;

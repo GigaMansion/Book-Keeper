@@ -6,7 +6,7 @@ import '@fortawesome/fontawesome-svg-core';
 
 function SideBar(){
 
-    const [activeIndex, setActiveIndex] = useState(0);
+    const [activeIndex, setActiveIndex] = useState(-1);
     
 
     function handleClick(){

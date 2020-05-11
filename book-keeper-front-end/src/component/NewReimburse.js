@@ -1,14 +1,22 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 import {Container, Row, Col, Card, Form, Button, Nav, CardColumns} from 'react-bootstrap';
 
-
+import $ from 'jquery';
 
 import './NewReimburse.css'
 
 
 
 function NewReimburse(){
+
+    const input = React.createRef();
+    const [receiptFile, setReceiptFile] = useState("");
+    function receiptUploadhandler(e){
+        setReceiptFile(input.current.value)
+        e.preventDefault();
+    }
+        
 
     return(
         <div className="outside-container">
@@ -39,12 +47,12 @@ function NewReimburse(){
                 <Form.Control type="text" placeholder="Enter website link" />
             </Form.Group>
 
-            <Form.Group controlId="formProductLink">
+            <Form.Group controlId="formPrice">
                 <Form.Label>Price</Form.Label>
-                <Form.Control type="number" placeholder="Enter website link" />
+                <Form.Control type="number" placeholder="Enter price" />
             </Form.Group>
 
-            <Form.Group controlId="formProductLink">
+            <Form.Group controlId="formQuantity">
                 <Form.Label>Quantity</Form.Label>
                 <Form.Control as="select">
                     <option>1</option>
@@ -55,19 +63,19 @@ function NewReimburse(){
                 </Form.Control>
             </Form.Group>
 
-            <Form.Group controlId="formProductLink">
+            <Form.Group controlId="formDelivery">
                 <Form.Label>Delivery</Form.Label>
-                <Form.Control type="text" placeholder="Enter website link" />
+                <Form.Control type="text" placeholder="Enter delivery fee" />
             </Form.Group>
 
-            <Form.Group controlId="formProductLink">
+            <Form.Group controlId="formDateNeeded">
                 <Form.Label>Date Needed</Form.Label>
-                <Form.Control type="text" placeholder="Enter website link" />
+                <Form.Control type="text" placeholder="Enter date" />
             </Form.Group>
 
-            <Form.Group controlId="formProductLink">
+            <Form.Group controlId="formReasonToPurchase">
                 <Form.Label>Reason to Purchase</Form.Label>
-                <Form.Control type="text" placeholder="Enter website link" />
+                <Form.Control type="text" placeholder="Enter reason" />
             </Form.Group>
 
 
@@ -75,13 +83,15 @@ function NewReimburse(){
             <Form.Group>
                 <Form.Label>Receipt Photo</Form.Label>
                 <Form.File 
-                    id="custom-file"
-                    label="Custom file input"
+                    id="select-receipt"
+                    label={receiptFile === "" ? "Select Receipt/Photo" : receiptFile}
                     custom
+                    ref={input}
+                    onChange ={receiptUploadhandler}
+                    style={{overflow:"hidden"}}
                 />
 
             </Form.Group>
-
 
 
             <Form.Group>

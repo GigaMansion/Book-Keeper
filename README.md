@@ -48,6 +48,8 @@ To write down ideas: [Google Doc link](https://docs.google.com/document/d/1tP0tI
 
 [Testing Flask Applications](https://flask.palletsprojects.com/en/1.1.x/testing/)
 
+[Coverage.py](https://coverage.readthedocs.io/en/coverage-5.1/)
+
 [How NOT to Store Passwords! - Computerphile](https://www.youtube.com/watch?v=8ZtInClXe1Q)
 
 [Running an SQL Injection Attack - Computerphile](https://www.youtube.com/watch?v=ciNHn38EyRc)

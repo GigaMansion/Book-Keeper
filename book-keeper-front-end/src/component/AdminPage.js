@@ -5,6 +5,8 @@ import {Container, Row, Col, Card, Form, Button, Nav} from 'react-bootstrap';
 import SideBar from './SideBar';
 import './AdminPage.css';
 
+
+
 import AdminPendingOrders from './AdminPendingOrders/AdminPendingOrders';
 import DataVisualization from './DataVisualization';
 import AccountSettings from './AccountSettings';
@@ -17,8 +19,8 @@ import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 
 
 
-
 export default class AdminPage extends React.Component{
+    
 
     state = {
         sideBarHide : false,
@@ -27,6 +29,7 @@ export default class AdminPage extends React.Component{
     render(){
         return(
             <Router>
+                <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css"></link>
                 
 
                 <div id="wrapper" className = { this.state.sideBarHide ? "d-flex toggled" : "d-flex"}>
@@ -34,7 +37,10 @@ export default class AdminPage extends React.Component{
                     
                     
                     <div id="page-content-wrapper">
-                        <Button onClick={() => this.setState({sideBarHide : !this.state.sideBarHide})}>Menu</Button>
+                        
+                        <Button onClick={() => this.setState({sideBarHide : !this.state.sideBarHide})} size="lg" variant="outline-dark" style={{margin:"1rem",textAlign:"center"}}>
+                            <i className={this.state.sideBarHide ? "fa fa-angle-double-right" : "fa fa-angle-double-left"} style={{fontSize:"1.5rem"}}/>
+                        </Button>
                         <Route path="/manageRequest" exact component={AdminPendingOrders}/>
                         <Route path="/dataVisualization" exact component={DataVisualization}/>
                         <Route path="/accountSettings" exact component={AccountSettings}/>

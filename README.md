@@ -38,6 +38,8 @@ To write down ideas: [Google Doc link](https://docs.google.com/document/d/1tP0tI
 
 [React](https://reactjs.org)
 
+[Client-side vs. Server-side vs. Pre-rendering for Web Apps](https://www.toptal.com/front-end/client-side-vs-server-side-pre-rendering)
+
 [REST API concepts and examples](https://www.youtube.com/watch?v=7YcW25PHnAA)
 
 [The Flask Mega-Tutorial](https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world)

@@ -1,4 +1,4 @@
-from flask import render_template
+from flask import render_template, flash, redirect, url_for
 from book_keeping_backend_package import app
 from book_keeping_backend_package.forms import LoginForm
 
@@ -13,32 +13,6 @@ def route_index():
     app.logger.info("/ request received")
     
     return render_template('index.html')
-
-
-@app.route('/test_index')
-def test_index():
-    """
-    return a fully functional webpage for testing
-    disable this route in production environment
-    via the configuration file
-    """
-    app.logger.info("/test_index request received")
-
-    form = LoginForm()
-
-    user = {'username': 'Wilson'}
-    posts = [
-        {
-            'author': {'username': 'Johnathan'},
-            'body': 'Bad day in College Station!'
-        },
-        {
-            'author': {'username': 'Kelvin'},
-            'body': 'The Avengers movie was not cool!'
-        }
-    ]
-    
-    return render_template('test_index.html', title='Home', user=user, posts=posts, form=form)
 
 
 @app.route('/login')
@@ -128,3 +102,52 @@ def route_logout():
     """
     status = 'yes'
     return status
+
+
+"""
+the routes below are for the testing application
+not to be used in production
+"""
+
+@app.route('/test_index')
+def route_test_index():
+    """
+    return a fully functional webpage for testing
+    disable this route in production environment
+    via the configuration file
+    """
+    app.logger.info("/test_index request received")
+
+    user = {'username': 'Wilson'}
+
+    posts = [
+        {
+            'author': {'username': 'Johnathan'},
+            'body': 'Bad day in College Station!'
+        },
+        {
+            'author': {'username': 'Kelvin'},
+            'body': 'The movie was so bad!'
+        }
+    ]
+
+    return render_template('test_pages/test_index.html', title='Home', user=user, posts=posts)
+
+
+@app.route('/test_login', methods=['GET', 'POST'])
+def route_test_login():
+    """
+    route test for login
+    """
+    app.logger.info("/test_login request received")
+
+    form = LoginForm()
+
+    if form.validate_on_submit():
+
+        flash('Login requested for user {}, remember_me={}'.format(
+            form.username.data, form.remember_me.data))
+
+        return redirect(url_for('route_test_index'))
+
+    return render_template('test_pages/test_login.html', title='Sign In', form=form)

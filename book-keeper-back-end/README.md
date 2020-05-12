@@ -50,6 +50,24 @@ Run the application:
 flask run
 ```
 
+## Run Python Interactively with Install Pakcages
+
+After activating virtualenv, run:
+
+```
+venv\Scripts\python.exe
+```
+
+Then type Python code in the interactive shell.
+
+Or use:
+
+```
+flask shell
+```
+
+with the application instance pre-imported.
+
 ## Database
 
 Create the database migration repository:

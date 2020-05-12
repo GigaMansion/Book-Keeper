@@ -12,6 +12,12 @@ To have a software that records income and expenses with evidence neatly with ac
 | Back-end  	| Python  	| Nginx + Gunicorn + Flask + Docker 	|
 | Database  	| SQL     	| MySQL                             	|
 
+## Structural Diagrams
+
+Client-server model:
+
+![client-server-model](structural-diagrams/Book-Keeping-Client-Server-Model.png)
+
 ## Workflow
 
 1. Team members start with their own branches after git clone.

@@ -22,10 +22,28 @@ import { Swipeable ,useSwipeable} from 'react-swipeable';
 
 
 export default class AdminPage extends React.Component{
-    
+    constructor(props) {
+        super(props);
+        this.state = {
+            sideBarHide : false,
+        };
 
-    state = {
-        sideBarHide : false,
+        this.handleRight = this.handleRight.bind(this);
+        this.handleLeft = this.handleLeft.bind(this);
+      }
+
+
+
+    handleRight(){
+        if(this.state.sideBarHide === false){
+            this.setState({sideBarHide : !this.state.sideBarHide});
+        }
+    }
+
+    handleLeft(){
+        if(this.state.sideBarHide === true){
+            this.setState({sideBarHide : !this.state.sideBarHide});
+        }
     }
 
 
@@ -38,7 +56,7 @@ export default class AdminPage extends React.Component{
                 <div id="wrapper" className = { this.state.sideBarHide ? "d-flex toggled" : "d-flex"}>
                     <SideBar />
                     
-                    <Swipeable onSwipedLeft={() => this.setState({sideBarHide : !this.state.sideBarHide})} >
+                    <Swipeable onSwipedRight={this.handleRight} onSwipedLeft={this.handleLeft}>
                         <div id="page-content-wrapper">
                             
                             <Button onClick={() => this.setState({sideBarHide : !this.state.sideBarHide})} size="lg" variant="outline-dark" style={{margin:"1rem",textAlign:"center"}}>

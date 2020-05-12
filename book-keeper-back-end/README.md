@@ -50,6 +50,32 @@ Run the application:
 flask run
 ```
 
+## Database
+
+Create the database migration repository:
+
+```
+flask db init
+```
+
+Generate the new database migration script after modifying the database model in the application:
+
+```
+flask db migrate
+```
+
+Update the database:
+
+```
+flask db upgrade
+```
+
+Downgrade the most recent upgrade:
+
+```
+flask db downgrade
+```
+
 ## Unit Tests
 
 Run unit tests:

@@ -42,8 +42,8 @@
         width: 100%;
     }
     
-    #wrapper.toggled #sidebar-wrapper {
+    /* #wrapper.toggled #sidebar-wrapper {
         margin-left: -15rem;
-    }
+    } */
 }
 

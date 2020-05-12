@@ -15,6 +15,8 @@ import NewReimburse from './NewReimburse';
 
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 
+import { Swipeable ,useSwipeable} from 'react-swipeable';
+
 
 
 
@@ -26,6 +28,7 @@ export default class AdminPage extends React.Component{
         sideBarHide : false,
     }
 
+
     render(){
         return(
             <Router>
@@ -35,18 +38,19 @@ export default class AdminPage extends React.Component{
                 <div id="wrapper" className = { this.state.sideBarHide ? "d-flex toggled" : "d-flex"}>
                     <SideBar />
                     
-                    
-                    <div id="page-content-wrapper">
-                        
-                        <Button onClick={() => this.setState({sideBarHide : !this.state.sideBarHide})} size="lg" variant="outline-dark" style={{margin:"1rem",textAlign:"center"}}>
-                            <i className={this.state.sideBarHide ? "fa fa-angle-double-right" : "fa fa-angle-double-left"} style={{fontSize:"1.5rem"}}/>
-                        </Button>
-                        <Route path="/manageRequest" exact component={AdminPendingOrders}/>
-                        <Route path="/dataVisualization" exact component={DataVisualization}/>
-                        <Route path="/accountSettings" exact component={AccountSettings}/>
-                        <Route path="/reimburseHistory" exact component={ReimburseHistory}/>
-                        <Route path="/newReimburse" exact component={NewReimburse}/>
-                    </div>
+                    <Swipeable onSwipedLeft={() => this.setState({sideBarHide : !this.state.sideBarHide})} >
+                        <div id="page-content-wrapper">
+                            
+                            <Button onClick={() => this.setState({sideBarHide : !this.state.sideBarHide})} size="lg" variant="outline-dark" style={{margin:"1rem",textAlign:"center"}}>
+                                <i className={this.state.sideBarHide ? "fa fa-angle-double-left" : "fa fa-angle-double-right"} style={{fontSize:"1.5rem"}}/>
+                            </Button>
+                            <Route path="/manageRequest" exact component={AdminPendingOrders}/>
+                            <Route path="/dataVisualization" exact component={DataVisualization}/>
+                            <Route path="/accountSettings" exact component={AccountSettings}/>
+                            <Route path="/reimburseHistory" exact component={ReimburseHistory}/>
+                            <Route path="/newReimburse" exact component={NewReimburse}/>
+                        </div>
+                    </Swipeable>
 
 
                 </div>

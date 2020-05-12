@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 
 import {Container, Row, Col, Card, Form, Button, Nav, CardColumns} from 'react-bootstrap';
 
-import $ from 'jquery';
+
 
 import './NewReimburse.css'
 
@@ -12,6 +12,7 @@ function NewReimburse(){
 
     const input = React.createRef();
     const [receiptFile, setReceiptFile] = useState("");
+    
     function receiptUploadhandler(e){
         setReceiptFile(input.current.value)
         e.preventDefault();
@@ -70,7 +71,7 @@ function NewReimburse(){
 
             <Form.Group controlId="formDateNeeded">
                 <Form.Label>Date Needed</Form.Label>
-                <Form.Control type="text" placeholder="Enter date" />
+                <Form.Control type="date"  />
             </Form.Group>
 
             <Form.Group controlId="formReasonToPurchase">

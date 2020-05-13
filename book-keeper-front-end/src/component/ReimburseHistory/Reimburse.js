@@ -1,11 +1,5 @@
 import React from 'react';
 
-import {Container, Row, Col, Card, Form, Button, Nav, CardColumns, Table} from 'react-bootstrap';
-
-import Reimburse from './ReimburseHistory/Reimburse';
-import { DropdownDivider } from 'react-bootstrap/Dropdown';
-
-
 const data =[
     {'Reimburse ID': '87463542', 'Product Name': 'product a', 'Price': 1, 'Quantity': 1, 'Date Applied':'2020-05-01', 'Status':'Approved'},
     {'Reimburse ID': '87463543', 'Product Name': 'product b', 'Price': 2, 'Quantity': 1, 'Date Applied':'2020-05-02', 'Status':'Rejected'},
@@ -13,8 +7,7 @@ const data =[
     {'Reimburse ID': '87463545', 'Product Name': 'product d', 'Price': 2, 'Quantity': 1, 'Date Applied':'2020-04-21', 'Status':'Received'},
     {'Reimburse ID': '87463546', 'Product Name': 'product e', 'Price': 3, 'Quantity': 1, 'Date Applied':'2020-05-02', 'Status':'Approved'}
 ];
-
-function ReimburseHistory(){
+function Reimburse(){
 
     const getRow = (data,keys) =>{
         return(
@@ -37,34 +30,18 @@ function ReimburseHistory(){
 
         );
     }
-    const renderKeys = (data) => {
-        var keys = getKeys(data);
-        return(
-            keys.map((key) =>{
-            return <th>{key}</th>
-            })
-        );
-    }
 
     return(
         <div>
-            <h1>Reimburse History Page</h1>
-
-            <Table responsive bordered>
-                <thead>
-                    <tr>
-                        {renderKeys(data)}
-                    </tr>
-                </thead>
-                <tbody>
-                    {getRowsData(data)}
-                </tbody>
-            </Table>
+            {getRowsData(data)}
 
         </div>
-
+            
+        
+        
+        
     );
 
 }
 
-export default ReimburseHistory;
+export default Reimburse;

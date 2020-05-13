@@ -12,6 +12,12 @@ To have a software that records income and expenses with evidence neatly with ac
 | Back-end  	| Python  	| Nginx + Gunicorn + Flask + Docker 	|
 | Database  	| SQL     	| MySQL                             	|
 
+## Structural Diagrams
+
+Client-server model:
+
+![client-server-model](structural-diagrams/Book-Keeping-Client-Server-Model.png)
+
 ## Workflow
 
 1. Team members start with their own branches after git clone.
@@ -38,6 +44,8 @@ To write down ideas: [Google Doc link](https://docs.google.com/document/d/1tP0tI
 
 [React](https://reactjs.org)
 
+[Client-side vs. Server-side vs. Pre-rendering for Web Apps](https://www.toptal.com/front-end/client-side-vs-server-side-pre-rendering)
+
 [REST API concepts and examples](https://www.youtube.com/watch?v=7YcW25PHnAA)
 
 [The Flask Mega-Tutorial](https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world)
@@ -47,6 +55,8 @@ To write down ideas: [Google Doc link](https://docs.google.com/document/d/1tP0tI
 [How to Deploy a React + Flask Project](https://blog.miguelgrinberg.com/post/how-to-deploy-a-react--flask-project)
 
 [Testing Flask Applications](https://flask.palletsprojects.com/en/1.1.x/testing/)
+
+[Coverage.py](https://coverage.readthedocs.io/en/coverage-5.1/)
 
 [How NOT to Store Passwords! - Computerphile](https://www.youtube.com/watch?v=8ZtInClXe1Q)
 

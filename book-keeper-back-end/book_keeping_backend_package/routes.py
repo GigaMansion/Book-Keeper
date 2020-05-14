@@ -379,7 +379,7 @@ def route_test_see_reimburse_history(username):
             'reimburse_history': []}
 
         return res
-        
+
     # the current user cannot see other users' reimbursement history
     else:
 
@@ -389,3 +389,10 @@ def route_test_see_reimburse_history(username):
         }
 
         return res
+
+    return {'user': 'n/a', 'reimburse_history': []}
+
+
+@app.route('/dummy_login')
+def dummy_login():
+    return {'ivan': 1234}

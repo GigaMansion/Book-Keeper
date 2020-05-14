@@ -20,7 +20,6 @@ def before_request():
 
 @app.route('/')
 @app.route('/index')
-@login_required
 def route_index():
     """
     return a fully-populated login page
@@ -128,7 +127,16 @@ def route_register():
     return render_template('register.html', title='Register', form=form)
 
 
-@app.route('/dashboard')
+@app.route('/activate', methods=['POST'])
+def route_activate():
+    """
+    handles the user activation
+    """
+    status = 'yes'
+    return status
+
+
+@app.route('/dashboard/<username>')
 @login_required
 def route_dashboard():
     """
@@ -139,7 +147,7 @@ def route_dashboard():
     return status
 
 
-@app.route('/new_reimburse_request')
+@app.route('/new_reimburse_request/<username>')
 @login_required
 def route_new_reimburse_request():
     """
@@ -194,7 +202,7 @@ def route_see_reimburse_history(username):
         return res
 
 
-@app.route('/account_settings')
+@app.route('/account_settings/<username>')
 @login_required
 def route_account_settings():
     """
@@ -226,7 +234,7 @@ def route_process_reimburse():
     return status    
 
 
-@app.route('/logout')
+@app.route('/logout/<username>')
 @login_required
 def route_logout():
     """

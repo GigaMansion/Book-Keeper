@@ -18,6 +18,41 @@ Client-server model:
 
 ![client-server-model](structural-diagrams/Book-Keeping-Client-Server-Model.png)
 
+URL request handling with user authentication:
+
+![route](structural-diagrams/Routes.png)
+
+## Pages
+
+| `Page`            	| Description                                        	|
+|-----------------	|----------------------------------------------------	|
+| `index.html`      	| Showcase page for the project.                     	|
+| `login.html`      	| Login page.                                        	|
+| `register.html`   	| Registration page.                                 	|
+| `activation.html` 	| Activation page for new user.                      	|
+| `dashboard.html`  	| UI after login with navigation among sub-sections. 	|
+| `404.html`        	| 404 not found page.                                	|
+| `500.html`        	| 500 internal server error page.                    	|
+
+## APIs
+
+The table excludes interaction with the database or any other external libraries or services.
+
+| `API/Route`                         	| Description                                        	| Return          	|
+|-----------------------------------	|----------------------------------------------------	|-----------------	|
+| `/index`                              | Index page.                                           | Index page.       |
+| `/login`                            	| User login.                                        	| Redirect URL.   	|
+| `/register`                         	| User registration.                                 	| Login page.     	|
+| `/activate`                           | User activation after receving email for registration.| Activation result page.          |
+| `/dashboard//<username>`            	| Retrun dashboard page.                             	| Dashboard page. 	|
+| `/new_reimburse_request/<username>`  	| Create a new reimbursement request.                	| Boolean.        	|
+| `/cencel_reimburse_request`         	| Cancel an existing reimbursement request.          	| Boolean.        	|
+| `/see_reimburse_history/<username>` 	| See the submitted reimbursement history of a user. 	| JSON.           	|
+| `/account_settings/<username>`      	| Page for displaying account settings.               	| JSON.           	|
+| `/change_account_settings/<setting>`  | Change accountn settings.                             | Boolean.          |
+| `/process_reimburse`                	| Process submitted reimbursement requests.          	| Boolean.        	|
+| `/logout/<username>`               	| User logout.                                       	| Login page.     	|
+
 ## Workflow
 
 1. Team members start with their own branches after git clone.

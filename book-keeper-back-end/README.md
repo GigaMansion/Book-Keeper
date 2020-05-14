@@ -120,14 +120,16 @@ to see the code coverage report in terminal.
 
 | `Directory/File`               	| Description                                     	|
 |------------------------------	|-------------------------------------------------	|
-| `unit_test/`                    	| unit test files                                 	|
-| `book_keeping_backend_package/` 	| backend application package                     	|
-| `.flaskenv`                    	| Python flask runtime environment variables    	|
-| `.gitignore`                   	| Gitignore description for the current directory 	|
-| `book_keep_backend_api.py`     	| Entry point for running the backend application 	|
-| `config.py`                   	| Configuration file for the backend application  	|
-| `README.md`                    	| README for the backend application              	|
-| `requirement.txt`              	| Python package list with version numbers        	|
+| `book_keeping_backend_package/` 	| Backend application package.                     	|
+| `migrations`                      | Migration scripts for updating database           |
+| `unit_test/`                    	| Unit test files.                                 	|
+| `.flaskenv`                    	| Python flask runtime environment variables.    	|
+| `.gitignore`                   	| Gitignore description for the current directory. 	|
+| `app.db`                          | SQLite database file.                             |
+| `book_keep_backend_api.py`     	| Entry point for running the backend application. 	|
+| `config.py`                   	| Configuration file for the backend application.  	|
+| `README.md`                    	| README for the backend application.              	|
+| `requirement.txt`              	| Python package list with version numbers.        	|
 
 ## `book_keeping_backend_package` Directory Structure
 

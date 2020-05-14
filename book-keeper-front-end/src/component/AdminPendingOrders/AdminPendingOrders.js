@@ -16,8 +16,7 @@ export default class AdminPendingOrders extends React.Component{
             <Nav
             fill variant="pills"
             activeKey="/home"
-            className="border-bottom"
-            
+            className="border-bottom border-top"
             >
                 <Nav.Item className="toggle-container">
                     

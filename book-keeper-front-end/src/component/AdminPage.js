@@ -62,6 +62,7 @@ export default class AdminPage extends React.Component{
                             <Button onClick={() => this.setState({sideBarHide : !this.state.sideBarHide})} size="lg" variant="outline-dark" style={{margin:"1rem",textAlign:"center"}}>
                                 <i className={this.state.sideBarHide ? "fa fa-angle-double-left" : "fa fa-angle-double-right"} style={{fontSize:"1.5rem"}}/>
                             </Button>
+                            <Route path="/" exact component={AdminPendingOrders}/>
                             <Route path="/manageRequest" exact component={AdminPendingOrders}/>
                             <Route path="/dataVisualization" exact component={DataVisualization}/>
                             <Route path="/accountSettings" exact component={AccountSettings}/>

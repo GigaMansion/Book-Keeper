@@ -4,7 +4,7 @@ from werkzeug.urls import url_parse
 from datetime import datetime
 
 from book_keeping_backend_package import app, db
-from book_keeping_backend_package.forms import LoginForm, RegistrationForm
+from book_keeping_backend_package.forms import LoginForm, RegistrationForm, EditProfileForm
 from book_keeping_backend_package.models import User, Reimburse
 
 
@@ -202,13 +202,14 @@ def route_see_reimburse_history(username):
         return res
 
 
-@app.route('/account_settings/<username>')
+@app.route('/account_settings/<username>', methods=['GET', 'POST'])
 @login_required
 def route_account_settings():
     """
     handles user operation for changing
     username, password
     """
+    form = EditProfileForm(current_user.username)
     status = 'yes'
     return status
 

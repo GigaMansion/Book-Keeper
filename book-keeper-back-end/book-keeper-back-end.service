@@ -1,0 +1,13 @@
+[Unit]
+Description=Gunicorn instance to serve Book-Keeper backe-end
+After=network.target
+
+[Service]
+User=<username>
+Group=www-data
+WorkingDirectory=/home/<username>/Book-Keeper/book-keeper-back-end
+Environment="PATH=/home/<username>/Book-Keeper/book-keeper-back-end/venv/bin"
+ExecStart=/home/<username>/Book-Keeper/book-keeper-back-end/venv/bin/gunicorn --workers 3 --bind unix:book-keeper-back-end.sock -m 007 wsgi:app
+
+[Install]
+WantedBy=multi-user.target

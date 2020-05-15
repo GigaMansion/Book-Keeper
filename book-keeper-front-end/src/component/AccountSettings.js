@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 
 import {Button,Form,Modal} from 'react-bootstrap';
 
-import './MainContent.css'
+import './MainContent.css';
 
 function AccountSettings(){
     const [show, setShow] = useState(false);

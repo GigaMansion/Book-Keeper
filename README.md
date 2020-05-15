@@ -44,7 +44,7 @@ The table excludes interaction with the database or any other external libraries
 | `/login`                            	| User login.                                        	| Redirect URL.   	|
 | `/register`                         	| User registration.                                 	| Login page.     	|
 | `/activate`                           | User activation after receving email for registration.| Activation result page.          |
-| `/dashboard//<username>`            	| Retrun dashboard page.                             	| Dashboard page. 	|
+| `/dashboard/<username>`            	| Retrun dashboard page.                             	| Dashboard page. 	|
 | `/new_reimburse_request/<username>`  	| Create a new reimbursement request.                	| Boolean.        	|
 | `/cencel_reimburse_request`         	| Cancel an existing reimbursement request.          	| Boolean.        	|
 | `/see_reimburse_history/<username>` 	| See the submitted reimbursement history of a user. 	| JSON.           	|
@@ -71,6 +71,24 @@ The table excludes interaction with the database or any other external libraries
 
 7. Always write high quality code that make it easy for others to understand.
 
+## Deployment
+
+1. Rent a Linux server running Debian or Ubuntu.
+
+2. Configure the server firewall rules from the vendor console.
+
+3. Clone the code to the production server.
+
+4. Change to the **book-keeper-back-end** directory. 
+
+5. Set the environment variables with the `export` command.
+
+6. Run **deployment.sh**.
+
+## Security
+
+Use [SSL Server Test](https://www.ssllabs.com/ssltest/index.html) for a thorough test report on the security level of the server. It may take several minutes to run.
+
 ## Resources:
 
 To write down ideas: [Google Doc link](https://docs.google.com/document/d/1tP0tIFoo6x8RUdL7WfXMaWVJfe_p7pcsbhEWBY3d9BM/edit#)
@@ -96,3 +114,5 @@ To write down ideas: [Google Doc link](https://docs.google.com/document/d/1tP0tI
 [How NOT to Store Passwords! - Computerphile](https://www.youtube.com/watch?v=8ZtInClXe1Q)
 
 [Running an SQL Injection Attack - Computerphile](https://www.youtube.com/watch?v=ciNHn38EyRc)
+
+[How To Serve Flask Applications with Gunicorn and Nginx on Ubuntu 18.04](https://www.digitalocean.com/community/tutorials/how-to-serve-flask-applications-with-gunicorn-and-nginx-on-ubuntu-18-04)

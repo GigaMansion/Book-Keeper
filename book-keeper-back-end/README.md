@@ -121,15 +121,19 @@ to see the code coverage report in terminal.
 | `Directory/File`               	| Description                                     	|
 |------------------------------	|-------------------------------------------------	|
 | `book_keeping_backend_package/` 	| Backend application package.                     	|
-| `migrations`                      | Migration scripts for updating database           |
+| `migrations/`                     | Migration scripts for updating database           |
 | `unit_test/`                    	| Unit test files.                                 	|
 | `.flaskenv`                    	| Python flask runtime environment variables.    	|
 | `.gitignore`                   	| Gitignore description for the current directory. 	|
 | `app.db`                          | SQLite database file.                             |
 | `book_keep_backend_api.py`     	| Entry point for running the backend application. 	|
+| `book-keeper-back-end`            | Nginx configurations.                             |
+| `book-keeper-back-end.service`    | Service unit file included in systemd.            |
 | `config.py`                   	| Configuration file for the backend application.  	|
+| `deployment.sh`                   | Book-Keeper back-end deployment script.           |
 | `README.md`                    	| README for the backend application.              	|
 | `requirement.txt`              	| Python package list with version numbers.        	|
+| `wsgi.py`                         | WSGI entry point for the web application.         |
 
 ## `book_keeping_backend_package` Directory Structure
 

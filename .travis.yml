@@ -3,7 +3,7 @@ matrix:
     - language: python
       python: 3.8
       before_script:
-        - cd ook-keeper-back-end
+        - cd book-keeper-back-end
         - cd unit_test
       script:
         - python test_route.py
@@ -14,7 +14,7 @@ matrix:
       before_script:
         - cd book-keeper-front-end
       script:
-        - npm test
+        - npm install
 
 services:
   -docker

@@ -6,7 +6,9 @@ matrix:
         - cd book-keeper-back-end
         - cd unit_test
       script:
-        - python test_route.py
+        - set PYTHONPATH=.
+        - coverage run -m pytest
+        - coverage report -m
 
     - language: node_js
       node_ja:

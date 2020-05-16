@@ -6,12 +6,13 @@ matrix:
         - cd book-keeper-back-end
         - cd unit_test
       script:
+        - pip3 install -r requirements.txt
         - set PYTHONPATH=.
         - coverage run -m pytest
         - coverage report -m
 
     - language: node_js
-      node_ja:
+      node_js:
         - 14
       before_script:
         - cd book-keeper-front-end

@@ -1,4 +1,22 @@
-language: node_js
-before_script: cd book-keeper-front-end
+matrix:
+  include:
+    - language: python
+      before_script:
+        - cd ook-keeper-back-end
+        - cd unit_test
+      script:
+        - python test_route.py
+
+    - language: node_js
+      before_script:
+        - cd book-keeper-front-end
+      script:
+        - true
+
 services:
   -docker
+
+notifications:
+  email:
+    - entao2000@gmail.com
+    - wilsonwang2019@tamu.edu

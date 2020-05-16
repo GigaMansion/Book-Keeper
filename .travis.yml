@@ -14,7 +14,7 @@ matrix:
       before_script:
         - cd book-keeper-front-end
       script:
-        - npm install
+        - npm test
 
 services:
   -docker

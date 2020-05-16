@@ -50,7 +50,7 @@ Run the application:
 flask run
 ```
 
-## Run Python Interactively with Install Pakcages
+## Run Python Interactively with Install Packages
 
 After activating virtualenv, run:
 

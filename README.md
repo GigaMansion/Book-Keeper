@@ -43,13 +43,13 @@ The table excludes interaction with the database or any other external libraries
 | `/index`                              | Index page.                                           | Index page.       |
 | `/login`                            	| User login.                                        	| Redirect URL.   	|
 | `/register`                         	| User registration.                                 	| Login page.     	|
-| `/activate`                           | User activation after receving email for registration.| Activation result page.          |
-| `/dashboard/<username>`            	| Retrun dashboard page.                             	| Dashboard page. 	|
+| `/activate`                           | User activation after receiving email for registration.| Activation result page.          |
+| `/dashboard/<username>`            	| Return dashboard page.                             	| Dashboard page. 	|
 | `/new_reimburse_request/<username>`  	| Create a new reimbursement request.                	| Boolean.        	|
 | `/cencel_reimburse_request`         	| Cancel an existing reimbursement request.          	| Boolean.        	|
 | `/see_reimburse_history/<username>` 	| See the submitted reimbursement history of a user. 	| JSON.           	|
 | `/account_settings/<username>`      	| Page for displaying account settings.               	| JSON.           	|
-| `/change_account_settings/<setting>`  | Change accountn settings.                             | Boolean.          |
+| `/change_account_settings/<setting>`  | Change account settings.                             | Boolean.          |
 | `/process_reimburse`                	| Process submitted reimbursement requests.          	| Boolean.        	|
 | `/logout/<username>`               	| User logout.                                       	| Login page.     	|
 
@@ -73,7 +73,7 @@ The table excludes interaction with the database or any other external libraries
 
 ## Deployment
 
-1. Rent a Linux server running Debian or Ubuntu.
+1. Get a Linux server running Debian or Ubuntu.
 
 2. Configure the server firewall rules from the vendor console.
 

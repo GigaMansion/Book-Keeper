@@ -4,7 +4,7 @@ from werkzeug.urls import url_parse
 from datetime import datetime
 
 from book_keeping_backend_package import app, db
-from book_keeping_backend_package.forms import LoginForm, RegistrationForm
+from book_keeping_backend_package.forms import LoginForm, RegistrationForm, EditProfileForm
 from book_keeping_backend_package.models import User, Reimburse
 
 
@@ -202,13 +202,14 @@ def route_see_reimburse_history(username):
         return res
 
 
-@app.route('/account_settings/<username>')
+@app.route('/account_settings/<username>', methods=['GET', 'POST'])
 @login_required
 def route_account_settings():
     """
     handles user operation for changing
     username, password
     """
+    form = EditProfileForm(current_user.username)
     status = 'yes'
     return status
 
@@ -379,7 +380,7 @@ def route_test_see_reimburse_history(username):
             'reimburse_history': []}
 
         return res
-        
+
     # the current user cannot see other users' reimbursement history
     else:
 
@@ -389,3 +390,10 @@ def route_test_see_reimburse_history(username):
         }
 
         return res
+
+    return {'user': 'n/a', 'reimburse_history': []}
+
+
+@app.route('/dummy_login')
+def dummy_login():
+    return {'ivan': 1234}

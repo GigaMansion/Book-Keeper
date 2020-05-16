@@ -17,9 +17,17 @@ matrix:
         - cd book-keeper-front-end
       script:
         - npm install
-
-services:
-  -docker
+    - language: bash
+      dist: xenial
+      services:
+        - docker
+      before_script:
+        - echo "123456789" | docker login -u "entao2000" --password-stdin
+      script:
+        - echo "test code"  
+      after_success:
+        - docker build -t username/alpine .
+        - docker push username/alpine
 
 notifications:
   email:

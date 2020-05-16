@@ -4,7 +4,6 @@ matrix:
       python: 3.8
       before_script:
         - cd book-keeper-back-end
-        - cd unit_test
       script:
         - pip3 install -r requirements.txt
         - set PYTHONPATH=.

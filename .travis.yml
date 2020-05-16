@@ -1,17 +1,20 @@
 matrix:
   include:
     - language: python
+      python: 3.8
       before_script:
-        - cd ook-keeper-back-end
+        - cd book-keeper-back-end
         - cd unit_test
       script:
         - python test_route.py
 
     - language: node_js
+      node_ja:
+        - 14
       before_script:
         - cd book-keeper-front-end
       script:
-        - true
+        - npm install
 
 services:
   -docker

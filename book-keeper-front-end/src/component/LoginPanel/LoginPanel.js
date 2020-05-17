@@ -1,6 +1,7 @@
 import React from "react";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import Image from 'react-bootstrap/Image';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './LoginPanel.module.css';
 import { GoogleLogin } from 'react-google-login';
@@ -13,7 +14,8 @@ export default class LoginPanel extends React.Component{
 
         this.state = {
             email:"",
-            password:""
+            password:"",
+            imageUrl:""
         };
     }
 
@@ -34,42 +36,24 @@ export default class LoginPanel extends React.Component{
 
     responseGoogle = (response) => {
         console.log(response);
-        // window.location.replace('https://peachflowersource.com')
+        const imageUrl = response.profileObj.imageUrl;
+        
+        this.setState({
+            imageUrl: imageUrl
+        });
+        console.log(this.state.imageUrl);
+        // window.location.replace('https://google.com')
     }
 
 
 
     render() {
         return(
+            <div>
+
+            
             <div className="Login">
                 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css"></link>
-                {/* <Form onSubmit={this.handleSubmit}>
-                <Form.Group controlId="email" bssize="large" className="email-group">
-                    <Form.Label>Email address</Form.Label>
-                    <Form.Control
-                    autoFocus
-                    type="email"
-                    value={this.state.email}
-                    onChange={this.handleChange}
-                    />
-                </Form.Group>
-                <Form.Group controlId="password" bssize="large">
-                    <Form.Label>Password</Form.Label>
-                    <Form.Control
-                    value={this.state.password}
-                    onChange={this.handleChange}
-                    type="password"
-                    />
-                </Form.Group>
-                <Button
-                    block
-                    bssize="large"
-                    disabled={!this.validateForm()}
-                    type="submit"
-                >
-                    Login
-                </Button> */}
-                {/* </Form> */}
 
             <GoogleLogin
                 clientId="154834213059-4v2mfjapm04hciic1t190kokpj070c6f.apps.googleusercontent.com"
@@ -85,8 +69,10 @@ export default class LoginPanel extends React.Component{
                 prompt={'none'}
             />
             <script src="https://apis.google.com/js/platform.js" async defer></script>
+            
             </div>
-
+            <Image src={this.state.imageUrl} roundedCircle />
+            </div>
         );
     }
 }

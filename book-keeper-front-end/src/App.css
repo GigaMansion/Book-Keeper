@@ -1,6 +1,6 @@
 
 .App{
-  /* text-align: center; */
+  text-align: center;
 }
 .App-logo {
   /* height: 40vmin; */
@@ -60,6 +60,7 @@
 }
 
 .logotext {
+  margin: 0;
   color: black;
 }
 
@@ -86,6 +87,3 @@
   text-align: left;
 }
 
-.logo-container {
-  text-align: center;
-}

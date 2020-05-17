@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Navbar,Nav, Row,Col,Container} from 'react-bootstrap';
 import LoginPanel from './component/LoginPanel/LoginPanel';
 import Particles from 'react-particles-js';
+
 
 
 const navbar = <Navbar expand="md" className="color-nav">
@@ -47,6 +47,7 @@ function App() {
       
     
     <div className="App">
+      
       {navbar}
       <Particles className="particles-js"
         params={{

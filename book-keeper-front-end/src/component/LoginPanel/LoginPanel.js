@@ -34,7 +34,7 @@ export default class LoginPanel extends React.Component{
 
     responseGoogle = (response) => {
         console.log(response);
-        window.location.replace('https://peachflowersource.com')
+        // window.location.replace('https://peachflowersource.com')
     }
 
 
@@ -82,6 +82,7 @@ export default class LoginPanel extends React.Component{
                 onSuccess={this.responseGoogle}
                 // onFailure={this.responseGoogle}
                 cookiePolicy={'single_host_origin'}
+                prompt={'none'}
             />
             <script src="https://apis.google.com/js/platform.js" async defer></script>
             </div>

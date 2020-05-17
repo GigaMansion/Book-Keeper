@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Navbar,Nav, Row,Col,Container} from 'react-bootstrap';
@@ -8,6 +7,7 @@ import Particles from 'react-particles-js';
 // import Logintbygoogle from './Logintbygoogle'
 // import Dashboard from "./Dashboard";
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+
 
 
 const navbar = <Navbar expand="md" className="color-nav">
@@ -50,6 +50,7 @@ function App() {
       
     
     <div className="App">
+      
       {navbar}
       <Particles className="particles-js"
         params={{

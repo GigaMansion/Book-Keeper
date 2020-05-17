@@ -5,6 +5,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {Navbar,Nav, Row,Col,Container} from 'react-bootstrap';
 import LoginPanel from './component/LoginPanel/LoginPanel';
 import Particles from 'react-particles-js';
+// import Logintbygoogle from './Logintbygoogle'
+// import Dashboard from "./Dashboard";
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
 
 const navbar = <Navbar expand="md" className="color-nav">
@@ -32,14 +35,14 @@ const navbar = <Navbar expand="md" className="color-nav">
 function App() {
 
   // state getter and setter
-  // const [currentUser, setCurrentUser] = useState(0);
+  const [currentUser, setCurrentUser] = useState(0);
 
   // sample code for requesting resource from server
-  // useEffect(() => {
-  //   fetch('/index').then(res => res.json()).then(data => {
-  //     console.log(data);
-  //   });
-  // }, []);
+  useEffect(() => {
+    fetch('/dummy_login').then(res => res.json()).then(data => {
+      console.log(data);
+    });
+  }, []);
 
   return (
       

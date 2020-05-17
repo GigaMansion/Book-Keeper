@@ -6,7 +6,7 @@ import * as serviceWorker from './serviceWorker';
 
 
 // testing only
-import AdminPage from './component/AdminPage';
+import LoginPanel from './component/LoginPanel/LoginPanel';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -14,7 +14,9 @@ ReactDOM.render(
 
 
     {/* testing only */}
-    <AdminPage />
+    {/* <AdminPage /> */}
+
+    <LoginPanel />
 
   </React.StrictMode>,
   document.getElementById('root')

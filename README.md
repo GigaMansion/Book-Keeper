@@ -49,9 +49,11 @@ The table excludes interaction with the database or any other external libraries
 | `/cencel_reimburse_request`         	| Cancel an existing reimbursement request.          	| Boolean.        	|
 | `/see_reimburse_history/<username>` 	| See the submitted reimbursement history of a user. 	| JSON.           	|
 | `/account_settings/<username>`      	| Page for displaying account settings.               	| JSON.           	|
-| `/change_account_settings/<setting>`  | Change account settings.                             | Boolean.          |
+| `/change_account_settings/<setting>`  | Change account settings.                              | Boolean.          |
 | `/process_reimburse`                	| Process submitted reimbursement requests.          	| Boolean.        	|
 | `/logout/<username>`               	| User logout.                                       	| Login page.     	|
+| `/privacy_policy`                     | Privacy policy page.                                  | Static page.      |
+| `/terms_of_service`                   | Terms of service page.                                | Static page.      |
 
 ## Workflow
 

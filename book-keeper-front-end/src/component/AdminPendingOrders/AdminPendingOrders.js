@@ -33,9 +33,9 @@ export default class AdminPendingOrders extends React.Component{
                 </Nav.Item>
             </Nav>
 
-            <div class="container-fluid">
+            <div className="container-fluid">
 
-                <h1 class="mt-4">Pending Orders</h1>
+                <h1 className="mt-4">Pending Orders</h1>
                 <Container fluid>
                     <CardColumns>
                         <Card>

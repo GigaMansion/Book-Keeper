@@ -396,4 +396,5 @@ def route_test_see_reimburse_history(username):
 
 @app.route('/dummy_login')
 def dummy_login():
+    app.logger.info("/dummy_login request received")
     return {'ivan': 1234}

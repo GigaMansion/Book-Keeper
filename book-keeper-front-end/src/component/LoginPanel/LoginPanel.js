@@ -28,6 +28,9 @@ export default class LoginPanel extends React.Component{
 
       handleSubmit = event => {
           console.log(this.state);
+          fetch('/dummy_login').then(res => res.json()).then(data => {
+                console.log(data);
+              });
           event.preventDefault();
       }
 

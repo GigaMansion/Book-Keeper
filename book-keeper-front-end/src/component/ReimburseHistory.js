@@ -4,6 +4,7 @@ import {Container, Row, Col, Card, Form, Button, Nav, CardColumns, Table} from '
 
 import Reimburse from './ReimburseHistory/Reimburse';
 import { DropdownDivider } from 'react-bootstrap/Dropdown';
+import './MainContent.css'
 
 
 const data =[
@@ -47,7 +48,7 @@ function ReimburseHistory(){
     }
 
     return(
-        <div>
+        <div className="outside-container">
             <h1>Reimburse History Page</h1>
 
             <Table responsive bordered>

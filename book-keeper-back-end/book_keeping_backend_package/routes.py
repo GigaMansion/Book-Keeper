@@ -4,7 +4,7 @@ from werkzeug.urls import url_parse
 from datetime import datetime
 
 from book_keeping_backend_package import app, db
-from book_keeping_backend_package.forms import LoginForm, RegistrationForm
+from book_keeping_backend_package.forms import LoginForm, RegistrationForm, EditProfileForm
 from book_keeping_backend_package.models import User, Reimburse
 
 
@@ -20,7 +20,6 @@ def before_request():
 
 @app.route('/')
 @app.route('/index')
-@login_required
 def route_index():
     """
     return a fully-populated login page
@@ -128,7 +127,16 @@ def route_register():
     return render_template('register.html', title='Register', form=form)
 
 
-@app.route('/dashboard')
+@app.route('/activate', methods=['POST'])
+def route_activate():
+    """
+    handles the user activation
+    """
+    status = 'yes'
+    return status
+
+
+@app.route('/dashboard/<username>')
 @login_required
 def route_dashboard():
     """
@@ -139,7 +147,7 @@ def route_dashboard():
     return status
 
 
-@app.route('/new_reimburse_request')
+@app.route('/new_reimburse_request/<username>')
 @login_required
 def route_new_reimburse_request():
     """
@@ -194,13 +202,14 @@ def route_see_reimburse_history(username):
         return res
 
 
-@app.route('/account_settings')
+@app.route('/account_settings/<username>', methods=['GET', 'POST'])
 @login_required
 def route_account_settings():
     """
     handles user operation for changing
     username, password
     """
+    form = EditProfileForm(current_user.username)
     status = 'yes'
     return status
 
@@ -226,7 +235,7 @@ def route_process_reimburse():
     return status    
 
 
-@app.route('/logout')
+@app.route('/logout/<username>')
 @login_required
 def route_logout():
     """
@@ -371,7 +380,7 @@ def route_test_see_reimburse_history(username):
             'reimburse_history': []}
 
         return res
-        
+
     # the current user cannot see other users' reimbursement history
     else:
 
@@ -381,3 +390,10 @@ def route_test_see_reimburse_history(username):
         }
 
         return res
+
+    return {'user': 'n/a', 'reimburse_history': []}
+
+
+@app.route('/dummy_login')
+def dummy_login():
+    return {'ivan': 1234}

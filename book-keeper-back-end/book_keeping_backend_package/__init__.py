@@ -4,6 +4,9 @@ from config import Config
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+import logging
+from logging.handlers import RotatingFileHandler
+import os
 
 # configuration
 dictConfig({
@@ -46,4 +49,19 @@ login_manager.login_view = 'route_test_login'
 
 # login_manager.init_app(app)
 
-from book_keeping_backend_package import routes, models
+if not app.debug:
+    # ...
+
+    if not os.path.exists('logs'):
+        os.mkdir('logs')
+    file_handler = RotatingFileHandler('logs/book-keeper.log', maxBytes=20480,
+                                       backupCount=100)
+    file_handler.setFormatter(logging.Formatter(
+        '%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]'))
+    file_handler.setLevel(logging.INFO)
+    app.logger.addHandler(file_handler)
+
+    app.logger.setLevel(logging.INFO)
+    app.logger.info('Book-Keeper starts running')
+
+from book_keeping_backend_package import routes, models, errors

@@ -18,6 +18,41 @@ Client-server model:
 
 ![client-server-model](structural-diagrams/Book-Keeping-Client-Server-Model.png)
 
+URL request handling with user authentication:
+
+![route](structural-diagrams/Routes.png)
+
+## Pages
+
+| `Page`            	| Description                                        	|
+|-----------------	|----------------------------------------------------	|
+| `index.html`      	| Showcase page for the project.                     	|
+| `login.html`      	| Login page.                                        	|
+| `register.html`   	| Registration page.                                 	|
+| `activation.html` 	| Activation page for new user.                      	|
+| `dashboard.html`  	| UI after login with navigation among sub-sections. 	|
+| `404.html`        	| 404 not found page.                                	|
+| `500.html`        	| 500 internal server error page.                    	|
+
+## APIs
+
+The table excludes interaction with the database or any other external libraries or services.
+
+| `API/Route`                         	| Description                                        	| Return          	|
+|-----------------------------------	|----------------------------------------------------	|-----------------	|
+| `/index`                              | Index page.                                           | Index page.       |
+| `/login`                            	| User login.                                        	| Redirect URL.   	|
+| `/register`                         	| User registration.                                 	| Login page.     	|
+| `/activate`                           | User activation after receiving email for registration.| Activation result page.          |
+| `/dashboard/<username>`            	| Return dashboard page.                             	| Dashboard page. 	|
+| `/new_reimburse_request/<username>`  	| Create a new reimbursement request.                	| Boolean.        	|
+| `/cencel_reimburse_request`         	| Cancel an existing reimbursement request.          	| Boolean.        	|
+| `/see_reimburse_history/<username>` 	| See the submitted reimbursement history of a user. 	| JSON.           	|
+| `/account_settings/<username>`      	| Page for displaying account settings.               	| JSON.           	|
+| `/change_account_settings/<setting>`  | Change account settings.                             | Boolean.          |
+| `/process_reimburse`                	| Process submitted reimbursement requests.          	| Boolean.        	|
+| `/logout/<username>`               	| User logout.                                       	| Login page.     	|
+
 ## Workflow
 
 1. Team members start with their own branches after git clone.
@@ -35,6 +70,24 @@ Client-server model:
 6. Use GitHub features such as project management properly.
 
 7. Always write high quality code that make it easy for others to understand.
+
+## Deployment
+
+1. Get a Linux server running Debian or Ubuntu.
+
+2. Configure the server firewall rules from the vendor console.
+
+3. Clone the code to the production server.
+
+4. Change to the **book-keeper-back-end** directory. 
+
+5. Set the environment variables with the `export` command.
+
+6. Run **deployment.sh**.
+
+## Security
+
+Use [SSL Server Test](https://www.ssllabs.com/ssltest/index.html) for a thorough test report on the security level of the server. It may take several minutes to run.
 
 ## Resources:
 
@@ -61,3 +114,5 @@ To write down ideas: [Google Doc link](https://docs.google.com/document/d/1tP0tI
 [How NOT to Store Passwords! - Computerphile](https://www.youtube.com/watch?v=8ZtInClXe1Q)
 
 [Running an SQL Injection Attack - Computerphile](https://www.youtube.com/watch?v=ciNHn38EyRc)
+
+[How To Serve Flask Applications with Gunicorn and Nginx on Ubuntu 18.04](https://www.digitalocean.com/community/tutorials/how-to-serve-flask-applications-with-gunicorn-and-nginx-on-ubuntu-18-04)

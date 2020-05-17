@@ -50,7 +50,7 @@ Run the application:
 flask run
 ```
 
-## Run Python Interactively with Install Pakcages
+## Run Python Interactively with Install Packages
 
 After activating virtualenv, run:
 
@@ -120,14 +120,20 @@ to see the code coverage report in terminal.
 
 | `Directory/File`               	| Description                                     	|
 |------------------------------	|-------------------------------------------------	|
-| `unit_test/`                    	| unit test files                                 	|
-| `book_keeping_backend_package/` 	| backend application package                     	|
-| `.flaskenv`                    	| Python flask runtime environment variables    	|
-| `.gitignore`                   	| Gitignore description for the current directory 	|
-| `book_keep_backend_api.py`     	| Entry point for running the backend application 	|
-| `config.py`                   	| Configuration file for the backend application  	|
-| `README.md`                    	| README for the backend application              	|
-| `requirement.txt`              	| Python package list with version numbers        	|
+| `book_keeping_backend_package/` 	| Backend application package.                     	|
+| `migrations/`                     | Migration scripts for updating database           |
+| `unit_test/`                    	| Unit test files.                                 	|
+| `.flaskenv`                    	| Python flask runtime environment variables.    	|
+| `.gitignore`                   	| Gitignore description for the current directory. 	|
+| `app.db`                          | SQLite database file.                             |
+| `book_keep_backend_api.py`     	| Entry point for running the backend application. 	|
+| `book-keeper-back-end`            | Nginx configurations.                             |
+| `book-keeper-back-end.service`    | Service unit file included in systemd.            |
+| `config.py`                   	| Configuration file for the backend application.  	|
+| `deployment.sh`                   | Book-Keeper back-end deployment script.           |
+| `README.md`                    	| README for the backend application.              	|
+| `requirement.txt`              	| Python package list with version numbers.        	|
+| `wsgi.py`                         | WSGI entry point for the web application.         |
 
 ## `book_keeping_backend_package` Directory Structure
 

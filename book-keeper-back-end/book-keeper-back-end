@@ -1,0 +1,13 @@
+server {
+    listen 443;
+    server_name peachflowersource.com www.peachflowersource.com;
+
+    ssl on;
+    ssl_certificate /home/mitfans881/Certificates/pfs.pem;
+    ssl_certificate_key /home/mitfans881/Certificates/pfs.key;
+
+    location / {
+        include proxy_params;
+        proxy_pass http://unix:/home/mitfans881/Book-Keeper/book-keeper-back-end/book-keeper-back-end.sock;
+    }
+}

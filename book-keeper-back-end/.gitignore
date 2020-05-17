@@ -1,3 +1,6 @@
+# exclude the log directory
+logs/
+
 # exclude the VS Code configuration
 .vscode/
 

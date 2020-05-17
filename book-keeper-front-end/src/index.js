@@ -10,13 +10,11 @@ import LoginPanel from './component/LoginPanel/LoginPanel';
 
 ReactDOM.render(
   <React.StrictMode>
-    {/* <App /> */}
+    <App />
 
 
     {/* testing only */}
     {/* <AdminPage /> */}
-
-    <LoginPanel />
 
   </React.StrictMode>,
   document.getElementById('root')

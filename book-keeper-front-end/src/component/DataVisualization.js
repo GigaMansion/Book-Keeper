@@ -4,7 +4,7 @@ import {Container, Row, Col, Card, Form, Button, Nav, CardColumns} from 'react-b
 
 import {LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, PieChart, Pie, Sector, Cell,} from 'recharts';
 
-import './DataVisualization.css'
+import './MainContent.css';
 
 const data = [
     {
@@ -54,7 +54,7 @@ const renderCustomizedLabel = ({
 function DataVisualization(){
 
     return(
-        <div>
+        <div className="outside-container">
             <h1>Data Visualization</h1>
             <LineChart
                 width={600}

@@ -45,12 +45,18 @@ export default class LoginPanel extends React.Component{
         // window.location.replace('https://google.com')
     }
 
+    failresponseGoogle = (response) => {
+        console.log("fail");
+        console.log(response);
+
+    }
+
 
 
     render() {
         return(
             <div>
-
+            <script src="https://apis.google.com/js/platform.js" async defer></script>
             
             <div className="Login">
                 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css"></link>
@@ -64,11 +70,11 @@ export default class LoginPanel extends React.Component{
                 )}
                 buttonText="Login"
                 onSuccess={this.responseGoogle}
-                // onFailure={this.responseGoogle}
-                cookiePolicy={'single_host_origin'}
-                prompt={'none'}
+                onFailure={this.failresponseGoogle}
+                cookiePolicy={'none'}
+                // prompt={'none'}
             />
-            <script src="https://apis.google.com/js/platform.js" async defer></script>
+
             
             </div>
             <Image src={this.state.imageUrl} roundedCircle />

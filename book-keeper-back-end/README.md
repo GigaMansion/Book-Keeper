@@ -42,7 +42,7 @@ set <variable_name>=<value>
 
 Run `npm run build` in the front-end folder to build React application.
 
-Then copy the content in the **build** folder to the **book_keeping_backend_package/templates** folder in the back-end folder.
+Then copy the content in the **build** folder to the **book_keeping_backend_package/templates/** folder in the back-end folder.
 
 Run the application:
 

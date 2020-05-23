@@ -1,5 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField
+from wtforms import TextAreaField, FloatField, DecimalField, DateField
 from wtforms.validators import ValidationError, DataRequired, Email, EqualTo, Length
 
 from book_keeping_backend_package.models import User
@@ -68,3 +69,28 @@ class EditProfileForm(FlaskForm):
             if user is not None:
                 
                 raise ValidationError('Please use a different username.')
+
+
+class NewReimburseForm(FlaskForm):
+
+    product_name = StringField('Product Name', validators=[DataRequired()])
+
+    classification = StringField('Classification', validators=[DataRequired()])
+
+    american_website_link = StringField('American Website Link', validators=[DataRequired()])
+
+    item_website_link = StringField('Item Website Link', validators=[DataRequired()])
+
+    price = FloatField('Price', validators=[DataRequired()])
+
+    quantity = DecimalField('Quantity', validators=[DataRequired()])
+
+    delivery = FloatField('Delivery', validators=[DataRequired()])
+
+    date_needed = DateField('Date Needed', validators=[DataRequired()])
+
+    reason_to_purchase = StringField('Reason to Purchase', validators=[DataRequired()])
+
+    recipient_photo_url = StringField('Recipient Photo', validators=[DataRequired()])
+
+    

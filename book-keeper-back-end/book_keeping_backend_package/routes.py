@@ -28,7 +28,7 @@ def route_index():
     # user = {'username': 'Wilson'}
     app.logger.info("/ request received")
     
-    return render_template('index.html')
+    return render_template('Book-Keeper-Front-End-Compiled/index.html')
 
 
 @app.route('/login', methods=['GET', 'POST'])

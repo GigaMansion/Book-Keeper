@@ -22,6 +22,10 @@ URL request handling with user authentication:
 
 ![route](structural-diagrams/Routes.png)
 
+Google login flow diagram:
+
+![google-login](structural-diagrams/Google-Authentication.png)
+
 ## Pages
 
 | `Page`            	| Description                                        	|

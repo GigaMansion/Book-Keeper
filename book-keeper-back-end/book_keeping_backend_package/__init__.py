@@ -28,7 +28,7 @@ dictConfig({
 # create the flask instance
 app = Flask(__name__, 
             static_url_path='',
-            static_folder='templates',
+            static_folder='templates/Book-Keeper-Front-End-Compiled',
             template_folder='templates')
 
 # apply configuration

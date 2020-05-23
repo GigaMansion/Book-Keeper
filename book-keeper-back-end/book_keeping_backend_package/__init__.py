@@ -25,43 +25,51 @@ dictConfig({
     },
 })
 
-# create the flask instance
-app = Flask(__name__, 
-            static_url_path='',
-            static_folder='templates/Book-Keeper-Front-End-Compiled',
-            template_folder='templates')
 
-# apply configuration
-app.config.from_object(Config)
+db = SQLAlchemy()
 
-# add the database adaptor to the flask instance
-db = SQLAlchemy(app)
+migrate = Migrate()
 
-# add the database migrate support to the flask instance
-migrate = Migrate(app, db)
+login_manager = LoginManager()
 
-# mange user session
-login_manager = LoginManager(app)
-
-# set the function that handles views
-# which require users to login to be able to see
-login_manager.login_view = 'route_test_login'
+login_manager.login_view = 'auth.route_test_login'
 
 # login_manager.init_app(app)
 
-if not app.debug:
-    # ...
+def create_app(config_class=Config):
+    app = Flask(__name__,
+                static_url_path='',
+                static_folder='templates/Book-Keeper-Front-End-Compiled',
+                template_folder='templates')
 
-    if not os.path.exists('logs'):
-        os.mkdir('logs')
-    file_handler = RotatingFileHandler('logs/book-keeper.log', maxBytes=20480,
-                                       backupCount=100)
-    file_handler.setFormatter(logging.Formatter(
-        '%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]'))
-    file_handler.setLevel(logging.INFO)
-    app.logger.addHandler(file_handler)
+    app.config.from_object(config_class)
 
-    app.logger.setLevel(logging.INFO)
-    app.logger.info('Book-Keeper starts running')
+    db.init_app(app)
+    migrate.init_app(app, db)
+    login_manager.init_app(app)
 
-from book_keeping_backend_package import routes, models, errors
+    from book_keeping_backend_package.errors import bp as errors_bp
+    app.register_blueprint(errors_bp)
+
+    from book_keeping_backend_package.auth import bp as auth_bp
+    app.register_blueprint(auth_bp, url_prefix='/auth')
+
+    if not app.debug:
+        # ...
+
+        if not os.path.exists('logs'):
+            os.mkdir('logs')
+        file_handler = RotatingFileHandler('logs/book-keeper.log', maxBytes=20480,
+                                        backupCount=100)
+        file_handler.setFormatter(logging.Formatter(
+            '%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]'))
+        file_handler.setLevel(logging.INFO)
+        app.logger.addHandler(file_handler)
+
+        app.logger.setLevel(logging.INFO)
+        app.logger.info('Book-Keeper starts running')
+
+    return app
+
+
+from book_keeping_backend_package import models

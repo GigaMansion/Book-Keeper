@@ -9,11 +9,11 @@
     <body>
         <div>
             Book Keeping:
-            <a href="{{ url_for('route_test_index') }}">Home</a>
+            <a href="{{ url_for('auth.route_test_index') }}">Home</a>
             {% if current_user.is_anonymous %}
-            <a href="{{ url_for('route_test_login') }}">Login</a>
+            <a href="{{ url_for('auth.route_test_login') }}">Login</a>
             {% else %}
-            <a href="{{ url_for('route_test_logout') }}">Logout</a>
+            <a href="{{ url_for('auth.route_test_logout') }}">Logout</a>
             {% endif %}
         </div>
         <hr>

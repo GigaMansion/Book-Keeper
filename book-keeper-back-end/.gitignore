@@ -10,7 +10,7 @@ logs/
 # exclude the build directory for React
 # but keep the pages for test
 book_keeping_backend_package/templates/*
-!book_keeping_backend_package/templates/*0*.html
+!book_keeping_backend_package/templates/errors
 !book_keeping_backend_package/templates/test_pages
 
 # Byte-compiled / optimized / DLL files

@@ -1,14 +1,15 @@
-from flask import render_template, flash, redirect, url_for, request
+from flask import render_template, flash, redirect, url_for, request, current_app
 from flask_login import current_user, login_user, logout_user, login_required
 from werkzeug.urls import url_parse
 from datetime import datetime
 
-from book_keeping_backend_package import app, db
-from book_keeping_backend_package.forms import LoginForm, RegistrationForm, EditProfileForm
+from book_keeping_backend_package import db
+from book_keeping_backend_package.auth import bp
+from book_keeping_backend_package.auth.forms import LoginForm, RegistrationForm, EditProfileForm
 from book_keeping_backend_package.models import User, Reimburse
 
 
-@app.before_request
+@bp.before_request
 def before_request():
     """
     record the last seen time of the user
@@ -18,32 +19,32 @@ def before_request():
         db.session.commit()
 
 
-@app.route('/')
-@app.route('/index')
+@bp.route('/')
+@bp.route('/index')
 def route_index():
     """
     return a fully-populated login page
     for user to enter credentials
     """
     # user = {'username': 'Wilson'}
-    app.logger.info("/ request received")
+    current_app.logger.info("/ request received")
     
     return render_template('Book-Keeper-Front-End-Compiled/index.html')
 
 
-@app.route('/login', methods=['GET', 'POST'])
+@bp.route('/login', methods=['GET', 'POST'])
 def route_login():
     """
     handles user login
     handles user session
     """
-    app.logger.info("/login request received")
+    current_app.logger.info("/login request received")
 
     # redirect the user to the index page
     # if the user is already logged in
     if current_user.is_authenticated:
 
-        return redirect(url_for('route_index'))
+        return redirect(url_for('auth.route_index'))
 
     # the login form
     form = LoginForm()
@@ -64,7 +65,7 @@ def route_login():
 
             # redirect the user who enters invalid credentials
             # to the login page
-            return redirect(url_for('route_login'))
+            return redirect(url_for('auth.route_login'))
 
         # if the user enters the valid credential
         # log the user in
@@ -77,7 +78,7 @@ def route_login():
         # if the user does not request any specific page
         if not next_page or url_parse(next_page).netloc != '':
 
-            next_page = url_for('route_index')
+            next_page = url_for('auth.route_index')
 
         # redirect the user to the requested page before login
         return redirect(next_page)
@@ -86,19 +87,19 @@ def route_login():
     return render_template('login.html', title='Sign In', form=form)
 
 
-@app.route('/register', methods=['GET', 'POST'])
+@bp.route('/register', methods=['GET', 'POST'])
 def route_register():
     """
     handles user registration
     """
 
-    app.logger.info("/register request received")
+    current_app.logger.info("/register request received")
 
     # check whether the user is already logged in
     # if so, redirect to the index page
     if current_user.is_authenticated:
 
-        return redirect(url_for('route_index'))
+        return redirect(url_for('auth.route_index'))
 
     # create the registration form
     form = RegistrationForm()
@@ -122,12 +123,12 @@ def route_register():
         flash('Congratulations, you are now a registered user!')
 
         # direct to the login page
-        return redirect(url_for('route_login'))
+        return redirect(url_for('auth.route_login'))
 
     return render_template('register.html', title='Register', form=form)
 
 
-@app.route('/activate', methods=['POST'])
+@bp.route('/activate', methods=['POST'])
 def route_activate():
     """
     handles the user activation
@@ -136,7 +137,7 @@ def route_activate():
     return status
 
 
-@app.route('/dashboard/<username>')
+@bp.route('/dashboard/<username>')
 @login_required
 def route_dashboard():
     """
@@ -147,7 +148,7 @@ def route_dashboard():
     return status
 
 
-@app.route('/new_reimburse_request/<username>')
+@bp.route('/new_reimburse_request/<username>')
 @login_required
 def route_new_reimburse_request():
     """
@@ -157,7 +158,7 @@ def route_new_reimburse_request():
     return status
 
 
-@app.route('/cancel_reimburse_request')
+@bp.route('/cancel_reimburse_request')
 @login_required
 def route_cancel_reimburse_request():
     """
@@ -169,7 +170,7 @@ def route_cancel_reimburse_request():
     return status
 
 
-@app.route('/see_reimburse_history/<username>')
+@bp.route('/see_reimburse_history/<username>')
 @login_required
 def route_see_reimburse_history(username):
     """
@@ -177,7 +178,7 @@ def route_see_reimburse_history(username):
     including submitted, canceled, processed reimbursement request
     """
 
-    app.logger.info("/see_reimburse_history request received")
+    current_app.logger.info("/see_reimburse_history request received")
 
     if current_user.get_id() == username:
 
@@ -202,7 +203,7 @@ def route_see_reimburse_history(username):
         return res
 
 
-@app.route('/account_settings/<username>', methods=['GET', 'POST'])
+@bp.route('/account_settings/<username>', methods=['GET', 'POST'])
 @login_required
 def route_account_settings():
     """
@@ -214,7 +215,7 @@ def route_account_settings():
     return status
 
 
-@app.route('/data_visualization')
+@bp.route('/data_visualization')
 @login_required
 def route_data_visualization():
     """
@@ -224,7 +225,7 @@ def route_data_visualization():
     return status
 
 
-@app.route('/process_reimburse')
+@bp.route('/process_reimburse')
 @login_required
 def route_process_reimburse():
     """
@@ -235,17 +236,17 @@ def route_process_reimburse():
     return status    
 
 
-@app.route('/logout/<username>')
+@bp.route('/logout/<username>')
 @login_required
 def route_logout():
     """
     handles user logout operation
     terminate user session
     """
-    app.logger.info('/logout request received')
+    current_app.logger.info('/logout request received')
     logout_user()
 
-    return redirect(url_for('route_login'))
+    return redirect(url_for('auth.route_login'))
 
 
 """
@@ -253,7 +254,7 @@ the routes below are for the testing application
 not to be used in production
 """
 
-@app.route('/test_index')
+@bp.route('/test_index')
 @login_required
 def route_test_index():
     """
@@ -261,7 +262,7 @@ def route_test_index():
     disable this route in production environment
     via the configuration file
     """
-    app.logger.info("/test_index request received")
+    current_app.logger.info("/test_index request received")
 
     posts = [
         {
@@ -277,16 +278,16 @@ def route_test_index():
     return render_template('test_pages/test_index.html', title='Home', posts=posts)
 
 
-@app.route('/test_login', methods=['GET', 'POST'])
+@bp.route('/test_login', methods=['GET', 'POST'])
 def route_test_login():
     """
     route test for login
     """
-    app.logger.info("/test_login request received")
+    current_app.logger.info("/test_login request received")
 
     if current_user.is_authenticated:
 
-        return redirect(url_for('route_test_index'))
+        return redirect(url_for('auth.route_test_index'))
 
     form = LoginForm()
 
@@ -298,7 +299,7 @@ def route_test_login():
 
             flash('Invalid username or password')
 
-            return redirect(url_for('route_test_login'))
+            return redirect(url_for('auth.route_test_login'))
 
         login_user(user, remember=form.remember_me.data)
 
@@ -309,7 +310,7 @@ def route_test_login():
         # if the user does not request any specific page
         if not next_page or url_parse(next_page).netloc != '':
 
-            next_page = url_for('route_test_index')
+            next_page = url_for('auth.route_test_index')
 
         # redirect the user to the requested page before login
         return redirect(next_page)
@@ -317,14 +318,14 @@ def route_test_login():
     return render_template('test_pages/test_login.html', title='Sign In', form=form)
 
 
-@app.route('/test_register', methods=['GET', 'POST'])
+@bp.route('/test_register', methods=['GET', 'POST'])
 def route_test_register():
     
-    app.logger.info("/test_register request received")
+    current_app.logger.info("/test_register request received")
 
     if current_user.is_authenticated:
 
-        return redirect(url_for('route_test_index'))
+        return redirect(url_for('auth.route_test_index'))
 
     form = RegistrationForm()
 
@@ -340,26 +341,26 @@ def route_test_register():
 
         flash('Congratulations, you are now a registered user!')
 
-        return redirect(url_for('route_test_login'))
+        return redirect(url_for('auth.route_test_login'))
 
     return render_template('test_pages/test_register.html', title='Register', form=form)
 
 
-@app.route('/test_logout')
+@bp.route('/test_logout')
 @login_required
 def route_test_logout():
     """
     handles user logout operation
     terminate user session
     """
-    app.logger.info('/test_logout request received')
+    current_app.logger.info('/test_logout request received')
 
     logout_user()
 
-    return redirect(url_for('route_test_login'))
+    return redirect(url_for('auth.route_test_login'))
 
 
-@app.route('/test_see_reimburse_history/<username>')
+@bp.route('/test_see_reimburse_history/<username>')
 @login_required
 def route_test_see_reimburse_history(username):
     """
@@ -367,7 +368,7 @@ def route_test_see_reimburse_history(username):
     including submitted, canceled, processed reimbursement request
     """
 
-    app.logger.info("/test_see_reimburse_history request received")
+    current_app.logger.info("/test_see_reimburse_history request received")
 
     if current_user.username == username:
         
@@ -394,7 +395,7 @@ def route_test_see_reimburse_history(username):
     return {'user': 'n/a', 'reimburse_history': []}
 
 
-@app.route('/dummy_login')
+@bp.route('/dummy_login')
 def dummy_login():
-    app.logger.info("/dummy_login request received")
+    current_app.logger.info("/dummy_login request received")
     return {'ivan': 1234}

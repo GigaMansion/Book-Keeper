@@ -19,10 +19,10 @@ const navbar = <Navbar expand="md" className="color-nav">
 <Navbar.Toggle aria-controls="basic-navbar-nav" />
 <Navbar.Collapse id="basic-navbar-nav">
   <Nav className="mr-auto">
-    <Nav.Link href="#home">Home</Nav.Link>
+    <Nav.Link href="/">Home</Nav.Link>
     <Nav.Link href="#home">Projects</Nav.Link>
     <Nav.Link href="#home">About</Nav.Link>
-    <Nav.Link href="#link">Github</Nav.Link>
+    <Nav.Link href="https://github.com/GigaMansion/Book-Keeper">Github</Nav.Link>
   </Nav>
 </Navbar.Collapse>
 </Navbar>;

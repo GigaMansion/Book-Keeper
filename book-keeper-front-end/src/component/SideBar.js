@@ -4,6 +4,8 @@ import {Link, useLocation} from 'react-router-dom';
 import './AdminPage.css'
 import '@fortawesome/fontawesome-svg-core';
 
+import { GoogleLogout } from 'react-google-login';
+
 function SideBar(){
 
     const [activeIndex, setActiveIndex] = useState(-1);
@@ -48,6 +50,18 @@ function SideBar(){
                 <Link to="/adminpage/manageRequest">
                     <ListGroup.Item action variant="light" onClick={() => setActiveIndex(4)} className={activeIndex === 4 ? "active border-bottom" : "border-bottom"}>Manage Request</ListGroup.Item>
                 </Link>
+
+                <ListGroup.Item action variant="light" onClick={() => setActiveIndex(5)} className={activeIndex === 5 ? "active border-bottom" : "border-bottom"}>
+                <GoogleLogout
+                    clientId="154834213059-4v2mfjapm04hciic1t190kokpj070c6f.apps.googleusercontent.com"
+                    buttonText="Logout"
+                    onLogoutSuccess={() => {
+                        window.location = "/"
+                        console.log("logout successfully")
+                    }}
+                    >
+                </GoogleLogout>
+                </ListGroup.Item>
                 
             </ListGroup>
         </div>

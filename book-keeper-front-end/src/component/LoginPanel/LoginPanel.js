@@ -7,6 +7,7 @@ import './LoginPanel.module.css';
 import { GoogleLogin } from 'react-google-login';
 
 
+
 export default class LoginPanel extends React.Component{
 
     constructor(props){
@@ -45,7 +46,8 @@ export default class LoginPanel extends React.Component{
             imageUrl: imageUrl
         });
         console.log(this.state.imageUrl);
-        // window.location.replace('https://google.com')
+
+        
     }
 
     failresponseGoogle = (response) => {
@@ -75,6 +77,8 @@ export default class LoginPanel extends React.Component{
                 onSuccess={this.responseGoogle}
                 onFailure={this.failresponseGoogle}
                 cookiePolicy={'none'}
+                uxMode="redirect"
+                redirectUri="http://localhost:3000/adminpage"
                 // prompt={'none'}
             />
 

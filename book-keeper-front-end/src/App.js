@@ -6,7 +6,7 @@ import LoginPanel from './component/LoginPanel/LoginPanel';
 import Particles from 'react-particles-js';
 // import Logintbygoogle from './Logintbygoogle'
 // import Dashboard from "./Dashboard";
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Link, withRouter } from 'react-router-dom';
 
 
 

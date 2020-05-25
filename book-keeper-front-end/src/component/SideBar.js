@@ -27,25 +27,25 @@ function SideBar(){
             </div>
 
             <ListGroup variant="flush">
-                <Link to="/newReimburse">
+                <Link to="/adminpage/newReimburse">
                     <ListGroup.Item action variant="light" onClick={() => setActiveIndex(0)} className={activeIndex === 0 ? "active border-bottom" : "border-bottom"}>New Reimburse</ListGroup.Item>
                 </Link>
                 
 
-                <Link to="/reimburseHistory">
+                <Link to="/adminpage/reimburseHistory">
                     <ListGroup.Item action variant="light" onClick={() => setActiveIndex(1)} className={activeIndex === 1 ? "active border-bottom" : "border-bottom"}>Reimburse History</ListGroup.Item>
                 </Link>
 
-                <Link to="/accountSettings">
+                <Link to="/adminpage/accountSettings">
                     <ListGroup.Item action variant="light" onClick={() => setActiveIndex(2)} className={activeIndex === 2 ? "active border-bottom" : "border-bottom"}>Account Settings</ListGroup.Item>
                 </Link>
 
-                <Link to="/dataVisualization">
+                <Link to="/adminpage/dataVisualization">
                     <ListGroup.Item action variant="light" onClick={() => setActiveIndex(3)} className={activeIndex === 3 ? "active border-bottom" : "border-bottom"}>Data Visualization</ListGroup.Item>
                 </Link>
                 
 
-                <Link to="/manageRequest">
+                <Link to="/adminpage/manageRequest">
                     <ListGroup.Item action variant="light" onClick={() => setActiveIndex(4)} className={activeIndex === 4 ? "active border-bottom" : "border-bottom"}>Manage Request</ListGroup.Item>
                 </Link>
                 

@@ -2,21 +2,26 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+import AdminPage from './component/AdminPage';
+
 import * as serviceWorker from './serviceWorker';
 
+import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 
 // testing only
 import LoginPanel from './component/LoginPanel/LoginPanel';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
+  <Router>
+    <React.StrictMode>
 
+      <Route exact path="/" component={App}/>
+      <Route exact path="/adminpage" component={AdminPage}/>
+      {/* <AdminPage /> */}
 
-    {/* testing only */}
-    {/* <AdminPage /> */}
-
-  </React.StrictMode>,
+    </React.StrictMode>
+  </Router>
+  ,
   document.getElementById('root')
 );
 

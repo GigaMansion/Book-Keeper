@@ -116,7 +116,7 @@ coverage report -m
 
 to see the code coverage report in terminal.
 
-## Docker:
+## Docker Build & Run Backend Image:
 
 Build the image:
 
@@ -146,6 +146,46 @@ Push the built image to Docker Hub:
 
 ```
 docker push <Docker Hub username>/book-keeper-back-end
+```
+
+## Docker Run MySQL:
+
+Create a named volume for persisting data:
+
+```
+docker volume create book-keeper-db
+```
+
+Create the network for different containers to communicate with each other:
+
+```
+docker network create book-keeper-app
+```
+
+Start the MySQL container within the created network and give it an alias:
+
+```
+docker run -d \
+    --network book-keeper-app --network-alias mysql \
+    -v $(pwd)/docker_mysql_dir:/var/lib/mysql \
+    -e MYSQL_ROOT_PASSWORD=secret \
+    -e MYSQL_DATABASE=db-book-keeper \
+    -p 3306:3306 \
+    mysql:5.7
+```
+
+## Docker Named Space Operations
+
+List docker named spaces:
+
+```
+docker volume ls
+```
+
+Check information for one specific named spaces
+
+```
+docker volume inspect <Names Space Name>
 ```
 
 ## `Root` Directory Structure

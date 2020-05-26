@@ -116,6 +116,38 @@ coverage report -m
 
 to see the code coverage report in terminal.
 
+## Docker:
+
+Build the image:
+
+```
+docker build -t book-keeper-back-end .
+```
+
+Run the image:
+
+```
+docker run -d -p 5000:5000 book-keeper-back-end
+```
+
+Build and run the image with **docker-compose**:
+
+```
+docker-compose up -d
+```
+
+Tag the built image:
+
+```
+docker tag book-keeper-back-end <Docker Hub username>/book-keeper-back-end
+```
+
+Push the built image to Docker Hub:
+
+```
+docker push <Docker Hub username>/book-keeper-back-end
+```
+
 ## `Root` Directory Structure
 
 | `Directory/File`               	| Description                                     	|

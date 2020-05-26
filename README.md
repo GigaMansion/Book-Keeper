@@ -77,6 +77,7 @@ The table excludes interaction with the database or any other external libraries
 
 7. Always write high quality code that make it easy for others to understand.
 
+
 ## Deployment
 
 1. Get a Linux server running Debian or Ubuntu.

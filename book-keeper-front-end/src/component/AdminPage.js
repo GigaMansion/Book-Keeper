@@ -24,6 +24,7 @@ import { Swipeable ,useSwipeable} from 'react-swipeable';
 export default class AdminPage extends React.Component{
     constructor(props) {
         super(props);
+        
         this.state = {
             sideBarHide : false,
         };
@@ -79,3 +80,4 @@ export default class AdminPage extends React.Component{
         );
     }
 }
+

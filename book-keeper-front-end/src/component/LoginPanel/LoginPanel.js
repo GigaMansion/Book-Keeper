@@ -6,12 +6,15 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './LoginPanel.module.css';
 import { GoogleLogin } from 'react-google-login';
 
+import { Login } from '../api/Auth';
+
 
 
 export default class LoginPanel extends React.Component{
 
     constructor(props){
         super(props);
+        
 
         this.state = {
             email:"",
@@ -22,30 +25,31 @@ export default class LoginPanel extends React.Component{
 
     validateForm() {
         return this.state.email.length > 0 && this.state.password.length > 0;
-      }
+    }
 
-      handleChange = event => {
+    handleChange = event => {
         this.setState({
-          [event.target.id]: event.target.value
+            [event.target.id]: event.target.value
         });
-      }
+    }
 
-      handleSubmit = event => {
-          console.log(this.state);
-          fetch('/dummy_login').then(res => res.json()).then(data => {
-                console.log(data);
-              });
-          event.preventDefault();
-      }
 
-    responseGoogle = (response) => {
+    responseGoogle = async (response) => {
         console.log(response);
         const imageUrl = response.profileObj.imageUrl;
+        const email = response.profileObj.email;
         
         this.setState({
             imageUrl: imageUrl
         });
         console.log(this.state.imageUrl);
+
+        const res = await Login(email);
+        console.log(res);
+        console.log(sessionStorage.getItem('gm-token'));
+        if (res === 200){
+            console.log("successfully logged in.");
+        }
 
         
     }
@@ -77,8 +81,8 @@ export default class LoginPanel extends React.Component{
                 onSuccess={this.responseGoogle}
                 onFailure={this.failresponseGoogle}
                 cookiePolicy={'none'}
-                uxMode="redirect"
-                redirectUri="http://localhost:3000/adminpage"
+                // uxMode="redirect"
+                // redirectUri="http://localhost:3000/adminpage"
                 // prompt={'none'}
             />
 

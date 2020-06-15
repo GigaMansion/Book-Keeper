@@ -6,7 +6,8 @@ import LoginPanel from './component/LoginPanel/LoginPanel';
 import Particles from 'react-particles-js';
 // import Logintbygoogle from './Logintbygoogle'
 // import Dashboard from "./Dashboard";
-import { BrowserRouter as Router, Switch, Route, Link, withRouter } from 'react-router-dom';
+
+
 
 
 
@@ -38,11 +39,11 @@ function App() {
   const [currentUser, setCurrentUser] = useState(0);
 
   // sample code for requesting resource from server
-  useEffect(() => {
-    fetch('/dummy_login').then(res => res.json()).then(data => {
-      console.log(data);
-    });
-  }, []);
+  // useEffect(() => {
+  //   fetch('/dummy_login').then(res => res.json()).then(data => {
+  //     console.log(data);
+  //   });
+  // }, []);
 
   
 

@@ -9,9 +9,9 @@ from book_keeping_backend_package import db, login_manager
 
 class User(UserMixin, db.Model):
 
-    def __init__(self, id_, name, email, profile_pic):
+    def __init__(self, id_, member_name, email, profile_pic):
         self.id = id_
-        self.name = name
+        self.member_name = member_name
         self.email = email
         self.profile_pic = profile_pic
 
@@ -26,18 +26,18 @@ class User(UserMixin, db.Model):
             return None
 
         user = User(
-            id_=user[0], name=user[1], email=user[2], profile_pic=user[3]
+            id_=user[0], member_name=user[1], email=user[2], profile_pic=user[3]
         )
         return user
 
 
     @staticmethod
-    def create(id_, name, email, profile_pic):
+    def create(id_, member_name, email, profile_pic):
         db = get_db()
         db.execute(
-            "INSERT INTO tb_user (id, name, email, profile_pic) "
+            "INSERT INTO tb_user (id, member_name, email, profile_pic) "
             "VALUES (?, ?, ?, ?)",
-            (id_, name, email, profile_pic),
+            (id_, member_name, email, profile_pic),
         )
         db.commit()
 
@@ -50,7 +50,7 @@ class Reimburse(db.Model):
 
     def __init__(self, id_, product_name, classification, item_website_link, price,
                  quantity, delivery, date_needed, reason_to_purchase, recipient_photo_url, 
-                 approval_status, timestamp, user_id):
+                 approval_status, time_created, user_id):
 
         self.id = id_
         self.product_name = product_name
@@ -63,7 +63,7 @@ class Reimburse(db.Model):
         self.reason_to_purchase = reason_to_purchase
         self.recipient_photo_url = recipient_photo_url
         self.approval_status = approval_status
-        self.timestamp = timestamp
+        self.time_created = time_created
         self.user_id = user_id
 
 
@@ -91,7 +91,7 @@ class Reimburse(db.Model):
                 reason_to_purchase = el[reason_to_purchase],
                 recipient_photo_url = el[recipient_photo_url],
                 apprival_status = el[approval_status],
-                timestamp = el[timestamp]
+                time_created = el[time_created]
             ))
 
         return reimburse_list_parsed
@@ -120,7 +120,7 @@ class Reimburse(db.Model):
                 date_needed = el[date_needed],
                 reason_to_purchase = el[reason_to_purchase],
                 recipient_photo_url = el[recipient_photo_url],
-                timestamp = el[timestamp],
+                time_created = el[time_created],
                 user_id = el[user_id]
             ))
 
@@ -130,16 +130,16 @@ class Reimburse(db.Model):
     @staticmethod
     def create(id_, product_name, classification, item_website_link, price,
                quantity, delivery, date_needed, reason_to_purchase, recipient_photo_url, 
-               approval_status, timestamp, user_id):
+               approval_status, time_created, user_id):
         db = get_db()
         db.execute(
             "INSERT INTO tb_reimburse (id, product_name, classification, item_website_link, price, \
                quantity, delivery, date_needed, reason_to_purchase, recipient_photo_url, \
-               approval_status, timestamp, user_id) "
+               approval_status, time_created, user_id) "
             "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
             (id_, product_name, classification, item_website_link, price,
             quantity, delivery, date_needed, reason_to_purchase, recipient_photo_url, 
-            approval_status, timestamp, user_id),
+            approval_status, time_created, user_id),
         )
         db.commit()
 

@@ -19,11 +19,13 @@ import { Swipeable ,useSwipeable} from 'react-swipeable';
 
 
 
-
+// 1. change to function.
+// 2. useEffect auth login first.
 
 export default class AdminPage extends React.Component{
     constructor(props) {
         super(props);
+        
         this.state = {
             sideBarHide : false,
         };
@@ -79,3 +81,4 @@ export default class AdminPage extends React.Component{
         );
     }
 }
+

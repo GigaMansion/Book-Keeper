@@ -6,6 +6,7 @@ CREATE TABLE tb_user (
   id VARCHAR(700) PRIMARY KEY,
   member_name VARCHAR(100) NOT NULL,
   email VARCHAR(100) UNIQUE NOT NULL,
+  clearance VARCHAR(20) NOT NULL,
   profile_pic VARCHAR(4000) NOT NULL
 );
 

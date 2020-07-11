@@ -10,7 +10,7 @@ class Gmaxios {
             function(config) {
                 // Append the local storage token to the headers
                 config.headers.authorization =
-                    localStorage.getItem('gm-token') || sessionStorage.getItem('gm-token');
+                    sessionStorage.getItem('gm-token');
                 return config;
             },
             function(error){

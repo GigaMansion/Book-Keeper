@@ -3,96 +3,145 @@ from datetime import datetime, timedelta
 from werkzeug.security import generate_password_hash, check_password_hash
 import os
 from flask_login import UserMixin
+from book_keeping_backend_package.db_utilities import get_db
 
 from book_keeping_backend_package import db, login_manager
 
 class User(UserMixin, db.Model):
 
-    id = db.Column(db.Integer, primary_key=True)
+    def __init__(self, id_, name, email, profile_pic):
+        self.id = id_
+        self.name = name
+        self.email = email
+        self.profile_pic = profile_pic
 
-    username = db.Column(db.String(64), index=True, unique=True)
-
-    email = db.Column(db.String(120), index=True, unique=True)
-    
-    password_hash = db.Column(db.String(128))
-
-    last_seen = db.Column(db.DateTime, default=datetime.utcnow)
-
-    token = db.Column(db.String(32), index=True, unique=True)
-
-    token_expiration = db.Column(db.DateTime)
-
-    def __repr__(self):
-        return '<User {}>'.format(self.username)
-
-    def set_password(self, password):
-        self.password_hash = generate_password_hash(password)
-
-    def check_password(self, password):
-        return check_password_hash(self.password_hash, password)
-
-    def get_token(self, expires_in=3600):
-        now = datetime.utcnow()
-        if self.token and self.token_expiration > now + timedelta(seconds=60):
-            return self.token
-        self.token = base64.b64encode(os.urandom(24)).decode('utf-8')
-        self.token_expiration = now + timedelta(seconds=expires_in)
-        db.session.add(self)
-        return self.token
-
-    def revoke_token(self):
-        self.token_expiration = datetime.utcnow() - timedelta(seconds=1)
 
     @staticmethod
-    def check_token(token):
-        user = User.query.filter_by(token=token).first()
-        if user is None or user.token_expiration < datetime.utcnow():
+    def get(user_id):
+        db = get_db()
+        user = db.execute(
+            "SELECT * FROM tb_user WHERE id = ?", (user_id,)
+        ).fetchone()
+        if not user:
             return None
+
+        user = User(
+            id_=user[0], name=user[1], email=user[2], profile_pic=user[3]
+        )
         return user
 
 
+    @staticmethod
+    def create(id_, name, email, profile_pic):
+        db = get_db()
+        db.execute(
+            "INSERT INTO tb_user (id, name, email, profile_pic) "
+            "VALUES (?, ?, ?, ?)",
+            (id_, name, email, profile_pic),
+        )
+        db.commit()
+
+
 class Reimburse(db.Model):
-
-    id = db.Column(db.Integer, primary_key=True)
-
-    product_name = db.Column(db.String(140))
-
-    classification = db.Column(db.String(140))
-
-    american_website_link = db.Column(db.String(512))
-
-    item_website_link = db.Column(db.String(512))
-
-    price = db.Column(db.Float)
-
-    quantity = db.Column(db.Integer)
-
-    delivery = db.Column(db.String(512))
-
-    date_needed = db.Column(db.DateTime)
-
-    reason_to_purchase = db.Column(db.String(1024))
-
-    recipient_photo_url = db.Column(db.String(512))
-
-    status = db.Column(db.String(32)) # statusm list: SUBMITTED, PERMITTED, REJECTED, CALCELLED
-
-    timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
-
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
     def __repr__(self):
         return '<Reimburse {}>'.format(self.body)
 
 
-class EligibleUser(UserMixin, db.Model):
+    def __init__(self, id_, product_name, classification, item_website_link, price,
+                 quantity, delivery, date_needed, reason_to_purchase, recipient_photo_url, 
+                 approval_status, timestamp, user_id):
 
-    id = db.Column(db.Integer, primary_key=True)
+        self.id = id_
+        self.product_name = product_name
+        self.classification = classification
+        self.item_website_link = item_website_link
+        self.price = price
+        self.quantity = quantity
+        self.delivery = delivery
+        self.date_needed = date_needed
+        self.reason_to_purchase = reason_to_purchase
+        self.recipient_photo_url = recipient_photo_url
+        self.approval_status = approval_status
+        self.timestamp = timestamp
+        self.user_id = user_id
 
-    email = db.Column(db.String(120), index=True, unique=True)
 
-    def __repr__(self):
-        return '<Eligible User with email {}>'.format(self.email)
+    @staticmethod
+    def get_via_user_id(user_id):
+        db = get_db()
+        reimburse_list = db.execute(
+            "SELECT * FROM tb_reimburse WHERE user_id = ?", (user_id,)
+        )
+        if not reimburse_list:
+            return None
+
+        reimburse_list_parsed = []
+
+        for el in reimburse_list:
+            reimburse_list_parsed.append(Reimburse(
+                id = el[id],
+                product_name = el[product_name],
+                classification = el[classification],
+                item_website_link = el[item_website_link],
+                price = el[price],
+                quantity = el[quantity],
+                delivery = el[delivery],
+                date_needed = el[date_needed],
+                reason_to_purchase = el[reason_to_purchase],
+                recipient_photo_url = el[recipient_photo_url],
+                apprival_status = el[approval_status],
+                timestamp = el[timestamp]
+            ))
+
+        return reimburse_list_parsed
+
+
+    @staticmethod
+    def get_via_approval_status(approval_status):
+        db = get_db()
+        reimburse_list = db.execute(
+            "SELECT * FROM tb_reimburse WHERE approval_status = ?", (approval_status,)
+        )
+        if not reimburse_list:
+            return None
+
+        reimburse_list_parsed = []
+
+        for el in reimburse_list:
+            reimburse_list_parsed.append(Reimburse(
+                id = el[id],
+                product_name = el[product_name],
+                classification = el[classification],
+                item_website_link = el[item_website_link],
+                price = el[price],
+                quantity = el[quantity],
+                delivery = el[delivery],
+                date_needed = el[date_needed],
+                reason_to_purchase = el[reason_to_purchase],
+                recipient_photo_url = el[recipient_photo_url],
+                timestamp = el[timestamp],
+                user_id = el[user_id]
+            ))
+
+        return reimburse_list_parsed
+
+
+    @staticmethod
+    def create(id_, product_name, classification, item_website_link, price,
+               quantity, delivery, date_needed, reason_to_purchase, recipient_photo_url, 
+               approval_status, timestamp, user_id):
+        db = get_db()
+        db.execute(
+            "INSERT INTO tb_reimburse (id, product_name, classification, item_website_link, price, \
+               quantity, delivery, date_needed, reason_to_purchase, recipient_photo_url, \
+               approval_status, timestamp, user_id) "
+            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            (id_, product_name, classification, item_website_link, price,
+            quantity, delivery, date_needed, reason_to_purchase, recipient_photo_url, 
+            approval_status, timestamp, user_id),
+        )
+        db.commit()
 
 
 @login_manager.user_loader

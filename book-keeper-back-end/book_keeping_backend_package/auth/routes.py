@@ -171,39 +171,6 @@ def route_activate():
     return status
 
 
-@bp.route('/dashboard/<username>')
-@login_required
-def route_dashboard():
-    """
-    handles the view after user login
-    users with different privilages have different views
-    """
-    status = 'yes'
-    return status
-
-
-@bp.route('/new_reimburse_request/<username>')
-@login_required
-def route_new_reimburse_request():
-    """
-    handles new reimbursement request from users
-    """
-    status = 'yes'
-    return status
-
-
-@bp.route('/cancel_reimburse_request')
-@login_required
-def route_cancel_reimburse_request():
-    """
-    handles requests for canceling reimbursement
-    users can only submit or cancel reimbursement
-    user cannot modify submitted request
-    """
-    status = 'yes'
-    return status
-
-
 @bp.route('/see_reimburse_history/<username>')
 @login_required
 def route_see_reimburse_history(username):
@@ -257,17 +224,6 @@ def route_data_visualization():
     """
     status = 'yes'
     return status
-
-
-@bp.route('/process_reimburse')
-@login_required
-def route_process_reimburse():
-    """
-    for privilaged user only
-    for permitting or rejecting the reimbursement request
-    """
-    status = 'yes'
-    return status    
 
 
 @bp.route('/logout/<username>')
@@ -393,43 +349,3 @@ def route_test_logout():
 
     return redirect(url_for('auth.route_test_login'))
 
-
-@bp.route('/test_see_reimburse_history/<username>')
-@login_required
-def route_test_see_reimburse_history(username):
-    """
-    return a list of reimbursement history
-    including submitted, canceled, processed reimbursement request
-    """
-
-    current_app.logger.info("/test_see_reimburse_history request received")
-
-    if current_user.username == username:
-        
-        user_obj = User.query.filter_by(username=username).first_or_404()
-
-        user_reimburse_history = Reimburse.query.filter_by(user_id=user_obj.id)
-
-        res = {
-            'user': username,
-            'reimburse_history': []}
-
-        return res
-
-    # the current user cannot see other users' reimbursement history
-    else:
-
-        res = {
-            'user': 'anonymous',
-            'reimburse_history': []
-        }
-
-        return res
-
-    return {'user': 'n/a', 'reimburse_history': []}
-
-
-@bp.route('/dummy_login')
-def dummy_login():
-    current_app.logger.info("/dummy_login request received")
-    return {'ivan': 1234}

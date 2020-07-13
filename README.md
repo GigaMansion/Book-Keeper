@@ -44,18 +44,15 @@ The table excludes interaction with the database or any other external libraries
 
 | `API/Route`                         	| Description                                        	| Return          	|
 |-----------------------------------	|----------------------------------------------------	|-----------------	|
-| `/index`                              | Index page.                                           | Index page.       |
-| `/login`                            	| User login.                                        	| Redirect URL.   	|
-| `/register`                         	| User registration.                                 	| Login page.     	|
-| `/activate`                           | User activation after receiving email for registration.| Activation result page.          |
-| `/dashboard/<username>`            	| Return dashboard page.                             	| Dashboard page. 	|
-| `/new_reimburse_request/<username>`  	| Create a new reimbursement request.                	| Boolean.        	|
-| `/cencel_reimburse_request`         	| Cancel an existing reimbursement request.          	| Boolean.        	|
-| `/see_reimburse_history/<username>` 	| See the submitted reimbursement history of a user. 	| JSON.           	|
+| `/api/index`                          | Index page.                                           | Index page.       |
+| `/auth/login`                        	| User login.                                        	| Redirect URL.   	|
+| `/api/new_reimburse_request/<username>`  	| Create a new reimbursement request.                	| Boolean.        	|
+| `/api/cencel_reimburse_request`         	| Cancel an existing reimbursement request.          	| Boolean.        	|
+| `/api/see_reimburse_history/<username>` 	| See the submitted reimbursement history of a user. 	| JSON.           	|
 | `/account_settings/<username>`      	| Page for displaying account settings.               	| JSON.           	|
 | `/change_account_settings/<setting>`  | Change account settings.                              | Boolean.          |
 | `/process_reimburse`                	| Process submitted reimbursement requests.          	| Boolean.        	|
-| `/logout/<username>`               	| User logout.                                       	| Login page.     	|
+| `/auth/logout/<username>`            	| User logout.                                       	| Login page.     	|
 | `/privacy_policy`                     | Privacy policy page.                                  | Static page.      |
 | `/terms_of_service`                   | Terms of service page.                                | Static page.      |
 

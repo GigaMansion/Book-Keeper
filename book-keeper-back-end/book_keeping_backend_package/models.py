@@ -2,6 +2,7 @@ import base64
 from datetime import datetime, timedelta
 from werkzeug.security import generate_password_hash, check_password_hash
 import os
+import jwt
 from flask_login import UserMixin
 from book_keeping_backend_package.db_utilities import get_db
 
@@ -9,11 +10,14 @@ from book_keeping_backend_package import db, login_manager
 
 class User(UserMixin):
 
-    def __init__(self, id_, member_name, email, profile_pic):
+    def __init__(self, id_, member_name, email, clearance, profile_pic):
         self.id = id_
         self.member_name = member_name
         self.email = email
+        self.clearance = clearance
         self.profile_pic = profile_pic
+        self.token = get_token()
+        self.token_expiration = datetime.utcnow()
 
 
     @staticmethod
@@ -32,14 +36,37 @@ class User(UserMixin):
 
 
     @staticmethod
-    def create(id_, member_name, email, profile_pic):
+    def create(id_, member_name, email, clearance, profile_pic, token, token_expiration):
         db = get_db()
-        db.execute(
-            "INSERT INTO tb_user (id, member_name, email, profile_pic) "
-            "VALUES (?, ?, ?, ?)",
-            (id_, member_name, email, profile_pic),
-        )
-        db.commit()
+
+        check_duplicated_user = db.execute(
+            "SELECT * FROM tb_user where email = ?", (email)
+        ).fetchone()
+        
+        if not check_duplicated_user:
+
+            db.execute(
+                "INSERT INTO tb_user (id, member_name, email, clearance, profile_pic, token \
+                token_expiration) "
+                "VALUES (?, ?, ?, ?, ?, ?, ?)",
+                (id_, member_name, email, clearance, profile_pic, token, token_expiration),
+            )
+            db.commit()
+
+    
+    def get_token(self):
+        # now = datetime.utcnow()
+        token = jwt.encode({"email": self.email}, "secret", algorithm='HS256')
+        return token
+
+    @staticmethod
+    def check_token(token): 
+        decoded = jwt.decode(token, "secret", algorithms='HS256')
+
+        if not decoded['email'] is None:
+            return decoded['email']
+        else:
+            return None
 
 
 class Reimburse():

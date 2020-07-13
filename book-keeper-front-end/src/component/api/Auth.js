@@ -7,8 +7,8 @@ export async function Login(data) {
     // remove current token
     sessionStorage.removeItem('gm-token');
 
-    let res = await connection.post('/api/user/login', data).catch(err => err);
-
+    let res = await connection.post('/auth/user/login', data).catch(err => err);
+    console.log(res)
     if(res && res.status === 200) {
         // console.log(res.data);
         sessionStorage.setItem('gm-token', res.data);

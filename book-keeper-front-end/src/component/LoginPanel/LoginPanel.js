@@ -25,13 +25,14 @@ const LoginPanel = (props) => {
         
         setImageUrl(data.imageUrl)
         
-        // const res = await Login(data);
-        // console.log(res);
-        // console.log(sessionStorage.getItem('gm-token'));
-        // if (res === 200){
-        //     console.log("successfully logged in.");
-        // }
-        history.push("/adminpage")
+        const res = await Login(data);
+        console.log(res);
+        console.log(sessionStorage.getItem('gm-token'));
+        if (res === 200){
+            history.push("/adminpage")
+            console.log("successfully logged in.");
+        }
+        
     }
 
     const failresponseGoogle = (response) => {

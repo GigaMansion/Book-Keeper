@@ -54,12 +54,12 @@ def route_user_login():
     """
     email = request.json['email']
     id_ = request.json['id']
-    image_URL = request.json['image_URL']
+    image_URL = request.json['imageUrl']
     name = request.json['name']
 
     print(email, id_, image_URL, name)
 
-    encoded_jwt = jwt.encode("liang shen zui shuai!", email, algorithm='HS256')
+    encoded_jwt = jwt.encode({"string": "liang shen zui shuai!"}, email, algorithm='HS256')
 
     print(encoded_jwt)
 

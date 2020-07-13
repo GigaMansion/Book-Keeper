@@ -2,18 +2,13 @@ import Gmaxios from './Gmaxios';
 
 const connection = new Gmaxios();
 
-export async function Login(id, email, imageUrl) {
-    const data = {
-        id: id,
-        email: email,
-        imageUrl: imageUrl
-    }
-
+export async function Login(data) {
+    console.log(data)
     // remove current token
     sessionStorage.removeItem('gm-token');
 
-    let res = await connection.post('/api/user/login', data).catch(err => err);
-
+    let res = await connection.post('/auth/user/login', data).catch(err => err);
+    console.log(res)
     if(res && res.status === 200) {
         // console.log(res.data);
         sessionStorage.setItem('gm-token', res.data);

@@ -7,7 +7,7 @@ from book_keeping_backend_package.db_utilities import get_db
 
 from book_keeping_backend_package import db, login_manager
 
-class User(UserMixin, db.Model):
+class User(UserMixin):
 
     def __init__(self, id_, member_name, email, profile_pic):
         self.id = id_
@@ -42,7 +42,7 @@ class User(UserMixin, db.Model):
         db.commit()
 
 
-class Reimburse(db.Model):
+class Reimburse():
 
     def __repr__(self):
         return '<Reimburse {}>'.format(self.body)

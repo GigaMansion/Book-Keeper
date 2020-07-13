@@ -1,5 +1,6 @@
 from logging.config import dictConfig
 from flask import Flask
+from flask_cors import CORS
 from config import Config
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
@@ -41,6 +42,7 @@ def create_app(config_class=Config):
                 static_url_path='',
                 static_folder='templates/Book-Keeper-Front-End-Compiled',
                 template_folder='templates')
+    CORS(app)
 
     app.config.from_object(config_class)
 

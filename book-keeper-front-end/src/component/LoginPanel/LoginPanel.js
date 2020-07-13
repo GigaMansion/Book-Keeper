@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from "react";
+import { withRouter } from "react-router-dom";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Image from 'react-bootstrap/Image';
@@ -12,22 +13,26 @@ import { Login } from '../api/Auth';
 const LoginPanel = (props) => {
     const [email,setEmail] = useState("")
     const [imageUrl,setImageUrl] = useState("")
-
+    const history = props.history;
     const responseGoogle = async (response) => {
         console.log(response);
-        const id = response.profileObj.googleId;
-        const imageUrl = response.profileObj.imageUrl;
-        const email = response.profileObj.email;
+        const data = {
+            id: response.profileObj.googleId,
+            imageUrl: response.profileObj.imageUrl,
+            email: response.profileObj.email,
+            name: response.profileObj.name
+        }
         
-        setImageUrl(imageUrl)
-        console.log(imageUrl);
-
-        const res = await Login(id,email,imageUrl);
+        setImageUrl(data.imageUrl)
+        
+        const res = await Login(data);
         console.log(res);
         console.log(sessionStorage.getItem('gm-token'));
         if (res === 200){
+            history.push("/adminpage")
             console.log("successfully logged in.");
         }
+        
     }
 
     const failresponseGoogle = (response) => {
@@ -67,4 +72,4 @@ const LoginPanel = (props) => {
     )
 }
 
-export default LoginPanel
+export default withRouter(LoginPanel)

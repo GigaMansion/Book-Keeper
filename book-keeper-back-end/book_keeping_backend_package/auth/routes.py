@@ -3,6 +3,8 @@ from flask_login import current_user, login_user, logout_user, login_required
 from werkzeug.urls import url_parse
 from datetime import datetime
 
+import jwt
+
 from book_keeping_backend_package import db
 from book_keeping_backend_package.auth import bp
 from book_keeping_backend_package.auth.forms import LoginForm, RegistrationForm, EditProfileForm
@@ -42,6 +44,26 @@ def route_index():
         return '<a class="button" href="/login">Google Login</a>'
     
     return render_template('Book-Keeper-Front-End-Compiled/index.html')
+
+
+@bp.route('/user/login', methods=['POST'])
+def route_user_login():
+    """
+    handles user login
+    with email address, id, image URL and name returned
+    """
+    email = request.json['email']
+    id_ = request.json['id']
+    image_URL = request.json['image_URL']
+    name = request.json['name']
+
+    print(email, id_, image_URL, name)
+
+    encoded_jwt = jwt.encode("liang shen zui shuai!", email, algorithm='HS256')
+
+    print(encoded_jwt)
+
+    return encoded_jwt, 200
 
 
 @bp.route('/login', methods=['GET', 'POST'])

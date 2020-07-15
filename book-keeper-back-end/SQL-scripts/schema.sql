@@ -1,4 +1,4 @@
-CREATE DATABASE db_bookkeeper;
+-- CREATE DATABASE db_bookkeeper;
 
 USE db_bookkeeper;
 

@@ -70,28 +70,18 @@ with the application instance pre-imported.
 
 ## Database
 
-Create the database migration repository:
+Launch **MySQL** and **phpmyadmin** in Docker:
 
 ```
-flask db init
+docker-compose up
 ```
 
-Generate the new database migration script after modifying the database model in the application:
+Open ```localhost:8080``` in browser to connect:
 
 ```
-flask db migrate
-```
-
-Update the database:
-
-```
-flask db upgrade
-```
-
-Downgrade the most recent upgrade:
-
-```
-flask db downgrade
+Server: book_keeper_db
+Username: wilson
+Password: password
 ```
 
 ## Unit Tests

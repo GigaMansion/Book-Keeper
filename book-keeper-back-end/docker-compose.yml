@@ -27,3 +27,12 @@ services:
       PMA_ARBITRARY: 1
     ports: 
       - 8080:80
+
+  token_redis_db:
+    image: redis:6.0.5-alpine3.12
+    restart: always
+    ports: 
+      - 6379:6379
+    volumes: 
+      - ./Redis-config/redis.conf:/redis.conf
+    command: ["redis-server", "/redis.conf"]

@@ -39,12 +39,13 @@ login_manager.login_view = 'auth.route_test_login'
 
 def create_app(config_class=Config):
     app = Flask(__name__,
-                static_url_path='',
-                static_folder='templates/Book-Keeper-Front-End-Compiled',
-                template_folder='templates')
-    CORS(app)
+                static_url_path='')
+                # static_folder='/static')
+                # template_folder='/templates')
 
     app.config.from_object(config_class)
+
+    CORS(app)
 
     db.init_app(app)
     migrate.init_app(app, db)

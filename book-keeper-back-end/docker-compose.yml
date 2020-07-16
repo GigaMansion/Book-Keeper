@@ -36,3 +36,10 @@ services:
     volumes: 
       - ./Redis-config/redis.conf:/redis.conf
     command: ["redis-server", "/redis.conf"]
+
+  web:
+    build: ./
+    ports: 
+      - 5000:5000
+    volumes: 
+      - ./:/opt/src

@@ -223,12 +223,11 @@ def route_account_settings():
 
 
 @bp.route('/data_visualization')
-@login_required
 def route_data_visualization():
     """
     return a list of simplified reimbursement history
     """
-    status = 'yes'
+    status = 'no'
     return status
 
 

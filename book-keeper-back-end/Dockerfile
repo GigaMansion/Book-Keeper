@@ -1,11 +1,9 @@
 FROM python:3.8.1-slim-buster
 
-WORKDIR /usr/src/app
+WORKDIR /opt/src
 
-COPY requirements.txt ./
-RUN pip install --no-cache-dir -r requirements.txt
+COPY ./ /opt/src
 
-COPY ./ ./
+RUN pip install -r requirements.txt
 
-
-
+CMD [ "flask", "run" ]

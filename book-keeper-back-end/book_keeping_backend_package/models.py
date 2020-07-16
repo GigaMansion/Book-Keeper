@@ -4,11 +4,26 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import os
 import jwt
 from flask_login import UserMixin
-from book_keeping_backend_package.db_utilities import get_db
+from book_keeping_backend_package.db_utilities import get_mysql_db
 
 from book_keeping_backend_package import db, login_manager
 
-class User(UserMixin):
+from book_keeping_backend_package import db_utilities
+
+from sqlalchemy import Table, Column, Integer, ForeignKey
+from sqlalchemy.orm import relationship
+
+class User(UserMixin, db.Model):
+
+    __tablename__ = 'tb_user'
+
+    id = db.Column(db.String(700), primary_key=True)
+    member_name = db.Column(db.String(100))
+    email = db.Column(db.String(100), unique=True)
+    clearance = db.Column(db.String(20))
+    profile_pic = db.Column(db.String(4000), unique=True)
+
+    children = relationship("Reimburse", back_populates="parent")
 
     def __init__(self, id_, member_name, email, clearance, profile_pic):
         self.id = id_
@@ -16,13 +31,19 @@ class User(UserMixin):
         self.email = email
         self.clearance = clearance
         self.profile_pic = profile_pic
-        self.token = get_token()
-        self.token_expiration = datetime.utcnow()
+
+
+    def __repr__(self):
+        return '<User {}>'.format(self.member_name)
+
+
+    def __str__(self):
+        return '<User {}>'.format(self.member_name)
 
 
     @staticmethod
     def get(user_id):
-        db = get_db()
+        db = get_mysql_db()
         user = db.execute(
             "SELECT * FROM tb_user WHERE id = ?", (user_id,)
         ).fetchone()
@@ -37,7 +58,7 @@ class User(UserMixin):
 
     @staticmethod
     def create(id_, member_name, email, clearance, profile_pic, token, token_expiration):
-        db = get_db()
+        db = get_mysql_db()
 
         check_duplicated_user = db.execute(
             "SELECT * FROM tb_user where email = ?", (email)
@@ -46,34 +67,50 @@ class User(UserMixin):
         if not check_duplicated_user:
 
             db.execute(
-                "INSERT INTO tb_user (id, member_name, email, clearance, profile_pic, token \
-                token_expiration) "
-                "VALUES (?, ?, ?, ?, ?, ?, ?)",
-                (id_, member_name, email, clearance, profile_pic, token, token_expiration),
+                "INSERT INTO tb_user (id, member_name, email, clearance, profile_pic) "
+                "VALUES (?, ?, ?, ?, ?)",
+                (id_, member_name, email, clearance, profile_pic),
             )
             db.commit()
 
     
+    @staticmethod
     def get_token(self):
         # now = datetime.utcnow()
         token = jwt.encode({"email": self.email}, "secret", algorithm='HS256')
+        db_utilities.set_redis_db_val(token, self.email)
+
         return token
 
     @staticmethod
     def check_token(token): 
-        decoded = jwt.decode(token, "secret", algorithms='HS256')
+        res = db_utilities.get_redis_db_val(token)
 
-        if not decoded['email'] is None:
-            return decoded['email']
+        if not res is None:
+            return res
         else:
             return None
 
 
-class Reimburse():
+class Reimburse(db.Model):
 
-    def __repr__(self):
-        return '<Reimburse {}>'.format(self.body)
+    __tablename__ = 'tb_reimburse'
 
+    id = db.Column(db.String(700), primary_key=True)
+    product_name = db.Column(db.String(100))
+    classification = db.Column(db.String(100))
+    item_website_link = db.Column(db.String(1000))
+    price = db.Column(db.String(10))
+    quantity = db.Column(db.String(10))
+    delivery = db.Column(db.String(100))
+    date_needed = db.Column(db.String(100))
+    reason_to_purchase = db.Column(db.String(200))
+    recipient_photo_url = db.Column(db.String(4000))
+    approval_status = db.Column(db.String(20))
+    time_created = db.Column(db.String(100))
+
+    user_id = db.Column(db.String(700), ForeignKey('tb_user.id'))
+    parent = relationship("User", back_populates="children")
 
     def __init__(self, id_, product_name, classification, item_website_link, price,
                  quantity, delivery, date_needed, reason_to_purchase, recipient_photo_url, 
@@ -94,9 +131,13 @@ class Reimburse():
         self.user_id = user_id
 
 
+    def __repr__(self):
+        return '<Reimburse {}>'.format(self.body)
+
+
     @staticmethod
     def get_via_user_id(user_id):
-        db = get_db()
+        db = get_mysql_db()
         reimburse_list = db.execute(
             "SELECT * FROM tb_reimburse WHERE user_id = ?", (user_id,)
         )
@@ -126,7 +167,7 @@ class Reimburse():
 
     @staticmethod
     def get_via_approval_status(approval_status):
-        db = get_db()
+        db = get_mysql_db()
         reimburse_list = db.execute(
             "SELECT * FROM tb_reimburse WHERE approval_status = ?", (approval_status,)
         )
@@ -158,7 +199,7 @@ class Reimburse():
     def create(id_, product_name, classification, item_website_link, price,
                quantity, delivery, date_needed, reason_to_purchase, recipient_photo_url, 
                approval_status, time_created, user_id):
-        db = get_db()
+        db = get_mysql_db()
         db.execute(
             "INSERT INTO tb_reimburse (id, product_name, classification, item_website_link, price, \
                quantity, delivery, date_needed, reason_to_purchase, recipient_photo_url, \

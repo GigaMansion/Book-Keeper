@@ -7,9 +7,7 @@ CREATE TABLE tb_user (
   member_name VARCHAR(100) NOT NULL,
   email VARCHAR(100) UNIQUE NOT NULL,
   clearance VARCHAR(20) NOT NULL,
-  profile_pic VARCHAR(4000) NOT NULL,
-  token VARCHAR(500) NOT NULL,
-  token_expiration DATETIME NOT NULL
+  profile_pic VARCHAR(4000) NOT NULL
 );
 
 CREATE TABLE tb_reimburse (
@@ -24,7 +22,7 @@ CREATE TABLE tb_reimburse (
     reason_to_purchase VARCHAR(200) NOT NULL, 
     recipient_photo_url VARCHAR(4000) NOT NULL, 
     approval_status VARCHAR(20) NOT NULL, 
-    time_created TEXT NOT NULL, 
+    time_created VARCHAR(100) NOT NULL, 
 
     user_id VARCHAR(700),
     FOREIGN KEY (user_id)

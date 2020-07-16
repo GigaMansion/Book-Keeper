@@ -10,6 +10,8 @@ from book_keeping_backend_package.auth import bp
 from book_keeping_backend_package.auth.forms import LoginForm, RegistrationForm, EditProfileForm
 from book_keeping_backend_package.models import User, Reimburse
 
+from book_keeping_backend_package import db_utilities
+
 
 @bp.before_request
 def before_request():
@@ -31,19 +33,19 @@ def route_index():
     # user = {'username': 'Wilson'}
     current_app.logger.info("/ request received")
 
-    if current_user.is_authenticated:
-        return (
-            "<p>Hello, {}! You're logged in! Email: {}</p>"
-            "<div><p>Google Profile Picture:</p>"
-            '<img src="{}" alt="Google profile pic"></img></div>'
-            '<a class="button" href="/logout">Logout</a>'.format(
-                current_user.name, current_user.email, current_user.profile_pic
-            )
-        )
-    else:
-        return '<a class="button" href="/login">Google Login</a>'
+    # if current_user.is_authenticated:
+    #     return (
+    #         "<p>Hello, {}! You're logged in! Email: {}</p>"
+    #         "<div><p>Google Profile Picture:</p>"
+    #         '<img src="{}" alt="Google profile pic"></img></div>'
+    #         '<a class="button" href="/logout">Logout</a>'.format(
+    #             current_user.name, current_user.email, current_user.profile_pic
+    #         )
+    #     )
+    # else:
+    #     return '<a class="button" href="/login">Google Login</a>'
     
-    return render_template('Book-Keeper-Front-End-Compiled/index.html')
+    return render_template('index.html')
 
 
 @bp.route('/user/login', methods=['POST'])
@@ -62,6 +64,8 @@ def route_user_login():
     encoded_jwt = jwt.encode({"string": "liang shen zui shuai!"}, email, algorithm='HS256')
 
     print(encoded_jwt)
+
+    db_utilities.set_redis_db_val(encoded_jwt, email)
 
     return encoded_jwt, 200
 
@@ -162,13 +166,15 @@ def route_register():
     return render_template('register.html', title='Register', form=form)
 
 
-@bp.route('/activate', methods=['POST'])
+@bp.route('/activate', methods=['GET', 'POST'])
 def route_activate():
     """
     handles the user activation
     """
-    status = 'yes'
-    return status
+    
+    test = User.query.all()[0].__str__()
+    
+    return test, 200
 
 
 @bp.route('/see_reimburse_history/<username>')

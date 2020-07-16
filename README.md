@@ -124,3 +124,5 @@ To write down ideas: [Google Doc link](https://docs.google.com/document/d/1tP0tI
 [Basic Steps for MySQL Server Deployment with Docker](https://dev.mysql.com/doc/mysql-installation-excerpt/8.0/en/docker-mysql-getting-started.html)
 
 [How To Serve Flask Applications with Gunicorn and Nginx on Ubuntu 18.04](https://www.digitalocean.com/community/tutorials/how-to-serve-flask-applications-with-gunicorn-and-nginx-on-ubuntu-18-04)
+
+[The Twelve-Factor App](https://12factor.net/)

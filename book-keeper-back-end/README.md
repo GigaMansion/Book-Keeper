@@ -68,13 +68,15 @@ flask shell
 
 with the application instance pre-imported.
 
-## Database
+## Docker
 
-Launch **MySQL** and **phpmyadmin** in Docker:
+Launch **MySQL**, **phpmyadmin** and **Redis** in Docker:
 
 ```
 docker-compose up
 ```
+
+Use **phpmyadmin**:
 
 Open ```localhost:8080``` in browser to connect:
 
@@ -83,6 +85,13 @@ Server: book_keeper_db
 Username: wilson
 Password: password
 ```
+
+Verify Docker container status:
+
+```
+docker-compose ps
+```
+
 
 ## Unit Tests
 

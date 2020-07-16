@@ -1,3 +1,6 @@
+# exclude the app.db object that is used by SQLite
+app.db
+
 # exclude the log directory
 logs/
 

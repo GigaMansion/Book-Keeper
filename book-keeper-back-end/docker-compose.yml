@@ -38,12 +38,8 @@ services:
     command: ["redis-server", "/redis.conf"]
 
   web:
-    build: ./
+    build: ./Backend/
     ports: 
       - 5000:5000
     volumes: 
-      - ./requirements.txt:/opt/src/requirements.txt
-      - ./book_keeping_backend_package:/opt/src/book_keeping_backend_package
-      - ./config.py:/opt/src/config.py
-      - ./book_keeper_backend_api.py:/opt/src/book_keeper_backend_api.py
-      - ./.flaskenv:/opt/src/.flaskenv
+      - ./Backend/:/opt/src/

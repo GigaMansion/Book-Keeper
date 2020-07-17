@@ -38,8 +38,15 @@ services:
     command: ["redis-server", "/redis.conf"]
 
   web:
-    build: ./
+    build: ./Backend/
+    # command: gunicorn --workers 10 --bind 0.0.0.0:5000 book_keeper_backend_api:app # for production environment
+    command: flask run # for development
     ports: 
       - 5000:5000
     volumes: 
-      - ./:/opt/src
+      - ./Backend/:/opt/src/
+
+  nginx:
+    build: ./nginx/
+    ports: 
+      - 1337:80

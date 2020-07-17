@@ -34,14 +34,14 @@ def init_db_command():
     init_mysql_db()
     click.echo("Initialized the database.")
 
-def init_app(app):
-    app.teardown_appcontext(close_mysql_db)
-    app.cli.add_command(init_db_command)
+# def init_app(app):
+#     app.teardown_appcontext(close_mysql_db)
+#     app.cli.add_command(init_db_command)
 
 
 def get_redis_db():
     if "redis_db" not in g:
-        g.redis_db = redis.Redis(host='localhost', port=6379)
+        g.redis_db = redis.Redis(host='token_redis_db', port=6379)
 
     return g.redis_db
 

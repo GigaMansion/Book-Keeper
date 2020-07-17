@@ -1,6 +1,6 @@
 from logging.config import dictConfig
 from flask import Flask
-from flask_cors import CORS
+from flask_cors import *
 from config import Config
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
@@ -47,6 +47,8 @@ def create_app(config_class=Config):
     app.config.from_object(config_class)
     
     
+
+    app.config.from_object(config_class)
 
     db.init_app(app)
     migrate.init_app(app, db)

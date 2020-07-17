@@ -14,4 +14,4 @@ COPY ./book_keeper_backend_api.py /opt/src/book_keeper_backend_api.py
 
 COPY ./.flaskenv /opt/src/.flaskenv
 
-CMD [ "flask", "run" ]
+# CMD [ "flask", "run" ]

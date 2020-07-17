@@ -34,9 +34,9 @@ def init_db_command():
     init_mysql_db()
     click.echo("Initialized the database.")
 
-def init_app(app):
-    app.teardown_appcontext(close_mysql_db)
-    app.cli.add_command(init_db_command)
+# def init_app(app):
+#     app.teardown_appcontext(close_mysql_db)
+#     app.cli.add_command(init_db_command)
 
 
 def get_redis_db():

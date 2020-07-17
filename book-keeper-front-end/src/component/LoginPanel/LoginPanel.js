@@ -40,6 +40,12 @@ const LoginPanel = (props) => {
         console.log(response);
     }
 
+    useEffect(()=>{
+        const token = sessionStorage.getItem("gm-token");
+        if(token.length !== 0){ // testing only should check auth
+            history.push("/adminpage")
+        }
+    })
 
 
     return(

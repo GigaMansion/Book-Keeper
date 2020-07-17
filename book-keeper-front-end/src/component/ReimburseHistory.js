@@ -19,8 +19,8 @@ function ReimburseHistory(){
 
     const getRow = (data,keys) =>{
         return(
-            keys.map((key) => {
-                return <td>{data[key]}</td>
+            keys.map((key,index) => {
+                return <td key={index}>{data[key]}</td>
             })
         );
     }
@@ -32,8 +32,8 @@ function ReimburseHistory(){
     const getRowsData = (data) => {
         var keys = getKeys(data);
         return(
-            data.map((eachData) =>{
-                return <tr>{getRow(eachData,keys)}</tr>
+            data.map((eachData, index) =>{
+                return <tr key={index}>{getRow(eachData,keys)}</tr>
             })
 
         );
@@ -42,7 +42,7 @@ function ReimburseHistory(){
         var keys = getKeys(data);
         return(
             keys.map((key) =>{
-            return <th>{key}</th>
+            return <th key={key}>{key}</th>
             })
         );
     }

@@ -9,3 +9,4 @@ class Config(object):
         'mysql+mysqlconnector://wilson:password@localhost/db_bookkeeper'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     
+    

@@ -41,7 +41,7 @@ def init_app(app):
 
 def get_redis_db():
     if "redis_db" not in g:
-        g.redis_db = redis.Redis(host='localhost', port=6379)
+        g.redis_db = redis.Redis(host='token_redis_db', port=6379)
 
     return g.redis_db
 

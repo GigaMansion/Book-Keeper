@@ -1,8 +1,6 @@
 # remove any existing docker installations
 sudo apt-get remove docker docker-engine docker.io containerd runc
 
-sudo apt update
-
 # allow apt to use repositories over HTTPS
 sudo apt-get install \
     apt-transport-https \
@@ -30,5 +28,5 @@ sudo apt-get update
 sudo apt-get install docker-ce docker-ce-cli containerd.io
 
 # start docker containers
-docker-compose build
-docker-compose up
+sudo docker-compose build
+sudo docker-compose up

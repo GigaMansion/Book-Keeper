@@ -4,6 +4,7 @@ services:
   
   book_keeper_db:
     image: mysql:8.0.21
+    container_name: book_keeper_db
     command: --default-authentication-plugin=mysql_native_password
     restart: always
     environment: 
@@ -18,6 +19,7 @@ services:
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:5.0.2
+    container_name: phpmyadmin
     links: 
       - book_keeper_db
     restart: always
@@ -30,18 +32,39 @@ services:
 
   token_redis_db:
     image: redis:6.0.5-alpine3.12
+    container_name: token_redis_db
     restart: always
     ports: 
       - 6379:6379
     volumes: 
-      - ./Redis-config/redis.conf:/redis.conf
+      - ./Redis-config/redis_token.conf:/redis.conf
     command: ["redis-server", "/redis.conf"]
+
+  task_queue_redis_db:
+    image: redis:6.0.5-alpine3.12
+    container_name: task_queue_redis_db
+    restart: always
+    ports: 
+      - 6380:6380
+    volumes: 
+      - ./Redis-config/redis_task_queue.conf:/redis.conf
+    command: ["redis-server", "/redis.conf"]
+
+  task_queue_worker:
+    build: ./Backend/
+    container_name: task_queue_worker
+    environment: 
+      - PYTHONUNBUFFERED=1
+    command: celery -A book_keeping_backend_package.celery_client worker --loglevel=info
+    volumes:
+      - ./Backend/:/opt/src/
 
   web:
     build: ./Backend/
+    container_name: web
     environment: 
       - PYTHONUNBUFFERED=1
-    # command: gunicorn --workers 10 --bind 0.0.0.0:5000 book_keeper_backend_api:app # for production environment
+    # command: gunicorn --workers 15 --bind 0.0.0.0:5000 book_keeper_backend_api:app # for production environment
     command: flask run # for development
     ports: 
       - 5000:5000
@@ -50,5 +73,6 @@ services:
 
   nginx:
     build: ./nginx/
+    container_name: nginx
     ports: 
       - 1337:80

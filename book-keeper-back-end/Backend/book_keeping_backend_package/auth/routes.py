@@ -5,13 +5,13 @@ from datetime import datetime
 
 import jwt
 
-from book_keeping_backend_package import db
+import uuid
+
+from book_keeping_backend_package import db, token_redis_db
 from book_keeping_backend_package.auth import bp
 from book_keeping_backend_package.auth.forms import LoginForm, RegistrationForm, EditProfileForm
 from book_keeping_backend_package.auth import tokens
 from book_keeping_backend_package.models import User, Reimburse
-
-from book_keeping_backend_package import db_utilities
 
 
 @bp.before_request
@@ -66,8 +66,8 @@ def route_user_login():
 
     print(encoded_jwt)
 
-    db_utilities.set_redis_db_val(encoded_jwt, email)
-    db_utilities.set_redis_db_val(email, encoded_jwt)
+    token_redis_db.set(encoded_jwt, email)
+    token_redis_db.set(email, encoded_jwt)
 
     return encoded_jwt, 200
 
@@ -79,6 +79,25 @@ def route_reimburse_submit():
     token = request.headers['x-access-tokens']
     classification = request.json['classificaion']
     date_needed = request.json['dateNeeded']
+
+    reimburse = Reimburse(
+        id_=uuid.uuid1(), 
+        product_name=request.json['productName'], 
+        classification=request.json['classificaion'], 
+        item_website_link=request.json['itemUrl'], 
+        price=request.json['price'],
+        quantity=request.json['quantity'], 
+        delivery=request.json['deliveryFee'], 
+        date_needed=request.json['dateNeeded'], 
+        reason_to_purchase=request.json['reasonToPurchase'], 
+        recipient_photo_url='', 
+        approval_status='awaiting', 
+        time_created=datetime.utcnow(), 
+        user_id=request.json[''])
+
+    db.session.add(reimburse)
+
+    db.session.commit()
 
     print (token, classification, date_needed)
 
@@ -225,25 +244,14 @@ def route_see_reimburse_history(username):
         return res
 
 
-@bp.route('/account_settings/<username>', methods=['GET', 'POST'])
-@login_required
-def route_account_settings():
-    """
-    handles user operation for changing
-    username, password
-    """
-    form = EditProfileForm(current_user.username)
-    status = 'yes'
-    return status
-
-
 @bp.route('/data_visualization')
 def route_data_visualization():
     """
     return a list of simplified reimbursement history
     """
-    status = 'no'
-    return status
+    token_redis_db.set('hello', 'world')
+
+    return 'yes', 200
 
 
 @bp.route('/logout/<username>')

@@ -64,12 +64,12 @@ export default class AdminPage extends React.Component{
                             <Button onClick={() => this.setState({sideBarHide : !this.state.sideBarHide})} size="lg" variant="outline-dark" style={{margin:"1rem",textAlign:"center"}}>
                                 <i className={this.state.sideBarHide ? "fa fa-angle-double-left" : "fa fa-angle-double-right"} style={{fontSize:"1.5rem"}}/>
                             </Button>
-                            <Route path="/adminpage" exact component={AdminPendingOrders}/>
-                            <Route path="/adminpage/manageRequest" exact component={AdminPendingOrders}/>
-                            <Route path="/adminpage/dataVisualization" exact component={DataVisualization}/>
-                            <Route path="/adminpage/accountSettings" exact component={AccountSettings}/>
-                            <Route path="/adminpage/reimburseHistory" exact component={ReimburseHistory}/>
-                            <Route path="/adminpage/newReimburse" exact component={NewReimburse}/>
+                            <Route exact path="/adminpage"  component={AdminPendingOrders}/>
+                            <Route exact path="/adminpage/manageRequest"  component={AdminPendingOrders}/>
+                            <Route exact path="/adminpage/dataVisualization"  component={DataVisualization}/>
+                            <Route exact path="/adminpage/accountSettings"  component={AccountSettings}/>
+                            <Route exact path="/adminpage/reimburseHistory"  component={ReimburseHistory}/>
+                            <Route exact path="/adminpage/newReimburse"  component={NewReimburse}/>
                         </div>
                     </Swipeable>
 

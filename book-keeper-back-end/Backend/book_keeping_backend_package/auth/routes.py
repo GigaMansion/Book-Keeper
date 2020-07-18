@@ -8,6 +8,7 @@ import jwt
 from book_keeping_backend_package import db
 from book_keeping_backend_package.auth import bp
 from book_keeping_backend_package.auth.forms import LoginForm, RegistrationForm, EditProfileForm
+from book_keeping_backend_package.auth import tokens
 from book_keeping_backend_package.models import User, Reimburse
 
 from book_keeping_backend_package import db_utilities
@@ -61,13 +62,27 @@ def route_user_login():
 
     print(email, id_, image_URL, name)
 
-    encoded_jwt = jwt.encode({"string": "liang shen zui shuai!"}, email, algorithm='HS256')
+    encoded_jwt = tokens.generate_token(email)
 
     print(encoded_jwt)
 
     db_utilities.set_redis_db_val(encoded_jwt, email)
+    db_utilities.set_redis_db_val(email, encoded_jwt)
 
     return encoded_jwt, 200
+
+
+@bp.route('/reimburse/submit', methods=['POST'])
+@tokens.token_required
+def route_reimburse_submit():
+    print("submission!")
+    token = request.headers['x-access-tokens']
+    classification = request.json['classificaion']
+    date_needed = request.json['dateNeeded']
+
+    print (token, classification, date_needed)
+
+    return 200
 
 
 @bp.route('/login', methods=['GET', 'POST'])

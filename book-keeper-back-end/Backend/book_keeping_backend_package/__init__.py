@@ -42,8 +42,11 @@ def create_app(config_class=Config):
                 static_url_path='')
                 # static_folder='/static')
                 # template_folder='/templates')
-
     CORS(app)
+    
+    app.config.from_object(config_class)
+    
+    
 
     app.config.from_object(config_class)
 

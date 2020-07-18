@@ -16,3 +16,12 @@ export async function Login(data) {
     }
     return 401
 }
+
+export async function CheckAuth(data) {
+    let res = await connection.post('/auth/user/checkauth',data).catch(err => err)
+    console.log(res)
+    if(res && res.status === 200) {
+        return res.status;
+    }
+    return 401
+}

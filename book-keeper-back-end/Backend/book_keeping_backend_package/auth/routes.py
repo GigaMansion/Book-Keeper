@@ -5,6 +5,8 @@ from datetime import datetime
 
 import jwt
 
+import uuid
+
 from book_keeping_backend_package import db
 from book_keeping_backend_package.auth import bp
 from book_keeping_backend_package.auth.forms import LoginForm, RegistrationForm, EditProfileForm
@@ -79,6 +81,25 @@ def route_reimburse_submit():
     token = request.headers['x-access-tokens']
     classification = request.json['classificaion']
     date_needed = request.json['dateNeeded']
+
+    reimburse = Reimburse(
+        id_=uuid.uuid1(), 
+        product_name=request.json['productName'], 
+        classification=request.json['classificaion'], 
+        item_website_link=request.json['itemUrl'], 
+        price=request.json['price'],
+        quantity=request.json['quantity'], 
+        delivery=request.json['deliveryFee'], 
+        date_needed=request.json['dateNeeded'], 
+        reason_to_purchase=request.json['reasonToPurchase'], 
+        recipient_photo_url='', 
+        approval_status='awaiting', 
+        time_created=datetime.utcnow(), 
+        user_id=request.json[''])
+
+    db.session.add(reimburse)
+
+    db.session.commit()
 
     print (token, classification, date_needed)
 

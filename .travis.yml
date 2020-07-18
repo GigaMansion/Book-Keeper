@@ -28,7 +28,3 @@ matrix:
       after_success:
         - docker build -t username/alpine .
         - docker push username/alpine
-
-notifications:
-  email:
-    - entao2000@gmail.com

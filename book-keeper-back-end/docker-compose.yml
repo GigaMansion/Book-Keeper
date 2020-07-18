@@ -64,7 +64,7 @@ services:
     container_name: web
     environment: 
       - PYTHONUNBUFFERED=1
-    # command: gunicorn --workers 10 --bind 0.0.0.0:5000 book_keeper_backend_api:app # for production environment
+    # command: gunicorn --workers 15 --bind 0.0.0.0:5000 book_keeper_backend_api:app # for production environment
     command: flask run # for development
     ports: 
       - 5000:5000

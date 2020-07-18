@@ -2,7 +2,7 @@ from functools import wraps
 
 import jwt
 
-from book_keeping_backend_package import db_utilities
+from book_keeping_backend_package import token_redis_db
 
 def generate_token(secret):
 
@@ -28,7 +28,7 @@ def token_required(f):
             return jsonify({'message': 'missing token'})
 
         try:
-            user_email = db_utilities.get_redis_db_val(token)
+            user_email = token_redis_db.get(token)
             print("token found!", token)
         except:
             return jsonify({'message': 'token invalid'})

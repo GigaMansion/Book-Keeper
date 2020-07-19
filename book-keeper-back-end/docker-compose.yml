@@ -1,4 +1,4 @@
-version: "3.7"
+version: "3.3"
 
 services:
   
@@ -38,6 +38,16 @@ services:
       - 6379:6379
     volumes: 
       - ./Redis-config/redis_token.conf:/redis.conf
+    command: ["redis-server", "/redis.conf"]
+
+  encryption_key_redis_db:
+    image: redis:6.0.5-alpine3.12
+    container_name: encryption_key_redis_db
+    restart: always
+    ports: 
+      - 6381:6381
+    volumes: 
+      - ./Redis-config/redis_encryption_key.conf:/redis.conf
     command: ["redis-server", "/redis.conf"]
 
   task_queue_redis_db:

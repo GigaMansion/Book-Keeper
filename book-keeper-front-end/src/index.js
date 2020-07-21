@@ -16,7 +16,7 @@ ReactDOM.render(
     <React.StrictMode>
 
       <Route exact path="/" component={App}/>
-      <Route exact path="/adminpage" component={AdminPage}/>
+      <Route path="/adminpage" component={AdminPage}/>
       {/* <AdminPage /> */}
 
     </React.StrictMode>

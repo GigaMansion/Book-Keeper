@@ -52,15 +52,16 @@ function SideBar(){
                 </Link>
 
                 <ListGroup.Item action variant="light" onClick={() => setActiveIndex(5)} className={activeIndex === 5 ? "active border-bottom" : "border-bottom"}>
-                <GoogleLogout
-                    clientId="154834213059-4v2mfjapm04hciic1t190kokpj070c6f.apps.googleusercontent.com"
-                    buttonText="Logout"
-                    onLogoutSuccess={() => {
-                        window.location = "/"
-                        console.log("logout successfully")
-                    }}
-                    >
-                </GoogleLogout>
+                    <div>
+                        <GoogleLogout
+                            clientId="154834213059-4v2mfjapm04hciic1t190kokpj070c6f.apps.googleusercontent.com"
+                            buttonText="Logout"
+                            onLogoutSuccess={() => {
+                                window.location = "/"
+                                console.log("logout successfully")
+                            }}
+                            />
+                    </div>
                 </ListGroup.Item>
                 
             </ListGroup>

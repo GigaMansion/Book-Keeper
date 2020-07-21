@@ -1,18 +1,20 @@
-import React,{useState,useEffect} from "react";
-import {Navbar, Nav, NavDropdown,ListGroup} from "react-bootstrap";
-import {Link, useLocation} from 'react-router-dom';
+import React,{useState} from "react";
+import {ListGroup} from "react-bootstrap";
+import {Link} from 'react-router-dom';
 import './AdminPage.css'
 import '@fortawesome/fontawesome-svg-core';
 
-import { GoogleLogout } from 'react-google-login';
 
 function SideBar(){
 
     const [activeIndex, setActiveIndex] = useState(-1);
     
 
-    function handleClick(){
-        console.log("hi");
+    function handleLogout(){
+        sessionStorage.removeItem("gm-token")
+        window.location = "/"
+        console.log("logout successfully")
+        
     }
 
     return (
@@ -51,17 +53,8 @@ function SideBar(){
                     <ListGroup.Item action variant="light" onClick={() => setActiveIndex(4)} className={activeIndex === 4 ? "active border-bottom" : "border-bottom"}>Manage Request</ListGroup.Item>
                 </Link>
 
-                <ListGroup.Item action variant="light" onClick={() => setActiveIndex(5)} className={activeIndex === 5 ? "active border-bottom" : "border-bottom"}>
-                    <div>
-                        <GoogleLogout
-                            clientId="154834213059-4v2mfjapm04hciic1t190kokpj070c6f.apps.googleusercontent.com"
-                            buttonText="Logout"
-                            onLogoutSuccess={() => {
-                                window.location = "/"
-                                console.log("logout successfully")
-                            }}
-                            />
-                    </div>
+                <ListGroup.Item action variant="light" onClick={handleLogout} className={activeIndex === 5 ? "active border-bottom" : "border-bottom"}>
+                    Logout
                 </ListGroup.Item>
                 
             </ListGroup>

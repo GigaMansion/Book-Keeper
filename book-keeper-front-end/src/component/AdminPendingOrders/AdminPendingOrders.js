@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {Container, Row, Col, Card, Form, Button, Nav, CardColumns} from 'react-bootstrap';
+import {Container, Row, Col, Card, Button, Nav, CardColumns} from 'react-bootstrap';
 
 import product_image from "./product_image.png";
 

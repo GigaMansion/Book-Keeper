@@ -1,8 +1,8 @@
 import React from 'react';
 
-import {Container, Row, Col, Card, Form, Button, Nav, CardColumns} from 'react-bootstrap';
+// import {Container, Row, Col, Card, Form, Button, Nav, CardColumns} from 'react-bootstrap';
 
-import {LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, PieChart, Pie, Sector, Cell,} from 'recharts';
+import {LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, PieChart, Pie, Cell,} from 'recharts';
 
 import './MainContent.css';
 

@@ -6,10 +6,10 @@ import AdminPage from './component/AdminPage';
 
 import * as serviceWorker from './serviceWorker';
 
-import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import {BrowserRouter as Router, Route} from 'react-router-dom';
 
 // testing only
-import LoginPanel from './component/LoginPanel/LoginPanel';
+// import LoginPanel from './component/LoginPanel/LoginPanel';
 
 ReactDOM.render(
   <Router>

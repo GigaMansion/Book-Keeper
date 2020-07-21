@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import { withRouter } from "react-router-dom";
-import Form from 'react-bootstrap/Form';
+
 import Button from 'react-bootstrap/Button';
 import Image from 'react-bootstrap/Image';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -11,7 +11,6 @@ import { Login } from '../api/Auth';
 
 
 const LoginPanel = (props) => {
-    const [email,setEmail] = useState("")
     const [imageUrl,setImageUrl] = useState("")
     const history = props.history;
     const responseGoogle = async (response) => {
@@ -67,9 +66,6 @@ const LoginPanel = (props) => {
                     onSuccess={responseGoogle}
                     onFailure={failresponseGoogle}
                     cookiePolicy={'none'}
-                    // uxMode="redirect"
-                    // redirectUri="http://localhost:3000/adminpage"
-                    // prompt={'none'}
                 />
 
             

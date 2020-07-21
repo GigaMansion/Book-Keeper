@@ -7,7 +7,7 @@ import jwt
 
 import uuid
 
-from book_keeping_backend_package import db, token_redis_db
+from book_keeping_backend_package import db, token_redis_db, allowed_user
 from book_keeping_backend_package.auth import bp
 from book_keeping_backend_package.auth.forms import LoginForm, RegistrationForm, EditProfileForm
 from book_keeping_backend_package.auth import tokens
@@ -60,31 +60,34 @@ def route_user_login():
     image_URL = request.json['imageUrl']
     name = request.json['name']
 
-    print(email, id_, image_URL, name)
+    if email in allowed_user:
+        print(email, id_, image_URL, name)
 
-    encoded_jwt = tokens.generate_token(email)
+        encoded_jwt = tokens.generate_token(email)
 
-    print(encoded_jwt)
+        print(encoded_jwt)
 
-    token_redis_db.set(encoded_jwt, email)
-    token_redis_db.set(email, encoded_jwt)
+        token_redis_db.set(encoded_jwt, email)
+        token_redis_db.set(email, encoded_jwt)
 
-    user = User(
-        id_ = id_,
-        member_name = name,
-        email = email,
-        clearance = 'default',
-        profile_pic = image_URL
-    )
+        check_for_repeated_registration = User.query.filter_by(email=email).first()
 
-    check_for_repeated_registration = User.query.filter_by(email=email).first()
+        if check_for_repeated_registration is None:
+            user = User(
+                id_ = id_,
+                member_name = name,
+                email = email,
+                clearance = allowed_user[email],
+                profile_pic = image_URL
+            )
+            
+            db.session.add(user)
 
-    if check_for_repeated_registration is None:
-        db.session.add(user)
+            db.session.commit()
 
-        db.session.commit()
+        return encoded_jwt, 200
 
-    return encoded_jwt, 200
+    return {'message': 'no user found'}, 200
 
 
 @bp.route('/reimburse/submit', methods=['POST'])

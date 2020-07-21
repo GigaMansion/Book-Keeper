@@ -11,6 +11,9 @@ import os
 from celery import Celery
 from celery.schedules import crontab
 import redis
+import uuid
+import csv
+
 
 # configuration
 dictConfig({
@@ -29,33 +32,13 @@ dictConfig({
     },
 })
 
-celery_client = Celery('tasks')
-celery_client.conf.broker_url = 'redis://task_queue_redis_db:6380'
-# celery_client.autodiscover_tasks(['background_worker'])
+reader = csv.reader(open('user_list.csv', 'r'))
+allowed_user = {}
+for row in reader:
+   k, v = row
+   allowed_user[k] = v
 
-@celery_client.on_after_configure.connect
-def setup_periodic_tasks(sender, **kwards):
-    sender.add_periodic_task(2.0, celery_test.s('hello'), name='every 2 sec')
-
-    sender.add_periodic_task(3.0, celery_test.s('world'), expires=3)
-
-    sender.add_periodic_task(
-        crontab(hour=7, minute=30, day_of_week=1),
-        test.s('Happy Mondays!'),
-    )
-
-@celery_client.task
-def celery_test(x):
-    print(x)
-
-celery_client.conf.beat_schedule = {
-    'run every 10 seconds': {
-        'task': 'tasks.celery_test',
-        'schedule': 10.0,
-        'args': ('hello world')
-    }
-}
-
+del allowed_user['email']
 
 db = SQLAlchemy()
 
@@ -65,9 +48,34 @@ login_manager = LoginManager()
 
 login_manager.login_view = 'auth.route_test_login'
 
-# login_manager.init_app(app)
-
 token_redis_db = redis.Redis(host='token_redis_db', port=6379)
+
+encryption_key_redis_db = redis.Redis(host='encryption_key_redis_db', port=6381)
+
+celery_client = Celery('tasks')
+celery_client.conf.broker_url = 'redis://task_queue_redis_db:6380'
+
+
+@celery_client.on_after_configure.connect
+def setup_periodic_tasks(sender, **kwards):
+
+    for i in range(10):
+        sender.add_periodic_task(60.0, celery_regenerate_secret.s(i), name='generate secret for' + str(i))
+
+    # sender.add_periodic_task(3.0, celery_test.s('world'), expires=3)
+
+    # sender.add_periodic_task(
+    #     crontab(hour=7, minute=30, day_of_week=1),
+    #     test.s('Happy Mondays!'),
+    # )
+
+
+@celery_client.task
+def celery_regenerate_secret(index):
+    secret = str(uuid.uuid4())
+    print("index " + str(index) +": " + secret)
+    encryption_key_redis_db.set(index, secret)
+
 
 def create_app(config_class=Config):
     app = Flask(__name__,
@@ -79,7 +87,6 @@ def create_app(config_class=Config):
     app.config.from_object(config_class)
     
     
-
     app.config.from_object(config_class)
 
     db.init_app(app)
@@ -96,7 +103,6 @@ def create_app(config_class=Config):
     app.register_blueprint(api_bp, url_prefix='/api')
 
     if not app.debug:
-        # ...
 
         if not os.path.exists('logs'):
             os.mkdir('logs')
@@ -109,6 +115,7 @@ def create_app(config_class=Config):
 
         app.logger.setLevel(logging.INFO)
         app.logger.info('Book-Keeper starts running')
+
 
     return app
 

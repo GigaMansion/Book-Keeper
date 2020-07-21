@@ -29,7 +29,7 @@ const LoginPanel = (props) => {
         console.log(res);
         console.log(sessionStorage.getItem('gm-token'));
         if (res === 200){
-            history.push("/adminpage")
+            history.push("/adminpage/newReimburse")
             console.log("successfully logged in.");
         }
         
@@ -42,8 +42,9 @@ const LoginPanel = (props) => {
 
     useEffect(()=>{
         const token = sessionStorage.getItem("gm-token");
-        if(typeof token !== undefined){ // testing only should check auth
-            history.push("/adminpage")
+
+        if(token && token.length !== 0){ // testing only should check auth
+            history.push("/adminpage/newReimburse")
         }
     })
 

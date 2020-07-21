@@ -27,7 +27,7 @@ function NewReimburse(){
         e.preventDefault();
     }
     
-    const handleSubmit = (e) =>{
+    const handleSubmit = async (e) =>{
         e.preventDefault()
         const data = {
             productName: productName,
@@ -40,6 +40,11 @@ function NewReimburse(){
             reasonToPurchase: reasonToPurchase,
         }
         console.log(data)
+        const res = await SubmitNewReimburse(data);
+        if(res && res === 200){
+            alert("upload reimburse successfully.");
+        }
+        
     }
 
     return(

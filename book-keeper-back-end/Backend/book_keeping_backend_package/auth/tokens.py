@@ -1,4 +1,5 @@
 from functools import wraps
+from flask import request, jsonify
 
 import jwt
 
@@ -21,8 +22,8 @@ def token_required(f):
 
         token = None
         
-        if 'x-access-tokens' in request.headers:
-         token = request.headers['x-access-tokens']
+        if 'authorization' in request.headers:
+         token = request.headers['authorization']
 
         if not token:
             return jsonify({'message': 'missing token'})

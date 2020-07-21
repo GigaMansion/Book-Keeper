@@ -69,31 +69,49 @@ def route_user_login():
     token_redis_db.set(encoded_jwt, email)
     token_redis_db.set(email, encoded_jwt)
 
+    user = User(
+        id_ = id_,
+        member_name = name,
+        email = email,
+        clearance = 'default',
+        profile_pic = image_URL
+    )
+
+    check_for_repeated_registration = User.query.filter_by(email=email).first()
+
+    if check_for_repeated_registration is None:
+        db.session.add(user)
+
+        db.session.commit()
+
     return encoded_jwt, 200
 
 
 @bp.route('/reimburse/submit', methods=['POST'])
 @tokens.token_required
-def route_reimburse_submit():
+def route_reimburse_submit(user_email):
     print("submission!")
-    token = request.headers['x-access-tokens']
-    classification = request.json['classificaion']
-    date_needed = request.json['dateNeeded']
+    token = request.headers['authorization']
+    payload = request.get_json()
+    print(payload)
+    classification = payload['classification']
+    date_needed = payload['dateNeeded']
 
     reimburse = Reimburse(
-        id_=uuid.uuid1(), 
-        product_name=request.json['productName'], 
-        classification=request.json['classificaion'], 
-        item_website_link=request.json['itemUrl'], 
-        price=request.json['price'],
-        quantity=request.json['quantity'], 
-        delivery=request.json['deliveryFee'], 
-        date_needed=request.json['dateNeeded'], 
-        reason_to_purchase=request.json['reasonToPurchase'], 
+        id_=str(uuid.uuid4()), 
+        product_name=payload['productName'], 
+        classification=payload['classification'], 
+        item_website_link=payload['itemUrl'], 
+        price=payload['price'],
+        quantity=payload['quantity'], 
+        delivery=payload['deliveryFee'], 
+        date_needed=payload['dateNeeded'], 
+        reason_to_purchase=payload['reasonToPurchase'], 
         recipient_photo_url='', 
         approval_status='awaiting', 
         time_created=datetime.utcnow(), 
-        user_id=request.json[''])
+        user_id=User.query.filter_by(email=user_email).first().id
+    )
 
     db.session.add(reimburse)
 
@@ -101,7 +119,7 @@ def route_reimburse_submit():
 
     print (token, classification, date_needed)
 
-    return 200
+    return {'message': 'OK'}, 200
 
 
 @bp.route('/login', methods=['GET', 'POST'])

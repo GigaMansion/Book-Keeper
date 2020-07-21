@@ -73,6 +73,7 @@ with the application instance pre-imported.
 Launch **MySQL**, **phpmyadmin** and **Redis** in Docker:
 
 ```
+docker-compose build
 docker-compose up
 ```
 

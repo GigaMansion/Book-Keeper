@@ -4,11 +4,8 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import os
 import jwt
 from flask_login import UserMixin
-from book_keeping_backend_package.db_utilities import get_mysql_db
 
-from book_keeping_backend_package import db, login_manager
-
-from book_keeping_backend_package import db_utilities
+from book_keeping_backend_package import db, login_manager, token_redis_db
 
 from sqlalchemy import Table, Column, Integer, ForeignKey
 from sqlalchemy.orm import relationship
@@ -78,13 +75,12 @@ class User(UserMixin, db.Model):
     def get_token(self):
         # now = datetime.utcnow()
         token = jwt.encode({"email": self.email}, "secret", algorithm='HS256')
-        db_utilities.set_redis_db_val(token, self.email)
-
+        
         return token
 
     @staticmethod
     def check_token(token): 
-        res = db_utilities.get_redis_db_val(token)
+        res = token_redis_db.get(token)
 
         if not res is None:
             return res

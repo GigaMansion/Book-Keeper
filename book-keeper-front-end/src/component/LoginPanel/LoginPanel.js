@@ -42,6 +42,7 @@ const LoginPanel = (props) => {
 
     useEffect(()=>{
         const token = sessionStorage.getItem("gm-token");
+
         if(token && token.length !== 0){ // testing only should check auth
             history.push("/adminpage/newReimburse")
         }

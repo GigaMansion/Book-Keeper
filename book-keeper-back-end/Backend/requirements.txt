@@ -16,3 +16,4 @@ PyJWT==1.7.1
 Flask-Cors==3.0.7
 redis==3.5.3
 mysql-connector-python==8.0.21
+celery==4.4.6

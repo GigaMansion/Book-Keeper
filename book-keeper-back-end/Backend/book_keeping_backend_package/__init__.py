@@ -9,6 +9,7 @@ import logging
 from logging.handlers import RotatingFileHandler
 import os
 from celery import Celery
+from celery.schedules import crontab
 import redis
 
 # configuration
@@ -30,11 +31,30 @@ dictConfig({
 
 celery_client = Celery('tasks')
 celery_client.conf.broker_url = 'redis://task_queue_redis_db:6380'
+# celery_client.autodiscover_tasks(['background_worker'])
 
+@celery_client.on_after_configure.connect
+def setup_periodic_tasks(sender, **kwards):
+    sender.add_periodic_task(2.0, celery_test.s('hello'), name='every 2 sec')
+
+    sender.add_periodic_task(3.0, celery_test.s('world'), expires=3)
+
+    sender.add_periodic_task(
+        crontab(hour=7, minute=30, day_of_week=1),
+        test.s('Happy Mondays!'),
+    )
 
 @celery_client.task
-def add(x, y):
-    return x + y
+def celery_test(x):
+    print(x)
+
+celery_client.conf.beat_schedule = {
+    'run every 10 seconds': {
+        'task': 'tasks.celery_test',
+        'schedule': 10.0,
+        'args': ('hello world')
+    }
+}
 
 
 db = SQLAlchemy()

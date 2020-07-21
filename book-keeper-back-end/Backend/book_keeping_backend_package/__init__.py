@@ -8,6 +8,8 @@ from flask_migrate import Migrate
 import logging
 from logging.handlers import RotatingFileHandler
 import os
+from celery import Celery
+import redis
 
 # configuration
 dictConfig({
@@ -26,6 +28,14 @@ dictConfig({
     },
 })
 
+celery_client = Celery('tasks')
+celery_client.conf.broker_url = 'redis://task_queue_redis_db:6380'
+
+
+@celery_client.task
+def add(x, y):
+    return x + y
+
 
 db = SQLAlchemy()
 
@@ -36,6 +46,8 @@ login_manager = LoginManager()
 login_manager.login_view = 'auth.route_test_login'
 
 # login_manager.init_app(app)
+
+token_redis_db = redis.Redis(host='token_redis_db', port=6379)
 
 def create_app(config_class=Config):
     app = Flask(__name__,

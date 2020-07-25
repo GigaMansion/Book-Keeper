@@ -1,11 +1,19 @@
+import os
+
 import redis, uuid
 
 from celery import Celery
 from celery.schedules import crontab
 
 celery_client = Celery('tasks')
-celery_client.conf.broker_url = 'redis://task_queue_redis_db:6380'
-encryption_key_redis_db = redis.Redis(host='encryption_key_redis_db', port=6381)
+
+celery_client.conf.broker_url = os.environ.get('CELERY_BROKER_URL') or \
+    'redis://task_queue_redis_db:6380'
+
+encryption_key_redis_db_url = os.environ.get('ENCRYPTION_KEY_REDIS_URL') or \
+    'encryption_key_redis_db'
+
+encryption_key_redis_db = redis.Redis(host=encryption_key_redis_db_url, port=6381)
 
 
 @celery_client.on_after_configure.connect

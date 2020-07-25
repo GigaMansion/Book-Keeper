@@ -38,8 +38,6 @@ services:
     environment: 
       TZ: "America/Chicago"
     restart: always
-    ports: 
-      - 6379:6379
     volumes: 
       - ./Redis-config/redis_token.conf:/redis.conf
     command: ["redis-server", "/redis.conf"]
@@ -50,8 +48,6 @@ services:
     environment: 
       TZ: "America/Chicago"
     restart: always
-    ports: 
-      - 6381:6381
     volumes: 
       - ./Redis-config/redis_encryption_key.conf:/redis.conf
     command: ["redis-server", "/redis.conf"]
@@ -62,8 +58,6 @@ services:
     environment: 
       TZ: "America/Chicago"
     restart: always
-    ports: 
-      - 6380:6380
     volumes: 
       - ./Redis-config/redis_task_queue.conf:/redis.conf
     command: ["redis-server", "/redis.conf"]

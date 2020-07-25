@@ -24,8 +24,8 @@ services:
     environment: 
       TZ: "America/Chicago"
     restart: always
-    ports: 
-      - 6379:6379
+    # ports: 
+    #   - 6379:6379
     volumes: 
       - ./Redis-config/redis_token.conf:/redis.conf
     command: ["redis-server", "/redis.conf"]
@@ -36,8 +36,6 @@ services:
     environment: 
       TZ: "America/Chicago"
     restart: always
-    ports: 
-      - 6381:6381
     volumes: 
       - ./Redis-config/redis_encryption_key.conf:/redis.conf
     command: ["redis-server", "/redis.conf"]
@@ -48,8 +46,6 @@ services:
     environment: 
       TZ: "America/Chicago"
     restart: always
-    ports: 
-      - 6380:6380
     volumes: 
       - ./Redis-config/redis_task_queue.conf:/redis.conf
     command: ["redis-server", "/redis.conf"]
@@ -60,6 +56,8 @@ services:
     environment: 
       TZ: "America/Chicago"
       PYTHONUNBUFFERED: 1
+      CELERY_BROKER_URL: "redis://task_queue_redis_db_pytest:6380"
+      ENCRYPTION_KEY_REDIS_URL: "encryption_key_redis_db_pytest"
     command: celery -A book_keeping_backend_package.celery_client worker -B --loglevel=WARNING
     volumes:
       - ./Backend/:/opt/src/
@@ -71,7 +69,7 @@ services:
       TZ: "America/Chicago"
       PYTHONUNBUFFERED: 1
     command: >
-      bash -c "coverage run -m pytest 
+      bash -c "coverage run -m pytest -v
       && coverage html"
     ports: 
       - 5000:5000

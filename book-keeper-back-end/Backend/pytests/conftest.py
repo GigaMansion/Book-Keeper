@@ -3,7 +3,7 @@ import redis
 import os
 
 from config import Config
-from book_keeping_backend_package import create_app
+from book_keeping_backend_package import create_app, db
 from book_keeping_backend_package.models import User, Reimburse
 
 
@@ -19,10 +19,12 @@ token_redis_db = redis.Redis(host='token_redis_db_pytest', port=6379)
 def backend_server():
     backend = create_app(UnitTestConfig)
 
-    with backend.test_client() as backend:
-        yield backend
+    with backend.test_client() as backend_server:
+        yield backend_server
 
     token_redis_db.flushall()
-    db.session.query(Reimburse).delete()
-    db.session.query(User).delete()
-    db.commit()
+
+    with backend.app_context():
+        db.session.query(Reimburse).delete()
+        db.session.query(User).delete()
+        db.session.commit()

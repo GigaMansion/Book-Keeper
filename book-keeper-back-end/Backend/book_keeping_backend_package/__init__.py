@@ -23,12 +23,6 @@ del allowed_user['email']
 
 db = SQLAlchemy()
 
-migrate = Migrate()
-
-login_manager = LoginManager()
-
-login_manager.login_view = 'auth.route_test_login'
-
 token_redis_db = redis.Redis(host='token_redis_db', port=6379)
 
 
@@ -40,13 +34,8 @@ def create_app(config_class=Config):
     CORS(app)
     
     app.config.from_object(config_class)
-    
-    
-    app.config.from_object(config_class)
 
     db.init_app(app)
-    migrate.init_app(app, db)
-    login_manager.init_app(app)
 
     from book_keeping_backend_package.errors import bp as errors_bp
     app.register_blueprint(errors_bp)

@@ -8,9 +8,7 @@ import jwt
 import uuid
 
 from book_keeping_backend_package import db, token_redis_db, allowed_user
-from book_keeping_backend_package.auth import bp
-from book_keeping_backend_package.auth.forms import LoginForm, RegistrationForm, EditProfileForm
-from book_keeping_backend_package.auth import tokens
+from book_keeping_backend_package.auth import bp, tokens
 from book_keeping_backend_package.models import User, Reimburse
 
 
@@ -125,115 +123,8 @@ def route_reimburse_submit(user_email):
     return {'message': 'OK'}, 200
 
 
-@bp.route('/login', methods=['GET', 'POST'])
-def route_login():
-    """
-    handles user login
-    handles user session
-    """
-    current_app.logger.info("/login request received")
-
-    # redirect the user to the index page
-    # if the user is already logged in
-    if current_user.is_authenticated:
-
-        return redirect(url_for('auth.route_index'))
-
-    # the login form
-    form = LoginForm()
-
-    # validate user credentials
-    # the "call-back function"
-    if form.validate_on_submit():
-
-        # find the user in the application database
-        user = User.query.filter_by(username=form.username.data).first()
-
-        # handles invalid user credentials
-        if user is None or not user.check_password(form.password.data):
-
-            # send one-time message to the user
-            # who attempts to login
-            flash('Invalid username or password')
-
-            # redirect the user who enters invalid credentials
-            # to the login page
-            return redirect(url_for('auth.route_login'))
-
-        # if the user enters the valid credential
-        # log the user in
-        login_user(user, remember=form.remember_me.data)
-
-        # get the page that the user wants to access before login
-        next_page = request.args.get('next')
-
-        # set the redirection page to /index as the default
-        # if the user does not request any specific page
-        if not next_page or url_parse(next_page).netloc != '':
-
-            next_page = url_for('auth.route_index')
-
-        # redirect the user to the requested page before login
-        return redirect(next_page)
-        
-    # return the login page to the user
-    return render_template('login.html', title='Sign In', form=form)
-
-
-@bp.route('/register', methods=['GET', 'POST'])
-def route_register():
-    """
-    handles user registration
-    """
-
-    current_app.logger.info("/register request received")
-
-    # check whether the user is already logged in
-    # if so, redirect to the index page
-    if current_user.is_authenticated:
-
-        return redirect(url_for('auth.route_index'))
-
-    # create the registration form
-    form = RegistrationForm()
-
-    # callback function for registration
-    if form.validate_on_submit():
-
-        # get the username from the submitted form
-        user = User(username=form.username.data, email=form.email.data)
-
-        # set the user password using the submitted form information
-        user.set_password(form.password.data)
-
-        # add the new user to the database session
-        db.session.add(user)
-
-        # commit the database session: add the user credential to the database
-        db.session.commit()
-
-        # message sent back to the new user
-        flash('Congratulations, you are now a registered user!')
-
-        # direct to the login page
-        return redirect(url_for('auth.route_login'))
-
-    return render_template('register.html', title='Register', form=form)
-
-
-@bp.route('/activate', methods=['GET', 'POST'])
-def route_activate():
-    """
-    handles the user activation
-    """
-    
-    test = User.query.all()[0].__str__()
-    
-    return test, 200
-
-
 @bp.route('/see_reimburse_history/<username>')
-@login_required
+@tokens.token_required
 def route_see_reimburse_history(username):
     """
     return a list of reimbursement history submitted by the user
@@ -276,7 +167,7 @@ def route_data_visualization():
 
 
 @bp.route('/logout/<username>')
-@login_required
+@tokens.token_required
 def route_logout():
     """
     handles user logout operation
@@ -286,115 +177,3 @@ def route_logout():
     logout_user()
 
     return redirect(url_for('auth.route_login'))
-
-
-"""
-the routes below are for the testing application
-not to be used in production
-"""
-
-@bp.route('/test_index')
-@login_required
-def route_test_index():
-    """
-    return a fully functional webpage for testing
-    disable this route in production environment
-    via the configuration file
-    """
-    current_app.logger.info("/test_index request received")
-
-    posts = [
-        {
-            'author': {'username': 'Johnathan'},
-            'body': 'Bad day in College Station!'
-        },
-        {
-            'author': {'username': 'Kelvin'},
-            'body': 'The movie was so bad!'
-        }
-    ]
-
-    return render_template('test_pages/test_index.html', title='Home', posts=posts)
-
-
-@bp.route('/test_login', methods=['GET', 'POST'])
-def route_test_login():
-    """
-    route test for login
-    """
-    current_app.logger.info("/test_login request received")
-
-    if current_user.is_authenticated:
-
-        return redirect(url_for('auth.route_test_index'))
-
-    form = LoginForm()
-
-    if form.validate_on_submit():
-
-        user = User.query.filter_by(username=form.username.data).first()
-
-        if user is None or not user.check_password(form.password.data):
-
-            flash('Invalid username or password')
-
-            return redirect(url_for('auth.route_test_login'))
-
-        login_user(user, remember=form.remember_me.data)
-
-        # get the page that the user wants to access before login
-        next_page = request.args.get('next')
-
-        # set the redirection page to /test_index as the default
-        # if the user does not request any specific page
-        if not next_page or url_parse(next_page).netloc != '':
-
-            next_page = url_for('auth.route_test_index')
-
-        # redirect the user to the requested page before login
-        return redirect(next_page)
-
-    return render_template('test_pages/test_login.html', title='Sign In', form=form)
-
-
-@bp.route('/test_register', methods=['GET', 'POST'])
-def route_test_register():
-    
-    current_app.logger.info("/test_register request received")
-
-    if current_user.is_authenticated:
-
-        return redirect(url_for('auth.route_test_index'))
-
-    form = RegistrationForm()
-
-    if form.validate_on_submit():
-
-        user = User(username=form.username.data, email=form.email.data)
-
-        user.set_password(form.password.data)
-
-        db.session.add(user)
-
-        db.session.commit()
-
-        flash('Congratulations, you are now a registered user!')
-
-        return redirect(url_for('auth.route_test_login'))
-
-    return render_template('test_pages/test_register.html', title='Register', form=form)
-
-
-@bp.route('/test_logout')
-@login_required
-def route_test_logout():
-    """
-    handles user logout operation
-    terminate user session
-    """
-    current_app.logger.info('/test_logout request received')
-
-    logout_user()
-
-    return redirect(url_for('auth.route_test_login'))
-

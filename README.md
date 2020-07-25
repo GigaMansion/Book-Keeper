@@ -1,5 +1,7 @@
 # Book-Keeper
 
+[![MIT License](https://img.shields.io/apm/l/atomic-design-ui.svg?)](https://github.com/tterb/atomic-design-ui/blob/master/LICENSEs)  [![Version](https://badge.fury.io/gh/tterb%2FHyde.svg)](https://badge.fury.io/gh/tterb%2FHyde)  
+
 ## Rationale
 
 To have a software that records income and expenses with evidence neatly with access control to different people within the same organization.

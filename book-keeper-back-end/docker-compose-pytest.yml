@@ -2,9 +2,9 @@ version: "3.3"
 
 services:
   
-  book_keeper_db:
+  book_keeper_db_pytest:
     image: mysql:8.0.21
-    container_name: book_keeper_db
+    container_name: book_keeper_db_pytest
     command: --default-authentication-plugin=mysql_native_password
     restart: always
     environment: 
@@ -18,33 +18,21 @@ services:
     volumes: 
       - ./SQL-scripts/:/docker-entrypoint-initdb.d/
 
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin:5.0.2
-    container_name: phpmyadmin
-    links: 
-      - book_keeper_db
-    restart: always
-    environment: 
-      TZ: "America/Chicago"
-      PMA_HOST: book_keeper_db
-      PMA_PORT: 3306
-      PMA_ARBITRARY: 1
-    ports: 
-      - 8080:80
-
-  token_redis_db:
+  token_redis_db_pytest:
     image: redis:6.0.5-alpine3.12
-    container_name: token_redis_db
+    container_name: token_redis_db_pytest
     environment: 
       TZ: "America/Chicago"
     restart: always
+    # ports: 
+    #   - 6379:6379
     volumes: 
       - ./Redis-config/redis_token.conf:/redis.conf
     command: ["redis-server", "/redis.conf"]
 
-  encryption_key_redis_db:
+  encryption_key_redis_db_pytest:
     image: redis:6.0.5-alpine3.12
-    container_name: encryption_key_redis_db
+    container_name: encryption_key_redis_db_pytest
     environment: 
       TZ: "America/Chicago"
     restart: always
@@ -52,9 +40,9 @@ services:
       - ./Redis-config/redis_encryption_key.conf:/redis.conf
     command: ["redis-server", "/redis.conf"]
 
-  task_queue_redis_db:
+  task_queue_redis_db_pytest:
     image: redis:6.0.5-alpine3.12
-    container_name: task_queue_redis_db
+    container_name: task_queue_redis_db_pytest
     environment: 
       TZ: "America/Chicago"
     restart: always
@@ -62,33 +50,29 @@ services:
       - ./Redis-config/redis_task_queue.conf:/redis.conf
     command: ["redis-server", "/redis.conf"]
 
-  task_queue_worker:
+  task_queue_worker_pytest:
     build: ./Backend/
-    container_name: task_queue_worker
+    container_name: task_queue_worker_pytest
     environment: 
       TZ: "America/Chicago"
       PYTHONUNBUFFERED: 1
+      CELERY_BROKER_URL: "redis://task_queue_redis_db_pytest:6380"
+      ENCRYPTION_KEY_REDIS_URL: "encryption_key_redis_db_pytest"
     command: celery -A book_keeping_backend_package.celery_client worker -B --loglevel=WARNING
     volumes:
       - ./Backend/:/opt/src/
 
-  web:
+  pytest:
     build: ./Backend/
-    container_name: web
+    container_name: pytest
     environment: 
       TZ: "America/Chicago"
       PYTHONUNBUFFERED: 1
-    # command: gunicorn --workers 15 --bind 0.0.0.0:5000 book_keeper_backend_api:app # for production environment
-    command: flask run # for development
+    command: >
+      bash -c "coverage run -m pytest -v
+      && coverage html"
     ports: 
       - 5000:5000
     volumes: 
       - ./Backend/:/opt/src/
-
-  nginx:
-    build: ./nginx/
-    container_name: nginx
-    environment: 
-      TZ: "America/Chicago"
-    ports: 
-      - 1337:80
+      - ./Backend/htmlcov/:/opt/src/htmlcov/

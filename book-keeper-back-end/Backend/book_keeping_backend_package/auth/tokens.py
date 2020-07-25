@@ -12,8 +12,9 @@ def generate_token(secret):
     return encoded_jwt
 
 
-def revoke_token():
-    pass
+def revoke_token(email, token):
+    token_redis_db.delete(email)
+    token_redis_db.delete(token)
 
 
 def token_required(f):

@@ -1,0 +1,80 @@
+version: "3.3"
+
+services:
+  
+  book_keeper_db_pytest:
+    image: mysql:8.0.21
+    container_name: book_keeper_db_pytest
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment: 
+      TZ: "America/Chicago"
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: db_bookkeeper
+      MYSQL_USER: wilson
+      MYSQL_PASSWORD: password
+    ports: 
+      - 3306:3306
+    volumes: 
+      - ./SQL-scripts/:/docker-entrypoint-initdb.d/
+
+  token_redis_db_pytest:
+    image: redis:6.0.5-alpine3.12
+    container_name: token_redis_db_pytest
+    environment: 
+      TZ: "America/Chicago"
+    restart: always
+    ports: 
+      - 6379:6379
+    volumes: 
+      - ./Redis-config/redis_token.conf:/redis.conf
+    command: ["redis-server", "/redis.conf"]
+
+  encryption_key_redis_db_pytest:
+    image: redis:6.0.5-alpine3.12
+    container_name: encryption_key_redis_db_pytest
+    environment: 
+      TZ: "America/Chicago"
+    restart: always
+    ports: 
+      - 6381:6381
+    volumes: 
+      - ./Redis-config/redis_encryption_key.conf:/redis.conf
+    command: ["redis-server", "/redis.conf"]
+
+  task_queue_redis_db_pytest:
+    image: redis:6.0.5-alpine3.12
+    container_name: task_queue_redis_db_pytest
+    environment: 
+      TZ: "America/Chicago"
+    restart: always
+    ports: 
+      - 6380:6380
+    volumes: 
+      - ./Redis-config/redis_task_queue.conf:/redis.conf
+    command: ["redis-server", "/redis.conf"]
+
+  task_queue_worker_pytest:
+    build: ./Backend/
+    container_name: task_queue_worker_pytest
+    environment: 
+      TZ: "America/Chicago"
+      PYTHONUNBUFFERED: 1
+    command: celery -A book_keeping_backend_package.celery_client worker -B --loglevel=WARNING
+    volumes:
+      - ./Backend/:/opt/src/
+
+  pytest:
+    build: ./Backend/
+    container_name: pytest
+    environment: 
+      TZ: "America/Chicago"
+      PYTHONUNBUFFERED: 1
+    command: >
+      bash -c "coverage run -m pytest 
+      && coverage html"
+    ports: 
+      - 5000:5000
+    volumes: 
+      - ./Backend/:/opt/src/
+      - ./Backend/htmlcov/:/opt/src/htmlcov/

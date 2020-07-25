@@ -15,3 +15,5 @@ COPY ./book_keeper_backend_api.py /opt/src/book_keeper_backend_api.py
 COPY ./.flaskenv /opt/src/.flaskenv
 
 COPY ./user_list.csv /opt/src/user_list.csv
+
+COPY ./pytests /opt/src/pytests

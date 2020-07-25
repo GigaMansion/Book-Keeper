@@ -5,7 +5,7 @@ import os
 import jwt
 from flask_login import UserMixin
 
-from book_keeping_backend_package import db, login_manager, token_redis_db
+from book_keeping_backend_package import db, token_redis_db
 
 from sqlalchemy import Table, Column, Integer, ForeignKey
 from sqlalchemy.orm import relationship
@@ -206,8 +206,3 @@ class Reimburse(db.Model):
             approval_status, time_created, user_id),
         )
         db.commit()
-
-
-@login_manager.user_loader
-def load_user(id):
-    return User.query.get(int(id))

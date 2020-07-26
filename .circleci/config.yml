@@ -8,12 +8,20 @@ jobs:
     executor: python/default
     steps:
       - checkout
-      - python/load-cache
-      - python/install-deps
-      - python/save-cache
       - run:
-          command: ./manage.py test
-          name: Test
+        name: Docker Setup
+          command: |
+            set -x
+            curl -L https://github.com/docker/compose/releases/download/1.26.2/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
+            chmod +x /usr/local/bin/docker-compose
+      - setup_remote_docker
+      - run:
+        name: Unit test
+        command: |
+          set -x
+          cd book-keeper-back-end
+          docker-compose -f docker-compose-pytest.yml up d
+     
 
 workflows:
   main:

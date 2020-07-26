@@ -70,6 +70,7 @@ services:
       PYTHONUNBUFFERED: 1
     command: >
       bash -c "coverage run -m pytest -v
+      && coverage report
       && coverage html"
     ports: 
       - 5000:5000

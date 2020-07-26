@@ -29,11 +29,10 @@ def token_required(f):
         if not token:
             return jsonify({'message': 'missing token'})
 
-        try:
-            user_email = token_redis_db.get(token)
-            print("token found!", token)
-        except:
-            return jsonify({'message': 'token invalid'})
+        user_email = token_redis_db.get(token)
+
+        if not user_email:
+            return jsonify({'message': 'token invalid'})  
 
         return f(user_email, *args, **kwargs)
 

@@ -1,5 +1,5 @@
 from flask import render_template, flash, redirect, url_for, request, current_app
-from flask_login import current_user, login_user, logout_user, login_required
+from flask_login import current_user, login_user, logout_user
 from werkzeug.urls import url_parse
 from datetime import datetime
 
@@ -12,16 +12,6 @@ from book_keeping_backend_package.auth import bp, tokens
 from book_keeping_backend_package.models import User, Reimburse
 
 
-@bp.before_request
-def before_request():
-    """
-    record the last seen time of the user
-    """
-    if current_user.is_authenticated:
-        current_user.last_seen = datetime.utcnow()
-        db.session.commit()
-
-
 @bp.route('/')
 @bp.route('/index')
 def route_index():
@@ -29,21 +19,8 @@ def route_index():
     return a fully-populated login page
     for user to enter credentials
     """
-    # user = {'username': 'Wilson'}
     current_app.logger.info("/ request received")
 
-    # if current_user.is_authenticated:
-    #     return (
-    #         "<p>Hello, {}! You're logged in! Email: {}</p>"
-    #         "<div><p>Google Profile Picture:</p>"
-    #         '<img src="{}" alt="Google profile pic"></img></div>'
-    #         '<a class="button" href="/logout">Logout</a>'.format(
-    #             current_user.name, current_user.email, current_user.profile_pic
-    #         )
-    #     )
-    # else:
-    #     return '<a class="button" href="/login">Google Login</a>'
-    
     return render_template('index.html')
 
 
@@ -166,14 +143,15 @@ def route_data_visualization():
     return 'yes', 200
 
 
-@bp.route('/logout/<username>')
+@bp.route('/user/logout', methods=['POST'])
 @tokens.token_required
-def route_logout():
+def route_logout(user_email):
     """
     handles user logout operation
     terminate user session
     """
-    current_app.logger.info('/logout request received')
-    logout_user()
+    token = request.headers['authorization']
+    
+    tokens.revoke_token(user_email, token)
 
-    return redirect(url_for('auth.route_login'))
+    return {'message': 'OK'}, 200

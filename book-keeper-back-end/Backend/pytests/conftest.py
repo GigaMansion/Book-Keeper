@@ -4,6 +4,7 @@ import os
 
 from config import Config
 from book_keeping_backend_package import create_app, db
+import book_keeping_backend_package
 from book_keeping_backend_package.models import User, Reimburse
 
 
@@ -13,7 +14,7 @@ class UnitTestConfig(Config):
         'mysql+mysqlconnector://wilson:password@book_keeper_db_pytest/db_bookkeeper'
 
 
-token_redis_db = redis.Redis(host='token_redis_db_pytest', port=6379)
+book_keeping_backend_package.token_redis_db = redis.Redis(host='token_redis_db_pytest', port=6379)
 
 @pytest.fixture
 def backend_server():
@@ -22,7 +23,7 @@ def backend_server():
     with backend.test_client() as backend_server:
         yield backend_server
 
-    token_redis_db.flushall()
+    book_keeping_backend_package.token_redis_db.flushall()
 
     with backend.app_context():
         db.session.query(Reimburse).delete()

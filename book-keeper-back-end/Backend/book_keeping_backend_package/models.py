@@ -34,10 +34,6 @@ class User(UserMixin, db.Model):
         return '<User {}>'.format(self.member_name)
 
 
-    def __str__(self):
-        return '<User {}>'.format(self.member_name)
-
-
     @staticmethod
     def get(user_id):
         db = get_mysql_db()
@@ -51,41 +47,6 @@ class User(UserMixin, db.Model):
             id_=user[0], member_name=user[1], email=user[2], profile_pic=user[3]
         )
         return user
-
-
-    @staticmethod
-    def create(id_, member_name, email, clearance, profile_pic, token, token_expiration):
-        db = get_mysql_db()
-
-        check_duplicated_user = db.execute(
-            "SELECT * FROM tb_user where email = ?", (email)
-        ).fetchone()
-        
-        if not check_duplicated_user:
-
-            db.execute(
-                "INSERT INTO tb_user (id, member_name, email, clearance, profile_pic) "
-                "VALUES (?, ?, ?, ?, ?)",
-                (id_, member_name, email, clearance, profile_pic),
-            )
-            db.commit()
-
-    
-    @staticmethod
-    def get_token(self):
-        # now = datetime.utcnow()
-        token = jwt.encode({"email": self.email}, "secret", algorithm='HS256')
-        
-        return token
-
-    @staticmethod
-    def check_token(token): 
-        res = token_redis_db.get(token)
-
-        if not res is None:
-            return res
-        else:
-            return None
 
 
 class Reimburse(db.Model):
@@ -190,19 +151,3 @@ class Reimburse(db.Model):
 
         return reimburse_list_parsed
 
-
-    @staticmethod
-    def create(id_, product_name, classification, item_website_link, price,
-               quantity, delivery, date_needed, reason_to_purchase, recipient_photo_url, 
-               approval_status, time_created, user_id):
-        db = get_mysql_db()
-        db.execute(
-            "INSERT INTO tb_reimburse (id, product_name, classification, item_website_link, price, \
-               quantity, delivery, date_needed, reason_to_purchase, recipient_photo_url, \
-               approval_status, time_created, user_id) "
-            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-            (id_, product_name, classification, item_website_link, price,
-            quantity, delivery, date_needed, reason_to_purchase, recipient_photo_url, 
-            approval_status, time_created, user_id),
-        )
-        db.commit()

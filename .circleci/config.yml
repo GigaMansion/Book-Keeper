@@ -5,7 +5,7 @@ jobs:
     docker:
       - image: mysql:8.0.21
       - image: redis:6.0.5-alpine3.12
-      - image: python:3.8.1-slim-buster
+      - image: circleci/python:3.8.1
     steps:
       - checkout
       - run:

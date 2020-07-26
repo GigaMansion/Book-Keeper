@@ -62,7 +62,7 @@ def route_user_login():
 
         return encoded_jwt, 200
 
-    return {'message': 'no user found'}, 200
+    return {'message': 'no user found'}, 404
 
 
 @bp.route('/reimburse/submit', methods=['POST'])

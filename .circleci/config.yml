@@ -24,7 +24,7 @@ jobs:
       #     command: |
       #       set -x
       #       cd book-keeper-back-end
-            docker-compose -f docker-compose-pytest.yml up d
+            # docker-compose -f docker-compose-pytest.yml up d
 
 workflows:
   main:

@@ -37,7 +37,7 @@ def test_login_fail(backend_server):
 
     data = json.loads(res.get_data(as_text=True))
 
-    assert res.status == '200 OK'
+    assert res.status == '404 NOT FOUND'
     assert data == {'message': 'no user found'}
 
 

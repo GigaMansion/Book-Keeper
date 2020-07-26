@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 
 import {Form, Button} from 'react-bootstrap';
-import {SubmitNewReimburse} from './api/SubmitReimburse'
+import {SubmitNewReimburse} from './api/Reimburse'
 
 
 import './MainContent.css'

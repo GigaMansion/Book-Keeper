@@ -16,7 +16,8 @@ jobs:
       - run:
           name: Unit test
           command: |
-            cd book-keeper-back-end
+            cd book-keeper-back-end/Backend
+            pip install -r requirements.txt
             coverage run -m pytest -v
             coverage report
       # - run:

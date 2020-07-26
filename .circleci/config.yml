@@ -1,29 +1,24 @@
 version: 2.1
 
-orbs:
-  python: circleci/python@0.2.1
-
 jobs:
   build-and-test:
-    executor: python/default
+    docker:
+      - image: mysql:8.0.21
+      - image: redis:6.0.5-alpine3.12
+      - image: python:3.8.1-slim-buster
     steps:
       - checkout
       - run:
-        name: Docker Setup
-        command: |
-          set -x
-          curl -L https://github.com/docker/compose/releases/download/1.26.2/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
-          chmod +x /usr/local/bin/docker-compose
+          name: Docker Setup
+          command: |
+            set -x
+            curl -L https://github.com/docker/compose/releases/download/1.26.2/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
+            chmod +x /usr/local/bin/docker-compose
       - setup_remote_docker
       - run:
-        name: Unit test
-        command: |
-          set -x
-          cd book-keeper-back-end
-          docker-compose -f docker-compose-pytest.yml up d
+          name: Unit test
+          command: |
+            set -x
+            cd book-keeper-back-end
+            docker-compose -f docker-compose-pytest.yml up d
      
-
-workflows:
-  main:
-    jobs:
-      - build-and-test

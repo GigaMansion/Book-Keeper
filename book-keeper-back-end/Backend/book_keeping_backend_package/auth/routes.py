@@ -95,8 +95,29 @@ def route_reimburse_submit(user_email):
 
     db.session.commit()
 
-    print (token, classification, date_needed)
+    print(token, classification, date_needed)
 
+    return {'message': 'OK'}, 200
+
+
+
+@bp.route('/reimburse/reject/<id>', methods=['POST'])
+@tokens.token_required
+def route_reject_reimburse(user_email):
+    record = Reimburse.query.filter_by(id=id).first()
+    record.update({"approval_status":"approved"})
+
+    db.session.commit()
+    return {'message': 'OK'}, 200
+
+
+@bp.route('/reimburse/approve/<id>', methods=['POST'])
+@tokens.token_required
+def route_approve_reimburse(user_email):
+    record = Reimburse.query.filter_by(id=id).first()
+    record.update({"approval_status":"rejected"})
+
+    db.session.commit()
     return {'message': 'OK'}, 200
 
 
@@ -155,3 +176,5 @@ def route_logout(user_email):
     tokens.revoke_token(user_email, token)
 
     return {'message': 'OK'}, 200
+
+

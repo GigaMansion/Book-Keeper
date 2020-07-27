@@ -29,4 +29,4 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose
 
 # start docker containers
 sudo docker-compose build
-sudo docker-compose up
+sudo docker-compose up --remove-orphans

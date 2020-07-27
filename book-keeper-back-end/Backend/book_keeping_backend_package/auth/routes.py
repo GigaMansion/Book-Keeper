@@ -19,7 +19,6 @@ def route_index():
     return a fully-populated login page
     for user to enter credentials
     """
-    current_app.logger.info("/ request received")
 
     return render_template('index.html')
 

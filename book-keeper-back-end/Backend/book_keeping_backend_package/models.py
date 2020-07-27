@@ -30,25 +30,6 @@ class User(UserMixin, db.Model):
         self.profile_pic = profile_pic
 
 
-    def __repr__(self):
-        return '<User {}>'.format(self.member_name)
-
-
-    @staticmethod
-    def get(user_id):
-        db = get_mysql_db()
-        user = db.execute(
-            "SELECT * FROM tb_user WHERE id = ?", (user_id,)
-        ).fetchone()
-        if not user:
-            return None
-
-        user = User(
-            id_=user[0], member_name=user[1], email=user[2], profile_pic=user[3]
-        )
-        return user
-
-
 class Reimburse(db.Model):
 
     __tablename__ = 'tb_reimburse'
@@ -86,10 +67,6 @@ class Reimburse(db.Model):
         self.approval_status = approval_status
         self.time_created = time_created
         self.user_id = user_id
-
-
-    def __repr__(self):
-        return '<Reimburse {}>'.format(self.body)
 
 
     @staticmethod

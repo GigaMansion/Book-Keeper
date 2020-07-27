@@ -1,6 +1,7 @@
 import pytest
 import json
 
+
 def test_login(backend_server):
     res = backend_server.post(
         '/auth/user/login',

@@ -99,7 +99,6 @@ def route_reimburse_submit(user_email):
     return {'message': 'OK'}, 200
 
 
-
 @bp.route('/reimburse/reject/<id>', methods=['POST'])
 @tokens.token_required
 def route_reject_reimburse(user_email):
@@ -120,37 +119,17 @@ def route_approve_reimburse(user_email):
     return {'message': 'OK'}, 200
 
 
-@bp.route('/see_reimburse_history/<username>')
+@bp.route('/reimburse/gethistory')
 @tokens.token_required
-def route_see_reimburse_history(username):
+def route_see_reimburse_history(user_email):
     """
     return a list of reimbursement history submitted by the user
     including submitted, canceled, processed reimbursement request
     """
 
-    current_app.logger.info("/see_reimburse_history request received")
+    reimburse_history = Reimburse.query()
 
-    if current_user.get_id() == username:
-
-        user_id = User.query.filter_by(username=username).first_or_404()
-
-        user_reimburse_history = Reimburse.query.filter_by(user_id=user_id)
-
-        res = {
-            'user': username,
-            'reimburse_history': user_reimburse_history}
-
-        return res
-        
-    # the current user cannot see other users' reimbursement history
-    else:
-
-        res = {
-            'user': 'anonymous',
-            'reimburse_history': []
-        }
-
-        return res
+    return reimburse_history, 200
 
 
 @bp.route('/data_visualization')

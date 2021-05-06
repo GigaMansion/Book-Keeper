@@ -13,7 +13,7 @@ requests==2.23.0
 Flask-HTTPAuth==4.0.0
 oauthlib==3.1.0
 PyJWT==1.7.1
-Flask-Cors==3.0.7
+Flask-Cors==3.0.9
 redis==3.5.3
 mysql-connector-python==8.0.21
 celery==4.4.6
